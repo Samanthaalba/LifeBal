@@ -1,0 +1,362 @@
+/*esto es general sobre los titulos e imagen del inicio*/
+img{
+    width: 1000px;
+    height: 500px;
+}
+
+/* ////////////////////////////////////////////////
+sopa de letras 
+/////////////////////////////////////////////////*/
+
+ /* Estilos para la sopa de letras */
+/* Establece el estilo base para el cuerpo del documento */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilos para cada letra */
+.letra {
+    display: inline-block;
+    margin: 2px;
+    text-align: center;
+    user-select: none; /* Evita que el texto sea seleccionable mientras se arrastra */
+    cursor: pointer; /* Cambia el cursor a pointer para mejorar la indicación de interactividad */
+    width: 30px; /* O el tamaño que prefieras */
+    height: 30px; /* O el tamaño que prefieras */
+    border: 1px solid #ccc; /* Borde para cada letra */
+    text-align: center;
+    line-height: 30px; /* Centra el texto verticalmente */
+    margin-right: -1px; /* Ajuste para evitar espacios adicionales */
+    margin-bottom: -1px; /* Ajuste para evitar espacios adicionales */
+}
+
+.letra-seleccionada, .letra-encontrada {
+    background-color: #90EE90; /* Verde claro para las letras seleccionadas */
+}
+
+/* Opcional: Cambia el color de fondo cuando el cursor pasa sobre las letras */
+.letra:hover {
+    background-color: #ADD8E6; /* Azul claro */
+}
+
+/* Estilos para cada palabra en la lista */
+.palabra {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    font-size: 16px;
+    color: #555;
+    transition: color 0.3s;
+}
+
+/* Estilos para las palabras encontradas */
+.palabra-encontrada {
+    text-decoration: line-through;
+    color: #388E3C;
+    font-weight: bold;
+}                    
+                    
+    /* Estilo para el contenedor principal */
+#contenedor-principal {
+    display: flex;
+    justify-content: center; /* Centra los hijos horizontalmente */
+    align-items: start; /* Alinea los hijos al inicio verticalmente */
+    gap: 20px; /* Espacio entre la sopa de letras y la lista de palabras */
+    margin-top: 20px; /* Espacio arriba del contenedor */
+}
+
+/* Estilo para la sopa de letras */
+#sopa-de-letras {
+    max-width: 800px; /* Ajusta según el tamaño de tu sopa de letras */
+    border: 1px solid #ccc; /* Borde opcional para la sopa de letras */
+    padding: 10px; /* Espacio interior */
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilo para las filas de letras */
+.fila {
+    display: flex;
+}
+
+/* Estilo para la lista de palabras */
+#lista-palabras {
+    border: 1px solid #ccc; /* Borde opcional para la lista de palabras */
+    padding: 10px; /* Espacio interior */
+    width: 600px; /* O el ancho que prefieras */
+    height: auto; /* Altura automática basada en el contenido */
+    overflow-y: scroll; /* Scroll si el contenido excede la altura */
+}
+
+/* Estilo para los elementos de la lista */
+#lista-palabras ul {
+    /*list-style: none;  Quita los estilos predeterminados de lista */
+    padding: 0; /* Quita el padding predeterminado */
+    margin: 0; /* Quita el margen predeterminado */
+}
+
+#lista-palabras li {
+    margin-bottom: 10px; /* Espacio entre las palabras */
+    cursor: pointer; /* Cursor para indicar interactividad */
+    padding: 5px; /* Espacio interior alrededor del texto */
+    background: #f9f9f9; /* Fondo de cada palabra */
+    border-radius: 5px; /* Bordes redondeados para cada palabra */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+/* Estilos adicionales para el botón y títulos pueden ser necesarios */
+
+
+/*
+//////////////////////////////////////////////////////////
+ESTILOS PARA EL QUIZ
+//////////////////////////////////////////////////////////
+*/
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F3F4F6;
+    margin: 0;
+    padding: 20px;
+}
+
+.containerquiz {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #FFFFFF;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #6A4F4B;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.question {
+    background-color: #EAE7DC;
+    border-left: 5px solid #D8A7B1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.question p {
+    font-weight: 500;
+    color: #333;
+}
+
+label {
+    display: block;
+    padding: 8px;
+    background-color: #F8EDEB;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+input[type="radio"] {
+    accent-color: #D8A7B1;
+}
+
+label:hover {
+    background-color: #F3D2C1;
+    transform: translateY(-2px);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #A8DADC;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #97C1C9;
+    transform: translateY(-2px);
+}
+
+.alert {
+    padding: 10px;
+    background-color: #B8DFD8;
+    color: #155724;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+a button {
+    width: auto;
+    padding: 5px 15px;
+    background-color: #E56B6F;
+    color: #FFF;
+    margin-bottom: 20px;
+}
+
+a button:hover {
+    background-color: #D15A64;
+    transform: translateY(-2px);
+}
+
+
+/*
+//////////////////////////////////////////////////////////
+ESTILOS PARA EL MEMORAMA
+//////////////////////////////////////////////////////////
+*/
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    text-align: center;
+    background-color: #f8f9fa; /* Un fondo sutil para el contenedor */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+}
+
+#gameBoard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 15px; /* Espacio uniforme entre las cartas */
+}
+
+.card {
+    width: 120px;
+    height: 160px;
+    margin: 5px;
+    display: inline-block;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s, box-shadow 0.3s ease; /* Transición suave para sombra */
+    cursor: pointer;
+    border: 1px solid #ddd; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Efecto hover para resaltar la carta */
+    transform: scale(1.05); /* Ligeramente más grande al pasar el mouse */
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden; /* Previene que el contenido sobresalga de las esquinas redondeadas */
+}
+
+.front {
+    background-size: cover; /* Asegura que la imagen cubra completamente el espacio */
+    background-position: center; /* Centra la imagen en el elemento */
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Mantiene la consistencia con el estilo redondeado de las cartas */
+}
+
+.back {
+    background: #ffffff;
+    color: #333333; /* Mejor contraste para el texto */
+    transform: rotateY(180deg);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card .back img {
+    max-width: 90%; /* Un poco de margen alrededor de la imagen */
+    max-height: 90%; /* Evita que la imagen toque los bordes */
+    border-radius: 5px; /* Bordes redondeados para las imágenes */
+}
+
+.card .back p {
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500; /* Fuente un poco más gruesa para mejorar la legibilidad */
+    color: #555; /* Color de texto más oscuro para mejor contraste */
+}
+
+/*
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+ESTILOS PARA EL CRUSIGRAMA
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+.crusi{
+        font-family: Arial, sans-serif;
+        /*display: flex;
+        justify-content: center;
+        align-items: center;*/
+        height: 100vh;
+        margin: 0px;
+        background-color: #f7f7f7;
+    
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+td {
+    border: 1px solid #fffdfd; /* bordes sutiles para todas las celdas */
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    background: rgb(241 160 217); /* celdas blancas donde se pueden ingresar letras */
+}
+
+input[type="text"]:disabled {
+    background:#00000000; /* celdas transparentes donde no se puede interactuar */
+    border: none;
+}
+
+.crucigrama-cell {
+    border: 1px solid #000; /* bordes visibles para celdas interactuables */
+}
+
+.pista-numero {
+        font-size: 0.75em;
+        position: absolute;
+        top: -15px;
+        right:30px;
+        margin: 2px;
+        color: #555;
+    }
+    button {
+        margin-top: 20px;
+    }
