@@ -7,7 +7,10 @@ body {
     background: #ffffff;
 }
 
-
+.punto{
+    position: fixed;
+   
+}
 .container__slider {
     max-width: 1000px;
     height: 500px;

@@ -48,20 +48,20 @@
               <input type="radio" name="slider" id="item-4">
       
               <div class="cards">
-                  <label class="card" for="item-1" id="selector-1">
-                      <a href="juegos/quiz"><img src="/img/quiz.png"></a>     
+                  <label class="card" for="item-1" id="selector-1"  data-link="juegos/quiz">
+                      <img src="/img/quiz.png">   
                   </label>
 
-                  <label class="card" for="item-2" id="selector-2">
-                      <a href="juegos/crucigrama"><img src="/img/crucigrama.png"></a>
+                  <label class="card" for="item-2" id="selector-2"  data-link="juegos/crucigrama">
+                      <img src="/img/crucigrama.png">
                   </label>
 
-                  <label class="card" for="item-3" id="selector-3">
-                      <a href="juegos/memorama"><img src="/img/memorama.png"></a>
+                  <label class="card" for="item-3" id="selector-3"  data-link="juegos/memorama">
+                        <img src="/img/memorama.png">
                   </label>
 
-                  <label class="card" for="item-4" id="selector-4">
-                      <a href="juegos/sopa_letras"><img src="/img/sopa.png"></a>
+                  <label class="card" for="item-4" id="selector-4"  data-link="juegos/sopa_letras">
+                      <img src="/img/sopa.png">
                   </label>
               </div>
           </div>
@@ -70,6 +70,19 @@
          
 
 
+      <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cards = document.querySelectorAll(".card");
+        cards.forEach(card => {
+            card.addEventListener("click", function() {
+                const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
+                if (isChecked) {
+                    window.location.href = card.getAttribute("data-link");
+                }
+            });
+        });
+    });
+</script>
 
       
    
