@@ -41,33 +41,27 @@ body {
 
 .card {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 80%; /* Ancho del contenedor */
+    height: 70%; /* Altura del contenedor */
     left: 0;
     right: 0;
+    bottom: 80px;
     margin: auto;
     cursor: pointer;  
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+    display: flex; /* Para centrar el contenido verticalmente */
+    justify-content: center; /* Para centrar el contenido horizontalmente */
+    align-items: center; /* Para centrar el contenido verticalmente */
 }
 
 img {
-    width: 80%; /* Ajusta el tamaño de las imágenes al 100% del contenedor */
-    height: 550px; /* Altura fija para las imágenes */
+    width: 100%; /* Ajusta el tamaño máximo de la imagen al ancho del contenedor */
+    height: 100%; /* Ajusta el tamaño máximo de la imagen a la altura del contenedor */
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain; /* Ajusta la imagen dentro del contenedor sin recortes */
     margin: auto;
 }
-.image-container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
 
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
 
 #item-3:checked ~ .cards #selector-2,
