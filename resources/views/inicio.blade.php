@@ -49,26 +49,34 @@
       
               <div class="cards">
                   <label class="card" for="item-1" id="selector-1"  data-link="juegos/quiz">
-                      <img src="/img/quiz.png">   
+                  <div class="image-container">    
+                  <img src="/img/quiz.png">   
+                  </div>
                   </label>
 
                   <label class="card" for="item-2" id="selector-2"  data-link="juegos/crucigrama">
-                      <img src="/img/crucigrama.png">
+                  <div class="image-container">    
+                    <img src="/img/crucigrama.png">
+                    </div>
                   </label>
 
                   <label class="card" for="item-3" id="selector-3"  data-link="juegos/memorama">
+                  <div class="image-container">    
                         <img src="/img/memorama.png">
+                        </div>
                   </label>
 
                   <label class="card" for="item-4" id="selector-4"  data-link="juegos/sopa_letras">
+                  <div class="image-container"> 
                       <img src="/img/sopa.png">
+                      </div>
                   </label>
               </div>
           </div>
       </div>
       
          
-
+                                                                                                                 
 
       <script>
     document.addEventListener("DOMContentLoaded", function() {
