@@ -5,64 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LifeBal</title>
     
-    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/carrusel.css') }}">
+
+    <style>
+     
+      /* Estilo personalizado para eliminar el margen vertical */
+      body, html {
+          margin: 0;
+          
+      }
+
+        /* Estilo para el banner superior */
+        .banner.superior {
+            background-color: #f1c462; /* Color de fondo */
+            color:#000000;
+            text-align:center;
+            font-family: 'Vibur', cursive;
+          
+        }
+
+    </style>
 </head>
 <body>
-<br>
-<br>
+
+  <!-- Banner superior -->
+  <div class="banner superior">
+    <h1>LifeBal</h1>
+  </div>
+
+    
+
     <!-- //////////////////////////////////////////////////////
          ESTE ES EL CARRUSEL
          //////////////////////////////////////////////////////-->
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-    <a href="juegos/quiz"><img src="/img/quiz.png" class="" alt="..."></a>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Quiz</h5>
-        <p class="texto">Some representative placeholder content for the first slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-    <a href="juegos/crucigrama"><img src="/img/crucigrama.jpeg" class="" alt="..."></a>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Crusigrama</h5>
-        <p class="texto">Some representative placeholder content for the second slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <a href="juegos/memorama"> <img src="/img/memorama.jpeg" class="" alt="..."> <a href=""></a>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Memorama</h5>
-        <p class="texto">Some representative placeholder content for the third slide.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <a href="juegos/sopa_letras"> <img src="/img/sopa.png" class="..." alt="..."> <a href=""></a>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Sopa de Letras</h5>
-        <p style="black">Some representative placeholder content for the third slide.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+         <div class="container__slider">
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+          <div class="container">
+              <input type="radio" name="slider" id="item-1" checked>
+              <input type="radio" name="slider" id="item-2">
+              <input type="radio" name="slider" id="item-3">
+              <input type="radio" name="slider" id="item-4">
+      
+              <div class="cards">
+                  <label class="card" for="item-1" id="selector-1">
+                      <a href="juegos/quiz"><img src="/img/quiz.png"></a>     
+                  </label>
+
+                  <label class="card" for="item-2" id="selector-2">
+                      <a href="juegos/crucigrama"><img src="/img/crucigrama.png"></a>
+                  </label>
+
+                  <label class="card" for="item-3" id="selector-3">
+                      <a href="juegos/memorama"><img src="/img/memorama.png"></a>
+                  </label>
+
+                  <label class="card" for="item-4" id="selector-4">
+                      <a href="juegos/sopa_letras"><img src="/img/sopa.png"></a>
+                  </label>
+              </div>
+          </div>
+      </div>
+      
+         
+
+
+
+      
+   
+
+
 </body>
 </html>

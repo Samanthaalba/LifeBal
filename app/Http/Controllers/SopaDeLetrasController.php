@@ -9,12 +9,9 @@ class SopaDeLetrasController extends Controller
     public function index()
     {
         $palabras = [
-            'ANTICONCEPTIVO', 'RESPONSABILIDAD', 'TRICOMONIASIS', 'CANDIDIASIS',
-            'EDUCACION', 'SEXUALIDAD', 'PREVENCION', 'INFORMACION', 'CLAMIDIA',
-            'GONORREA', 'SIFILIS', 'HERPES', 'HEPATITIS', 'URETRITIS', 'CHANCRO',
-            'BALANITIS', 'CONDILOMA', 'EMBARAZO', 'SALUD', 'APOYO', 'RESPETO',
-            'ULCERA', 'VPH', 'HIV', 'VIH', 'SIDA', 'LUES', 'MOLUSCO', 'PUBIS'
-
+            'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
+            'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
+            'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
         ];
     
         // Asegúrate de que las palabras estén en mayúsculas para coincidir con la generación y verificación

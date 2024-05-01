@@ -1,8 +1,5 @@
 /*esto es general sobre los titulos e imagen del inicio*/
-img{
-    width: 1000px;
-    height: 500px;
-}
+
 
 /* ////////////////////////////////////////////////
 sopa de letras 
@@ -12,8 +9,8 @@ sopa de letras
 /* Establece el estilo base para el cuerpo del documento */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+    background-color: #f8f5ee;
+    color: #000000;
     margin: 0;
     padding: 20px;
 }
@@ -27,7 +24,7 @@ body {
     cursor: pointer; /* Cambia el cursor a pointer para mejorar la indicación de interactividad */
     width: 30px; /* O el tamaño que prefieras */
     height: 30px; /* O el tamaño que prefieras */
-    border: 1px solid #ccc; /* Borde para cada letra */
+    border: 1px solid #ffffff; /* Borde para cada letra */
     text-align: center;
     line-height: 30px; /* Centra el texto verticalmente */
     margin-right: -1px; /* Ajuste para evitar espacios adicionales */
@@ -49,7 +46,7 @@ body {
     padding: 5px;
     margin: 5px;
     font-size: 16px;
-    color: #555;
+    color: #0c0c0c;
     transition: color 0.3s;
 }
 
@@ -72,12 +69,12 @@ body {
 /* Estilo para la sopa de letras */
 #sopa-de-letras {
     max-width: 800px; /* Ajusta según el tamaño de tu sopa de letras */
-    border: 1px solid #ccc; /* Borde opcional para la sopa de letras */
+    border: 1px solid #f3cd7a; /* Borde opcional para la sopa de letras */
     padding: 10px; /* Espacio interior */
     margin: 0 auto;
-    background: #fff;
+    background: #f3cd7a;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px #f3cd7a;
 }
 
 /* Estilo para las filas de letras */
@@ -87,7 +84,7 @@ body {
 
 /* Estilo para la lista de palabras */
 #lista-palabras {
-    border: 1px solid #ccc; /* Borde opcional para la lista de palabras */
+    border: 1px solid #f3cd7a; /* Borde opcional para la lista de palabras */
     padding: 10px; /* Espacio interior */
     width: 600px; /* O el ancho que prefieras */
     height: auto; /* Altura automática basada en el contenido */
@@ -105,9 +102,9 @@ body {
     margin-bottom: 10px; /* Espacio entre las palabras */
     cursor: pointer; /* Cursor para indicar interactividad */
     padding: 5px; /* Espacio interior alrededor del texto */
-    background: #f9f9f9; /* Fondo de cada palabra */
+    background: #f3cd7a; /* Fondo de cada palabra */
     border-radius: 5px; /* Bordes redondeados para cada palabra */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera */
+    box-shadow: 0 2px 4px #f3cd7a; /* Sombra ligera */
 }
 
 /* Estilos adicionales para el botón y títulos pueden ser necesarios */
@@ -118,12 +115,7 @@ body {
 ESTILOS PARA EL QUIZ
 //////////////////////////////////////////////////////////
 */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #F3F4F6;
-    margin: 0;
-    padding: 20px;
-}
+
 
 .containerquiz {
     max-width: 600px;
@@ -131,11 +123,11 @@ body {
     background-color: #FFFFFF;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 10px rgba(255, 255, 255, 0.966);
 }
 
 h1 {
-    color: #6A4F4B;
+    color: #4e3936;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -177,8 +169,8 @@ button {
     width: 100%;
     padding: 10px;
     margin-top: 20px;
-    background-color: #A8DADC;
-    color: #FFF;
+    background-color: #f3cd7a;
+    color: #080808;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -187,31 +179,44 @@ button {
 }
 
 button:hover {
-    background-color: #97C1C9;
+    background-color: #f3cd7a;
     transform: translateY(-2px);
 }
 
 .alert {
     padding: 10px;
     background-color: #B8DFD8;
-    color: #155724;
+    color: #3d3214;
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: center;
 }
 
+/* Estilos para el botón Volver */
 a button {
     width: auto;
     padding: 5px 15px;
-    background-color: #E56B6F;
-    color: #FFF;
+    background-color: #f3cd7a;
+    color: #0c0c0c;
     margin-bottom: 20px;
+    text-decoration: none; /* Quita el subrayado del enlace */
 }
 
+.sopa{
+    width: auto;
+    padding: 5px 15px;
+    background-color: #29da38;
+    color: #0c0c0c;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+/* Estilos para el botón Volver al pasar el cursor */
 a button:hover {
-    background-color: #D15A64;
+    background-color: #f3cd7a;
     transform: translateY(-2px);
 }
+
 
 
 /*

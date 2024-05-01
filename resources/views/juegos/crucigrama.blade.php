@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LifeBal</title>
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+
+    <style>
+        
+    </style>
 </head>
 <body class="crusi">
-<h1 class="uno">Crusigrama</h1>
+<h1 class="uno">Crucigrama</h1>
 
-<a href="/inicio"><button id="btn-regresar">regresar</button></a>
+<a href="/inicio"><button id="btn-regresar">Regresar</button></a>
 
 <table id="crucigrama-grid"></table>
 <div class="crucigrama-container">

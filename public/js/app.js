@@ -23,12 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let seleccionActual = [];
   let palabraFormada = '';
   const palabrasValidas = [
-      'SIFILIS', 'HERPES', 'GONORREA', 'CLAMIDIA', 'CANDIDIASIS',
-      'TRICOMONIASIS', 'HEPATITIS', 'VIH', 'SIDA', 'ULCERA', 'VPH',
-      'HIV', 'LUES', 'MOLUSCO', 'CHANCO', 'BALANITIS', 'URETRITIS',
-      'CONDILOMA', 'EMBARAZO', 'ANTICONCEPTIVO', 'EDUCACION', 'SALUD',
-      'PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 'INFORMACION',
-      'APOYO', 'RESPETO', 'PUBIS'
+    'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
+    'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
+    'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
   ].map(palabra => palabra.toUpperCase()); // Asegúrate de que están en mayúsculas para la comparación
 
   const letras = document.querySelectorAll('.letra');

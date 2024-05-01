@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
     
+
 </head>
 <body>
 <body>
     <title>LifeBal</title><h1>Sopa De Letras</h1>
 
-    <a href="/inicio"><button>regresar</button></a>
+    <a href="{{asset("/inicio")}}"><button>Volver</button></a>
     
     <div id="contenedor-principal" style="display: flex;"> 
             <div id="sopa-de-letras">
@@ -28,24 +29,12 @@
             <div id="lista-palabras">
                 <ul>
                     <!-- Asegúrate de que el ID siga el formato `palabra-{palabraEnMinusculas}` -->
-                    <li id="palabra-sifilis" class="palabra">SIFILIS</li>
-                    <li id="palabra-herpes" class="palabra">HERPES</li>
-                    <li id="palabra-gonorrea" class="palabra">GONORREA</li>
-                    <li id="palabra-clamidia" class="palabra">CLAMIDIA</li>
-                    <li id="palabra-candidiasis" class="palabra">CANDIDIASIS</li>
-                    <li id="palabra-tricomoniasis" class="palabra">TRICOMONIASIS</li>
-                    <li id="palabra-hepatitis" class="palabra">HEPATITIS</li>
-                    <li id="palabra-vih" class="palabra">VIH</li>
-                    <li id="palabra-sida" class="palabra">SIDA</li>
-                    <li id="palabra-ulcera" class="palabra">ULCERA</li>
-                    <li id="palabra-vph" class="palabra">VPH</li>
-                    <li id="palabra-hiv" class="palabra">HIV</li>
-                    <li id="palabra-lues" class="palabra">LUES</li>
-                    <li id="palabra-molusco" class="palabra">MOLUSCO</li>
-                    <li id="palabra-chancro" class="palabra">CHANCO</li>
-                    <li id="palabra-balanitis" class="palabra">BALANITIS</li>
-                    <li id="palabra-uretritis" class="palabra">URETRITIS</li>
-                    <li id="palabra-condiloma" class="palabra">CONDILOMA</li>
+                
+                    <li id="palabra-cuidado" class="palabra">CUIDADO</li>
+                    <li id="palabra-adolescencia" class="palabra">ADOLESCENCIA</li>
+                    <li id="palabra-familia" class="palabra">FAMILIA</li>
+                    <li id="palabra-enfermedades" class="palabra">ENFERMEDADES</li>
+                    <li id="palabra-orientacion" class="palabra">ORIENTACION</li>
                     <li id="palabra-embarazo" class="palabra">EMBARAZO</li>
                     <li id="palabra-anticonceptivo" class="palabra">ANTICONCEPTIVO</li>
                     <li id="palabra-educacion" class="palabra">EDUCACION</li>
@@ -56,7 +45,7 @@
                     <li id="palabra-informacion" class="palabra">INFORMACION</li>
                     <li id="palabra-apoyo" class="palabra">APOYO</li>
                     <li id="palabra-respeto" class="palabra">RESPETO</li>
-                    <li id="palabra-pubis" class="palabra">PUBIS</li>
+                    <li id="palabra-comunicacion" class="palabra">COMUNICACION</li>
                 </ul>
             </div>
     </div>
@@ -70,7 +59,7 @@
   e.returnValue = '';
 });
 
-// Alternativamente, si tienes un botón específico para "Regresar", podrías vincular un evento de clic a ese botón:
+// Alternativamente, si tienes un botón específico para "Volver", podrías vincular un evento de clic a ese botón:
 document.querySelector('a[href="/inicio"]').addEventListener('click', function(e) {
   if (!confirm('Se perderán los cambios realizados si regresas. ¿Quieres continuar?')) {
       e.preventDefault(); // Evitar que el enlace navegue realmente

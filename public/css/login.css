@@ -6,9 +6,9 @@
   -webkit-box-sizing:border-box;
   font-family:arial;
 }
-body{background:#FF9000;}
+body{background:#ffffff;}
 h1{
-  color:#ccc;
+  color:#000000;
   text-align:center;
   font-family: 'Vibur', cursive;
   font-size: 50px;
@@ -17,15 +17,19 @@ h1{
 .login-form{
   width:350px;
   padding:40px 30px;
-  background:#eee;
+  background:#f1c462;
   @include border-radius(4px);
-  margin:auto;
-  position: absolute;
+  margin: 0 auto; /* Centra horizontalmente el formulario */
+  margin-top: 20vh;
+  position: relative;
+  top:50%;
   left: 0;
   right: 0;
-  top:50%;
   @include translateY(-50%);
 }
+
+
+
 .form-group{
   position: relative;
   margin-bottom:15px;
@@ -41,7 +45,7 @@ h1{
   @include border-radius(4px);
     &:focus, &:focus + .fa{
       border-color:#10CE88;
-      color:#10CE88;
+      color:#000503;
     }
 }
 .form-group .fa{
@@ -58,12 +62,12 @@ h1{
   color: #ed1c24;
 }
 .log-btn{
-  background:#0AC986;
+  background:#fddb90;
   dispaly:inline-block;
   width:100%;
   font-size:16px;
   height:50px;
-  color:#fff;
+  color:#000000;
   text-decoration:none;
   border:none;
   @include border-radius(4px);
