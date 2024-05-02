@@ -7,31 +7,41 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 
 </head>
-<body>
+<body> 
     <a href="/inicio"><button id="btn-regresar">regresar</button></a>
 
     <div class="containerquiz">
         <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
-        @if (session('score'))
-        <div class="alert alert-success">
-            {{ session('score') }}
+        <div id="result-container" style="display: none;">
+            <h2>Resultados del Quiz</h2>
+             <p id="score-text"></p>
+            <button id="btn-show-results">Ver Respuestas</button>
         </div>
-        @endif  
-        <form action="{{ route('quiz.process') }}" method="post">
-        @csrf
-        @foreach ($questions as $question)
-        <div class="question">
-                <p>{{ $question->question }}</p>
-                <label><input type="radio" name="answers[{{ $question->id }}]" value="A"> A) {{ $question->option_a }}</label><br>
-                <label><input type="radio" name="answers[{{ $question->id }}]" value="B"> B) {{ $question->option_b }}</label><br>
-                <label><input type="radio" name="answers[{{ $question->id }}]" value="C"> C) {{ $question->option_c }}</label><br>
-                <label><input type="radio" name="answers[{{ $question->id }}]" value="D"> D) {{ $question->option_d }}</label>
+
+        <div id="answers-container" style="display: none;">
+            <h2>Respuestas</h2>
+            <ul id="answers-list"></ul>
+        </div>
+
+        <div id="quiz-container">
+            <div class="question">
+                <p id="question-text"></p>
+                <label><input type="radio" name="answers" value="A"> <span id="option-a"></span></label><br>
+                <label><input type="radio" name="answers" value="B"> <span id="option-b"></span></label><br>
+                <label><input type="radio" name="answers" value="C"> <span id="option-c"></span></label><br>
+                <label><input type="radio" name="answers" value="D"> <span id="option-d"></span></label>
             </div>
-        @endforeach
-        <button type="submit">Enviar</button>
-    </form>
+        </div>
+        <button id="btn-next">Siguiente</button>
+        <button id="btn-back" style="display: none;">Atrás</button>
+        <button id="btn-submit" style="display: none;">Enviar</button>
+
     </div>
 
-    <script src="/js/app.js"></script>
+    <script>
+        const questions = {!! json_encode($questions) !!};
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>

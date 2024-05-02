@@ -93,54 +93,130 @@ document.addEventListener('DOMContentLoaded', () => {
 QUIZ
 //////////////// ////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////*/
-
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    const btnRegresar = document.getElementById('btn-regresar');
-    let isAnyOptionSelected = false;
+    const quizContainer = document.getElementById('quiz-container');
+    const questionText = document.getElementById('question-text');
+    const optionA = document.getElementById('option-a');
+    const optionB = document.getElementById('option-b');
+    const optionC = document.getElementById('option-c');
+    const optionD = document.getElementById('option-d');
+    const btnBack = document.getElementById('btn-back');
+    const btnNext = document.getElementById('btn-next');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnShowResults = document.getElementById('btn-show-results');
 
-    // Verifica si se ha seleccionado alguna opción
-    document.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.addEventListener('change', () => {
-            isAnyOptionSelected = true;
-        });
+    let currentQuestionIndex = 0;
+    const answers = {};
+
+    function showQuestion(index) {
+        const currentQuestion = questions[index];
+        questionText.textContent = currentQuestion.question;
+        optionA.textContent = `A) ${currentQuestion.option_a}`;
+        optionB.textContent = `B) ${currentQuestion.option_b}`;
+        optionC.textContent = `C) ${currentQuestion.option_c}`;
+        optionD.textContent = `D) ${currentQuestion.option_d}`;
+
+        const answer = answers[currentQuestion.id];
+        if (answer) {
+            document.querySelector(`input[name="answers"][value="${answer}"]`).checked = true;
+        } else {
+            document.querySelectorAll('input[name="answers"]').forEach(input => {
+                input.checked = false;
+            });
+        }
+
+        btnBack.style.display = index === 0 ? 'none' : 'inline';
+    }
+
+    btnNext.addEventListener('click', function() {
+        const selectedAnswer = document.querySelector('input[name="answers"]:checked');
+        if (selectedAnswer) {
+            answers[questions[currentQuestionIndex].id] = selectedAnswer.value;
+        }
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(currentQuestionIndex);
+        } else {
+            btnNext.style.display = 'none';
+            btnSubmit.style.display = 'inline';
+        }
     });
 
-    form.addEventListener('submit', function(e) {
-        const questions = document.querySelectorAll('.question');
-        let allAnswered = true;
-
+    btnSubmit.addEventListener('click', function() {
+        let score = 0;
         questions.forEach(question => {
-            if (!question.querySelector('input[type="radio"]:checked')) {
-                allAnswered = false;
+            if (answers[question.id] === question.correct_answer) {
+                score++;
             }
         });
 
-        if (!allAnswered) {
-            e.preventDefault(); // Previene el envío del formulario
-            alert('Por favor, responde todas las preguntas antes de enviar el quiz.');
-            return false;
-        }
+        // Mostrar solo la puntuación y el botón de ver respuestas
+        document.getElementById('score-text').textContent = `Tu puntaje es: ${score}/${questions.length}`;
+        document.getElementById('result-container').style.display = 'block';
+        document.getElementById('btn-show-results').style.display = 'block';
+
+        // Ocultar el contenedor de preguntas
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('btn-back').style.display = 'none';
+        document.getElementById('btn-submit').style.display = 'none';
     });
 
-    btnRegresar.addEventListener('click', function() {
-        // Si no se ha seleccionado ninguna opción, permite regresar sin advertencia
-        if (!isAnyOptionSelected) {
-            window.removeEventListener('beforeunload', preventNav);
-        }
+    btnBack.addEventListener('click', function() {
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex);
     });
 
-    function preventNav(event) {
-        // Solo muestra la advertencia si se ha seleccionado alguna opción
-        if (isAnyOptionSelected) {
-            event.preventDefault();
-            event.returnValue = '';
-        }
-    }
+    btnShowResults.addEventListener('click', function() {
+        // Mostrar las respuestas acertadas y falladas
+        const answersList = document.getElementById('answers-list');
+        answersList.innerHTML = ""; // Limpiar la lista de respuestas
+    
+        questions.forEach(question => {
+            const li = document.createElement('li');
+            const answerGiven = answers[question.id];
+            const correctAnswer = question.correct_answer;
+    
+            // Obtener la respuesta completa
+            let answerText = "";
+            let isCorrect = answerGiven === correctAnswer;
+    
+            switch (answerGiven) {
+                case 'A':
+                    answerText = question.option_a;
+                    break;
+                case 'B':
+                    answerText = question.option_b;
+                    break;
+                case 'C':
+                    answerText = question.option_c;
+                    break;
+                case 'D':
+                    answerText = question.option_d;
+                    break;
+                default:
+                    answerText = "No respondida";
+                    isCorrect = false; // Marcar como incorrecta si no se respondió
+            }
+    
+            // Agregar clases CSS para resaltar la respuesta
+            li.textContent = `${question.question} - Tu respuesta: ${answerText}. Respuesta correcta: ${correctAnswer}`;
+            li.classList.add(isCorrect ? 'correct-answer' : 'incorrect-answer');
+    
+            answersList.appendChild(li);
+        });
+    
+        // Ocultar el contenedor de resultados y mostrar el de respuestas
+        document.getElementById('btn-back').style.display = 'none';
+        document.getElementById('btn-submit').style.display = 'none';
+        document.getElementById('btn-show-results').style.display = 'none';
+        document.getElementById('answers-container').style.display = 'block';
+    });
 
-    // Solo agrega el manejador de evento 'beforeunload' si se ha seleccionado alguna opción
-    window.addEventListener('beforeunload', preventNav);
+    showQuestion(currentQuestionIndex);
 });
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////

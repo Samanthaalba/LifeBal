@@ -42,7 +42,7 @@ body {
 .card {
     position: absolute;
     width: 70%; /* Ancho del contenedor */
-    height: 6 0%; /* Altura del contenedor */
+    height: 60%; /* Altura del contenedor */
     left: 0;
     right: 0;
     bottom: 80px;

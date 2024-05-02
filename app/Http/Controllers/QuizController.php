@@ -8,10 +8,11 @@ use App\Models\Question;
 class QuizController extends Controller
 {
     public function show()
-    {
-        $questions = Question::all(); // Obtén todas las preguntas
-        return view('/juegos/quiz', compact('questions')); // Muestra la vista con las preguntas
-    }
+{
+    $questions = Question::all(); // Obtén todas las preguntas
+    return view('juegos.quiz', ['questions' => $questions]); // Muestra la vista con las preguntas
+}
+
 
     public function process(Request $request)
 {
