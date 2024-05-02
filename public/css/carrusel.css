@@ -41,8 +41,8 @@ body {
 
 .card {
     position: absolute;
-    width: 80%; /* Ancho del contenedor */
-    height: 70%; /* Altura del contenedor */
+    width: 70%; /* Ancho del contenedor */
+    height: 6 0%; /* Altura del contenedor */
     left: 0;
     right: 0;
     bottom: 80px;
@@ -62,7 +62,9 @@ img {
     margin: auto;
 }
 
-
+input{
+    display: none;
+}
 
 #item-3:checked ~ .cards #selector-2,
 #item-2:checked ~ .cards #selector-1,
