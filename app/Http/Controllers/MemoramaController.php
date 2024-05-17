@@ -25,12 +25,9 @@ class MemoramaController extends Controller
         ['id' => 8, 'type' => 'image', 'content' => 'implante-subdermico.jpg'],
         ['id' => 8, 'type' => 'description', 'content' => 'implante sumdermico'],
         ['id' => 9, 'type' => 'image', 'content' => 'ligadura-tubaria.jpg'],
-        ['id' => 9, 'type' => 'description', 'content' => 'ligadura tubaria'],
-        
+        ['id' => 9, 'type' => 'description', 'content' => 'ligadura tubaria'],  
     ];
-
     shuffle($items);
-
         return view('/juegos/memorama', compact('items'));
     }
 }

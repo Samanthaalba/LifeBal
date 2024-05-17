@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 // Define las palabras para el crucigrama con sus posiciones y orientación
 const palabras = [
-// ... ( palabras y posiciones aquí)
 // Palabras horizontales
 { palabra: 'SIFILIS', direccion: 'horizontal', fila: 19, columna: 0 },
 { palabra: 'CLAMIDIA', direccion: 'horizontal', fila: 10, columna: 2 },//
@@ -97,7 +96,8 @@ if (input.value !== '') espaciosLlenados++;
 
 // Solo proceder con la verificación si todos los espacios han sido llenados
 if (espaciosLlenados === totalEspacios) {
-const colores = ['#FFD700', '#FF8C00', '#1E90FF', '#32CD32', '#FF69B4', '#BA55D3', '#F08080', '#00FA9A', '#F4A460', '#2E8B57'];
+const colores = ['#FFD700', '#FF8C00', '#1E90FF', '#32CD32', '#FF69B4', '#BA55D3',
+ '#F08080', '#00FA9A', '#F4A460', '#2E8B57'];
 palabras.forEach(({ palabra, direccion, fila, columna }, index) => {
     let palabraUsuario = '';
     for (let i = 0; i < palabra.length; i++) {
@@ -140,13 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             }
         }
-
         if (!sinCambios) {
             const confirmacion = confirm('Tienes cambios sin guardar. ¿Seguro que quieres salir?');
             if (!confirmacion) {
                 event.preventDefault(); // Impide la acción predeterminada del botón (navegación)
             }
-        }
-        // Si sinCambios es verdadero, el evento sigue adelante y regresa al inicio sin problemas
+        }// Si sinCambios es verdadero, el evento sigue adelante y regresa al inicio sin problemas
     });
 });

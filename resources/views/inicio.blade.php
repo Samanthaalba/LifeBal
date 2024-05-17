@@ -9,29 +9,60 @@
 
     <style>
      
+     
       /* Estilo personalizado para eliminar el margen vertical */
       body, html {
           margin: 0;
-          
+        background-color: rgb(247, 152, 191);
+         
       }
 
         /* Estilo para el banner superior */
-        .banner.superior {
+        #banner-superior {
             background-color: #f1c462; /* Color de fondo */
             color:#000000;
             text-align:center;
-            font-family: 'Vibur', cursive;
+            padding: 10px 0;
           
         }
+
+    #banner-superior img {
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    /* Estilos para el banner inferior */
+    #banner-inferior {
+        background-color: #f1c462;
+        padding: 20px 0;
+        text-align: center;
+    }
+    #banner-inferior a {
+        margin-right: 20px;
+        color: #007bff;
+        text-decoration: none;
+    }
 
     </style>
 </head>
 <body>
 
   <!-- Banner superior -->
-  <div class="banner superior">
-    <h1>LifeBal</h1>
-  </div>
+  
+  <div id="banner-superior">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="img/uni.png" alt="Imagen Izquierda">
+            </div>
+            <div class="col-md-6">
+                <img src="img/nombre.jpeg" alt="Imagen Centrada">
+            </div>
+        </div>
+    </div>
+</div>
+
 
     
 
@@ -74,8 +105,7 @@
               </div>
           </div>
       </div>
-      
-         
+        
                                                                                                                  
 
       <script>
@@ -91,8 +121,20 @@
         });
     });
 </script>
-
-      
+<br>
+<br>
+<div id="banner-inferior">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="ruta/a/pagina-1.html">Enlace 1</a>
+                <a href="ruta/a/pagina-2.html">Enlace 2</a>
+                <a href="ruta/a/pagina-3.html">Enlace 3</a>
+                <p>Descripción breve del banner inferior.</p>
+            </div>
+        </div>
+    </div>
+</div> 
    
 
 

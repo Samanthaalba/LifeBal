@@ -1,5 +1,27 @@
 /*esto es general sobre los titulos e imagen del inicio*/
+a button {
+    width: auto;
+    padding: 5px 15px;
+    background-color: #f3cd7a;
+    color: #0c0c0c;
+    margin-bottom: 20px;
+    text-decoration: none; /* Quita el subrayado del enlace */
+}
 
+.sopa{
+    width: auto;
+    padding: 5px 15px;
+    background-color: #29da38;
+    color: #0c0c0c;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+/* Estilos para el botón Volver al pasar el cursor */
+a button:hover {
+    background-color: #f3cd7a;
+    transform: translateY(-2px);
+}
 
 /* ////////////////////////////////////////////////
 sopa de letras 
@@ -9,7 +31,7 @@ sopa de letras
 /* Establece el estilo base para el cuerpo del documento */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f5ee;
+    background-color: #FFFFFF;
     color: #000000;
     margin: 0;
     padding: 20px;
@@ -192,31 +214,7 @@ button:hover {
     text-align: center;
 }
 
-/* Estilos para el botón Volver */
-a button {
-    width: auto;
-    padding: 5px 15px;
-    background-color: #f3cd7a;
-    color: #0c0c0c;
-    margin-bottom: 20px;
-    text-decoration: none; /* Quita el subrayado del enlace */
-}
-
-.sopa{
-    width: auto;
-    padding: 5px 15px;
-    background-color: #29da38;
-    color: #0c0c0c;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-
-/* Estilos para el botón Volver al pasar el cursor */
-a button:hover {
-    background-color: #f3cd7a;
-    transform: translateY(-2px);
-}
-
+/* Estilos para el bo
 /* Estilos para el contenedor de resultados */
 #result-container {
     margin-top: 20px;
@@ -393,7 +391,7 @@ ESTILOS PARA EL CRUSIGRAMA
         align-items: center;*/
         height: 100vh;
         margin: 0px;
-        background-color: #f7f7f7;
+        background-color: #f5daa0;
     
 }
 
@@ -417,7 +415,7 @@ input[type="text"] {
     border: none;
     text-align: center;
     font-size: 20px;
-    background: rgb(241 160 217); /* celdas blancas donde se pueden ingresar letras */
+    background: #fd72b8; /* celdas blancas donde se pueden ingresar letras */
 }
 
 input[type="text"]:disabled {
@@ -437,6 +435,30 @@ input[type="text"]:disabled {
         margin: 2px;
         color: #555;
     }
-    button {
-        margin-top: 20px;
+    
+
+    .crucigrama-container {
+        display: flex;
+        justify-content: space-between;
     }
+
+    .palabras-lista {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .palabras-lista li {
+        margin-bottom: 10px;
+    }
+
+    .palabras-lista-horizontal {
+        float: right;
+        text-align: right;
+    }
+
+    .palabras-lista-vertical {
+        float: left;
+        text-align: left;
+    }
+ 

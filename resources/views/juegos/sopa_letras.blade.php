@@ -28,8 +28,6 @@
             
             <div id="lista-palabras">
                 <ul>
-                    <!-- Asegúrate de que el ID siga el formato `palabra-{palabraEnMinusculas}` -->
-                
                     <li id="palabra-cuidado" class="palabra">CUIDADO</li>
                     <li id="palabra-adolescencia" class="palabra">ADOLESCENCIA</li>
                     <li id="palabra-familia" class="palabra">FAMILIA</li>
