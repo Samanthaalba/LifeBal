@@ -1,5 +1,5 @@
 /*esto es general sobre los titulos e imagen del inicio*/
-a button {
+#loginBtn {
     width: auto;
     padding: 5px 15px;
     background-color: #f3cd7a;
@@ -8,19 +8,20 @@ a button {
     text-decoration: none; /* Quita el subrayado del enlace */
 }
 
-.sopa{
-    width: auto;
-    padding: 5px 15px;
-    background-color: #29da38;
-    color: #0c0c0c;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
+/* estilos generales para el boton regresar*/
+#backButton{
+    background: yellow;
+    float: left;
+    cursor: pointer;
 
-/* Estilos para el botón Volver al pasar el cursor */
-a button:hover {
-    background-color: #f3cd7a;
-    transform: translateY(-2px);
+}
+/*Estilos gnerales para todas las vistas*/
+body {
+    font-family: 'Arial', sans-serif;
+    background-color:  #f5daa0;
+    color: #000000;
+    margin: 0;
+    padding: 20px;
 }
 
 /* ////////////////////////////////////////////////
@@ -29,13 +30,58 @@ sopa de letras
 
  /* Estilos para la sopa de letras */
 /* Establece el estilo base para el cuerpo del documento */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #FFFFFF;
-    color: #000000;
-    margin: 0;
-    padding: 20px;
+
+#startButton1 {
+    background-color: #28a745; /* Fondo verde */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
 }
+
+#startButton1:hover {
+    background-color: #218838; /* Color de fondo más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+}
+
+#startButton1:active {
+    background-color: #1e7e34; /* Color de fondo aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restablece la elevación al hacer clic */
+}
+
+
+#scorePanelSp {
+    background-color: #f0f0f0; /* Fondo claro para contraste */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espaciado interno */
+    max-width: 300px; /* Ancho máximo */
+    margin: 20px auto; /* Centrar en la página */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    text-align: center; /* Centrarse en el texto */
+}
+
+#scorePanelSp p {
+    margin: 10px 0; /* Espaciado entre párrafos */
+    font-size: 18px; /* Tamaño de fuente mediano */
+    color: #333; /* Color de texto oscuro */
+}
+
+#scorePanelSP span {
+    font-weight: bold; /* Texto en negrita para los valores */
+    color: #ff6347; /* Color llamativo para resaltar */
+}
+
+#scorePanelSp #Timer {
+    font-size: 20px; /* Tamaño de fuente más grande para el temporizador */
+    color: #2e8b57; /* Color verde para el tiempo */
+}
+
 
 /* Estilos para cada letra */
 .letra {
@@ -137,6 +183,66 @@ body {
 ESTILOS PARA EL QUIZ
 //////////////////////////////////////////////////////////
 */
+/* Estilo base del botón */
+.Iniciarbtn {
+    text-align: center; /* Centrar contenido */
+}
+#btn-start-quiz {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 15px 25px; /* Espaciado interno */
+    font-size: 18px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar el ratón */
+    border-radius: 8px; /* Bordes redondeados */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    display: block; /* Convertir a bloque para aplicar márgenes automáticamente */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+/* Estilo al pasar el ratón */
+#btn-start-quiz:hover {
+    background-color: #45a049; /* Cambiar color de fondo */
+    transform: translateY(-2px); /* Desplazar ligeramente hacia arriba */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Añadir sombra más pronunciada */
+}
+
+/* Estilo al hacer clic */
+#btn-start-quiz:active {
+    transform: translateY(0px); /* Volver a la posición original */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reducir sombra */
+}
+
+/* Estilo cuando está deshabilitado */
+#btn-start-quiz:disabled {
+    background-color: #cccccc; /* Cambiar color de fondo */
+    color: #666666; /* Cambiar color del texto */
+    cursor: not-allowed; /* Cursor no permitido */
+}
+
+#Marcador {
+    text-align: center; /* Centrar el contenido */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+#Marcador p {
+    font-size: 18px; /* Tamaño de fuente */
+    margin: 0; /* Eliminar márgenes por defecto */
+    color: #555; /* Color del texto */
+}
+
+#tiempoQuiz {
+    font-size: 24px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    color: #333; /* Color del texto */
+    border: 2px solid #ccc; /* Borde */
+    padding: 8px 12px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
 
 
 .containerquiz {
@@ -185,25 +291,78 @@ label:hover {
     background-color: #F3D2C1;
     transform: translateY(-2px);
 }
-
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #f3cd7a;
-    color: #080808;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s, transform 0.2s;
+/* Estilos para el botón "Siguiente" */
+#btn-next {
+    background-color: #007bff; /* Fondo azul */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
 }
 
-button:hover {
-    background-color: #f3cd7a;
-    transform: translateY(-2px);
+#btn-next:hover {
+    background-color: #0056b3; /* Color de fondo más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
 }
+
+#btn-next:active {
+    background-color: #004085; /* Color de fondo aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restablece la elevación al hacer clic */
+}
+
+/* Estilos para el botón "Atrás" */
+#btn-back {
+    background-color: #ffc107; /* Fondo amarillo */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: #212529; /* Texto oscuro */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+#btn-back:hover {
+    background-color: #e0a800; /* Color de fondo más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+}
+
+#btn-back:active {
+    background-color: #c69500; /* Color de fondo aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restablece la elevación al hacer clic */
+}
+
+/* Estilos para el botón "Enviar" */
+#btn-submit {
+    background-color: #28f13c; /* Fondo rojo */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+#btn-submit:hover {
+    background-color: #58b606; /* Color de fondo más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+}
+
+#btn-submit:active {
+    background-color: #bd2130; /* Color de fondo aún más oscuro al hacer clic */
+    transform: translateY(0); /* Restablece la elevación al hacer clic */
+}
+
 
 .alert {
     padding: 10px;
@@ -214,7 +373,6 @@ button:hover {
     text-align: center;
 }
 
-/* Estilos para el bo
 /* Estilos para el contenedor de resultados */
 #result-container {
     margin-top: 20px;
@@ -297,6 +455,53 @@ button:hover {
 ESTILOS PARA EL MEMORAMA
 //////////////////////////////////////////////////////////
 */
+#startButton {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Fondo degradado */
+    border: none; /* Sin borde */
+    border-radius: 50px; /* Bordes muy redondeados */
+    color: white; /* Texto blanco */
+    padding: 15px 30px; /* Espaciado interno */
+    font-size: 18px; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Cursor de mano */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: all 0.3s ease; /* Transición suave para todas las propiedades */
+    position: relative; /* Posición relativa para el efecto de foco */
+    overflow: hidden; /* Ocultar el contenido desbordante */
+    z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
+}
+
+#startButton:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: all 0.75s ease;
+    opacity: 0;
+}
+
+#startButton:hover:before {
+    opacity: 1;
+    width: 400%;
+    height: 400%;
+}
+
+#startButton:hover {
+    background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Inversión del degradado */
+    transform: translateY(-3px); /* Elevación al pasar el ratón */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+#startButton:active {
+    transform: translateY(-1px); /* Elevación menor al hacer clic */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
+}
+
 .container {
     max-width: 1000px;
     margin: 40px auto;
@@ -306,6 +511,40 @@ ESTILOS PARA EL MEMORAMA
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
 }
+
+#scorePanel {
+    background: linear-gradient(135deg, #f0d478, #7f8c0c); /* Fondo degradado */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra profunda */
+    padding: 20px; /* Espaciado interno */
+    max-width: 350px; /* Ancho máximo */
+    margin: 20px auto; /* Centrar en la página */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    text-align: center; /* Centrarse en el texto */
+    color: white; /* Texto blanco */
+}
+
+#scorePanel p {
+    margin: 15px 0; /* Espaciado entre párrafos */
+    font-size: 20px; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+}
+
+#scorePanel span {
+    display: inline-block;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.3); /* Fondo semitransparente */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+#timer {
+    font-size: 24px; /* Tamaño de fuente más grande para el temporizador */
+    color: #ffeb3b; /* Color amarillo brillante para el tiempo */
+    background: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 5px 15px; /* Espaciado interno */
+}
+
 
 #gameBoard {
     display: flex;
@@ -383,31 +622,197 @@ ESTILOS PARA EL MEMORAMA
 ESTILOS PARA EL CRUSIGRAMA
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
-.crusi{
-        font-family: Arial, sans-serif;
-        /*display: flex;
-        justify-content: center;
-        align-items: center;*/
-        height: 100vh;
-        margin: 0px;
-        background-color: #f5daa0;
-    
+*/.puntuacion {
+    background: linear-gradient(135deg, #f0d478, #7f8c0c);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    max-width: 250px;
+    margin: 10px auto;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    color: white;
 }
 
+.puntuacion span {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#intentos::before, #puntaje::before, #tiempo::before {
+    display: inline-block;
+    width: 40px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+#puntaje::before {
+    content: "🏆 : ";
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#intentos::before {
+    content: "🔄 : ";
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#tiempo::before {
+    content: "⏰ : ";
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+
+
+
+/* Estilos para el botón "Iniciar" */
+#IniciarC {
+    background-color: #4CAF50; /* Verde */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    padding: 15px 32px; /* Espaciado interno */
+    text-align: center; /* Texto centrado */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    position: relative;
+    left: 90%;
+    bottom: 800px;
+    font-size: 16px; /* Tamaño de fuente */
+    margin: 4px 2px; /* Margen */
+    cursor: pointer; /* Cursor de mano */
+    border-radius: 12px; /* Bordes redondeados */
+    transition-duration: 0.4s; /* Duración de la transición */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+#IniciarC:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+}
+
+#IniciarC:active {
+    background-color: #3e8e41; /* Verde aún más oscuro al hacer clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
+}
+
+/* Estilos para el botón "Verificar" */
+#VerificarC {
+    background-color: #008CBA; /* Azul */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    padding: 15px 32px; /* Espaciado interno */
+    text-align: center; /* Texto centrado */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    position: relative;
+    left: 80%;
+    bottom: 600px;
+    font-size: 16px; /* Tamaño de fuente */
+    margin: 4px 2px; /* Margen */
+    cursor: pointer; /* Cursor de mano */
+    border-radius: 12px; /* Bordes redondeados */
+    transition-duration: 0.4s; /* Duración de la transición */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+#VerificarC:hover {
+    background-color: #007095; /* Azul más oscuro al pasar el ratón */
+}
+
+#VerificarC:active {
+    background-color: #005f80; /* Azul aún más oscuro al hacer clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
+}
+#pistaButton {
+    display: inline-block;
+    padding: 15px 32px; /* Smaller padding */
+    font-size: 12px; /* Smaller font size */
+    cursor: pointer;
+    position: relative;
+    right: 240px;
+    bottom: 800px;
+    background-color: #3498db; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove borders */
+    border-radius: 15px; /* More rounded corners */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 10px 0; /* Margin to space out from other elements */
+}
+
+#pistaButton:hover {
+    background-color: #2980b9; /* Darker blue */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.PalabrasC {
+    position: relative; /* To contain the absolutely positioned list */
+}
+
+#pistaList {
+    display: none; /* Hidden by default */
+    list-style-type: none; /* Remove bullets */
+    padding: 10px; /* Add some padding */
+    margin: 10px 0; /* Margin to separate from other content */
+    max-width: 300px; /* Constrain width */
+    border: 1px solid #bdc3c7; /* Border around the list */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #ecf0f1; /* Light grey background */
+    position: absolute; /* Absolute positioning */
+    bottom: 350px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+#pistaList li {
+    background-color: #ffffff; /* White background */
+    padding: 8px; /* Smaller padding */
+    border-bottom: 1px solid #bdc3c7; /* Light grey bottom border */
+    font-size: 12px; /* Smaller font size */
+    transition: background-color 0.3s ease;
+    margin: 0; /* No margin */
+}
+
+#pistaList li:last-child {
+    border-bottom: none; /* Remove bottom border from the last item */
+}
+
+#pistaList li:hover {
+    background-color: #bdc3c7; /* Darker grey on hover */
+}
+
+/* General table styling */
 table {
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px auto; /* Center the table */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for the table */
+    border-radius: 10px; /* Rounded corners for the table */
+/* Ensure rounded corners are visible */
+    background-color: #fff; /* White background for the table */
 }
 
-
+/* Table cell styling */
 td {
-    border: 1px solid #fffdfd; /* bordes sutiles para todas las celdas */
-    width: 30px;
-    height: 30px;
+    border: 1px solid #f5daa0; /* Subtle borders for all cells */
+    width: 40px; /* Slightly larger cells */
+    height: 40px; /* Slightly larger cells */
     position: relative;
+    background-color: #fff8dc; /* Light background for all cells */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
 }
 
+td:hover {
+    background-color: #ffebcd; /* Slightly darker background on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+/* Input styling */
 input[type="text"] {
     width: 100%;
     height: 100%;
@@ -415,50 +820,101 @@ input[type="text"] {
     border: none;
     text-align: center;
     font-size: 20px;
-    background: #fd72b8; /* celdas blancas donde se pueden ingresar letras */
+    background: #fd72b8; /* Pink background for interactive cells */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+    transition: background-color 0.3s ease;
 }
 
+input[type="text"]:focus {
+    background: #ffb6c1; /* Lighter pink on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Glow effect on focus */
+}
+
+/* Disabled input styling */
 input[type="text"]:disabled {
-    background:#00000000; /* celdas transparentes donde no se puede interactuar */
+    background: #00000000; /* Transparent background for disabled cells */
     border: none;
 }
 
+/* Hide cells without input fields */
+td:not(:has(input[type="text"])) {
+    visibility: hidden; /* Make cells without input invisible */
+    border: none; /* Remove borders from invisible cells */
+}
+
+/* Crossword cell styling */
 .crucigrama-cell {
-    border: 1px solid #000; /* bordes visibles para celdas interactuables */
+    border: 1px solid #000; /* Visible borders for interactive cells */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle outer shadow */
 }
 
 .pista-numero {
         font-size: 0.75em;
         position: absolute;
         top: -15px;
-        right:30px;
+        right:42px;
         margin: 2px;
         color: #555;
     }
-    
+    input[type="text"]:disabled {
+        background:#00000000; /* celdas transparentes donde no se puede interactuar */
+        border: none;
+    }
+        
 
     .crucigrama-container {
         display: flex;
         justify-content: space-between;
     }
 
-    .palabras-lista {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+    .pistas-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f5f5f5; /* Light grey background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-top: 20px;
+}
 
-    .palabras-lista li {
-        margin-bottom: 10px;
-    }
+.pistas {
+    flex: 1;
+    margin: 0 10px; /* Margin between sections */
+}
 
-    .palabras-lista-horizontal {
-        float: right;
-        text-align: right;
-    }
+.pistas h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50; /* Dark grey for headers */
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #3498db; /* Blue underline */
+    padding-bottom: 5px;
+}
 
-    .palabras-lista-vertical {
-        float: left;
-        text-align: left;
-    }
- 
+.palabras-lista {
+    list-style: none; /* Remove bullets */
+    padding: 0;
+}
+
+.palabras-lista li {
+    background-color: #ecf0f1; /* Light grey background */
+    padding: 10px;
+    margin: 5px 0; /* Space between items */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #bdc3c7; /* Light grey border */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: context-menu;
+}
+
+.palabras-lista li:hover {
+    background-color: #bdc3c7; /* Darker grey on hover */
+    transform: scale(1.02); /* Slightly larger on hover */
+}
+
+.palabras-lista li::before {
+    content: '➤'; /* Add arrow before each item */
+    color: #3498db; /* Blue color for the arrow */
+    margin-right: 8px; /* Space between arrow and text */
+}

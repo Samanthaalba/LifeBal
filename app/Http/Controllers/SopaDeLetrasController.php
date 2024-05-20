@@ -14,7 +14,7 @@ class SopaDeLetrasController extends Controller
             'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
         ];
     
-        // Asegúrate de que las palabras estén en mayúsculas para coincidir con la generación y verificación
+        // Asegúrar de que las palabras estén en mayúsculas para coincidir con la generación y verificación
         $palabras = array_map('strtoupper', $palabras);
     
         $matriz = $this->generarSopaDeLetras($palabras);
@@ -25,7 +25,7 @@ class SopaDeLetrasController extends Controller
 
     private function generarSopaDeLetras($palabras)
     {
-        $tamano = 17;
+        $tamano = 19;
         $matriz = array_fill(0, $tamano, array_fill(0, $tamano, '_'));
 
         $repetitions = array(); // Contador de repeticiones de cada palabra
@@ -36,7 +36,7 @@ class SopaDeLetrasController extends Controller
         foreach ($palabras as $palabra) {
             $colocada = false;
             $intentos = 0;
-            while (!$colocada && $intentos < 100) { // Limita los intentos para evitar bucles infinitos
+            while (!$colocada && $intentos < 200) { // Limita los intentos para evitar bucles infinitos
                 $direccion = rand(0, 1); // 0: horizontal, 1: vertical
                 $fila = rand(0, $tamano - 1);
                 $col = rand(0, $tamano - 1);

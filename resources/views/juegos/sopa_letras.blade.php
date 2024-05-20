@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
     
-
+<style>
+     body {
+            background-color: #f5daa0; 
+        }
+</style>
 </head>
 <body>
 <body>
     <title>LifeBal</title><h1>Sopa De Letras</h1>
 
-    <a href="{{asset("/inicio")}}"><button>Volver</button></a>
+    <a href="{{asset("/inicio")}}"><button id="backButton">Volver</button></a>
+    <div id="gameControls">
+                <button id="startButton1">Iniciar Juego</button>
+    </div>  
+            <div id="scorePanelSp"> 
+                <p>Intentos: <span id="Attempts">0</span></p>
+                <p>Puntos: <span id="Score">0</span></p>
+                <p>Tiempo: <span id="Timer">00:00</span></p>
+            </div>
     
     <div id="contenedor-principal" style="display: flex;"> 
             <div id="sopa-de-letras">

@@ -17,75 +17,146 @@ document.addEventListener("DOMContentLoaded", function() {
 ////////////////////////////////////////////////////////////////////////////////
 ///Sopa de letras 
 ////////////////////////////////////////////////////////////////////////////////
-
 document.addEventListener('DOMContentLoaded', () => {
-  let esMouseDown = false;
-  let seleccionActual = [];
-  let palabraFormada = '';
-  const palabrasValidas = [
-    'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
-    'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
-    'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
-  ].map(palabra => palabra.toUpperCase()); // Asegúrate de que están en mayúsculas para la comparación
+    let esMouseDown = false;
+    let seleccionActual = [];
+    let palabraFormada = '';
+    let attempts = 0;
+    let score = 0;
+    let foundWords = 0;
+    let timerInterval;
+    let totalSeconds = 0;
+    let gameEnded = false;
 
-  const letras = document.querySelectorAll('.letra');
+    const palabrasValidas = [
+        'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
+        'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
+        'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
+    ].map(palabra => palabra.toUpperCase());
 
-  letras.forEach(letra => {
-      // Iniciar selección
-      letra.addEventListener('mousedown', (event) => {
-          esMouseDown = true;
-          agregarLetraASeleccion(event.target);
-          event.preventDefault(); // Previene la selección de texto durante el deslizamiento
-      });
+    const letras = document.querySelectorAll('.letra');
+    const startButton1 = document.getElementById('startButton1');
+    const attemptsDisplay = document.getElementById('Attempts');
+    const scoreDisplay = document.getElementById('Score');
+    const timerDisplay = document.getElementById('Timer');
 
-      // Agregar letras a la selección mientras se desliza
-      letra.addEventListener('mouseenter', (event) => {
-          if (esMouseDown) {
-              agregarLetraASeleccion(event.target);
-          }
-      });
-  });
+    startButton1.addEventListener('click', startGame);
 
-  // Finalizar selección
-  document.addEventListener('mouseup', () => {
-      if (esMouseDown && palabraFormada.length > 0) {
-          verificarPalabra();
-      }
-      esMouseDown = false;
-  });
+    letras.forEach(letra => {
+        letra.addEventListener('mousedown', (event) => {
+            if (!gameEnded) {
+                esMouseDown = true;
+                agregarLetraASeleccion(event.target);
+                event.preventDefault();
+            }
+        });
 
-  function agregarLetraASeleccion(letra) {
-      if (!seleccionActual.includes(letra)) {
-          letra.classList.add('letra-seleccionada');
-          seleccionActual.push(letra);
-          palabraFormada += letra.textContent.toUpperCase();
-      }
-  }
+        letra.addEventListener('mouseenter', (event) => {
+            if (esMouseDown && !gameEnded) {
+                agregarLetraASeleccion(event.target);
+            }
+        });
+    });
 
-  function verificarPalabra() {
-      if (palabrasValidas.includes(palabraFormada)) {
-          seleccionActual.forEach(letra => letra.classList.add('letra-encontrada'));
-          // Opcional: tachar palabra de la lista si se encuentra
-          tacharPalabraLista(palabraFormada);
-      } else {
-          limpiarSeleccionActual();
-      }
-      // Resetear para la próxima selección
-      seleccionActual = [];
-      palabraFormada = '';
-  }
+    document.addEventListener('mouseup', () => {
+        if (esMouseDown && palabraFormada.length > 0) {
+            verificarPalabra();
+            attempts++;
+            attemptsDisplay.textContent = attempts;
+        }
+        esMouseDown = false;
+    });
 
-  function limpiarSeleccionActual() {
-      seleccionActual.forEach(letra => letra.classList.remove('letra-seleccionada'));
-  }
+    window.onunload = function() {
+        if (!gameEnded) {
+            clearInterval(timerInterval);
+            alert("Has salido del juego antes de terminar.");
+        }
+    };
 
-  function tacharPalabraLista(palabra) {
-      const palabraElemento = document.getElementById(`palabra-${palabra.toLowerCase()}`);
-      if (palabraElemento) {
-          palabraElemento.classList.add('palabra-encontrada');
-      }
-  }
+    function startGame() {
+        attempts = 0;
+        score = 0;
+        foundWords = 0;
+        totalSeconds = 0;
+        gameEnded = false;
+
+        attemptsDisplay.textContent = attempts;
+        scoreDisplay.textContent = score;
+        timerDisplay.textContent = '00:00';
+
+        letras.forEach(letra => letra.classList.remove('letra-seleccionada', 'letra-encontrada'));
+        document.querySelectorAll('.palabra').forEach(palabra => palabra.classList.remove('palabra-encontrada'));
+
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function agregarLetraASeleccion(letra) {
+        if (!seleccionActual.includes(letra)) {
+            letra.classList.add('letra-seleccionada');
+            seleccionActual.push(letra);
+            palabraFormada += letra.textContent.toUpperCase();
+        }
+    }
+
+    function verificarPalabra() {
+        if (palabrasValidas.includes(palabraFormada)) {
+            seleccionActual.forEach(letra => letra.classList.add('letra-encontrada'));
+            tacharPalabraLista(palabraFormada);
+            score += calcularPuntaje();
+            scoreDisplay.textContent = score;
+
+            foundWords++;
+            if (foundWords === palabrasValidas.length) {
+                stopGame();
+            }
+        } else {
+            limpiarSeleccionActual();
+        }
+        seleccionActual = [];
+        palabraFormada = '';
+    }
+
+    function stopGame() {
+        clearInterval(timerInterval);
+        gameEnded = true;
+        alert("¡Has encontrado todas las palabras!");
+    }
+
+    function calcularPuntaje() {
+        if (totalSeconds < 10) {
+            return 100;
+        } else if (totalSeconds < 30) {
+            return 90;
+        } else {
+            return 80;
+        }
+    }
+
+    function limpiarSeleccionActual() {
+        seleccionActual.forEach(letra => letra.classList.remove('letra-seleccionada'));
+    }
+
+    function tacharPalabraLista(palabra) {
+        const palabraElemento = document.getElementById(`palabra-${palabra.toLowerCase()}`);
+        if (palabraElemento) {
+            palabraElemento.classList.add('palabra-encontrada');
+        }
+    }
+
+    function updateTimer() {
+        totalSeconds++;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        timerDisplay.textContent = `${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    function pad(value) {
+        return value.toString().padStart(2, '0');
+    }
 });
+
 
 
 /*////////////////////////////////////////////////////////////////////////////////////////
@@ -94,16 +165,39 @@ QUIZ
 //////////////// ////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////*/
 document.addEventListener('DOMContentLoaded', function() {
+    const btnStartQuiz = document.getElementById('btn-start-quiz');
     const quizContainer = document.getElementById('quiz-container');
-    const questionText = document.getElementById('question-text');
-    const optionA = document.getElementById('option-a');
-    const optionB = document.getElementById('option-b');
-    const optionC = document.getElementById('option-c');
-    const optionD = document.getElementById('option-d');
-    const btnBack = document.getElementById('btn-back');
-    const btnNext = document.getElementById('btn-next');
-    const btnSubmit = document.getElementById('btn-submit');
-    const btnShowResults = document.getElementById('btn-show-results');
+    let startTime;
+    let endTime;
+
+    btnStartQuiz.addEventListener('click', function() {
+        // Iniciar el cronómetro
+        startTime = Date.now();
+        updateClock();
+
+        // Ocultar el botón de inicio y mostrar el contenedor del cuestionario
+        btnStartQuiz.style.display = 'none';
+        quizContainer.style.display = 'block';
+
+        // Mostrar la primera pregunta del cuestionario después de presionar el botón "Iniciar Quiz"
+        showQuestion(0);
+    });
+
+    function updateClock() {
+        let elapsedTime;
+        if (endTime) {
+            // Si ya se envió el cuestionario, calcular el tiempo total
+            elapsedTime = endTime - startTime;
+        } else {
+            // Si aún no se ha enviado el cuestionario, calcular el tiempo transcurrido normalmente
+            elapsedTime = Date.now() - startTime;
+        }
+
+        const minutes = Math.floor(elapsedTime / 60000);
+        const seconds = Math.floor((elapsedTime % 60000) / 1000);
+        document.getElementById('tiempoQuiz').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        setTimeout(updateClock, 1000);
+    }
 
     let currentQuestionIndex = 0;
     const answers = {};
@@ -128,6 +222,16 @@ document.addEventListener('DOMContentLoaded', function() {
         btnBack.style.display = index === 0 ? 'none' : 'inline';
     }
 
+    const btnNext = document.getElementById('btn-next');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnBack = document.getElementById('btn-back');
+    const btnShowResults = document.getElementById('btn-show-results');
+    const questionText = document.getElementById('question-text');
+    const optionA = document.getElementById('option-a');
+    const optionB = document.getElementById('option-b');
+    const optionC = document.getElementById('option-c');
+    const optionD = document.getElementById('option-d');
+
     btnNext.addEventListener('click', function() {
         const selectedAnswer = document.querySelector('input[name="answers"]:checked');
         if (selectedAnswer) {
@@ -144,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     btnSubmit.addEventListener('click', function() {
+        endTime = Date.now();
         let score = 0;
         questions.forEach(question => {
             if (answers[question.id] === question.correct_answer) {
@@ -213,9 +318,43 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('answers-container').style.display = 'block';
     });
 
-    showQuestion(currentQuestionIndex);
-});
+    function showQuestion(index) {
+        const currentQuestion = questions[index];
+        questionText.textContent = currentQuestion.question;
+        optionA.textContent = `A) ${currentQuestion.option_a}`;
+        optionB.textContent = `B) ${currentQuestion.option_b}`;
+        optionC.textContent = `C) ${currentQuestion.option_c}`;
+        optionD.textContent = `D) ${currentQuestion.option_d}`;
 
+        const answer = answers[currentQuestion.id];
+        if (answer) {
+            document.querySelector(`input[name="answers"][value="${answer}"]`).checked = true;
+        } else {
+            document.querySelectorAll('input[name="answers"]').forEach(input => {
+                input.checked = false;
+            });
+        }
+
+        btnBack.style.display = index === 0 ? 'none' : 'inline';
+    }
+
+    function updateClock() {
+        let elapsedTime;
+        if (endTime) {
+            // Si ya se envió el cuestionario, calcular el tiempo total
+            elapsedTime = endTime - startTime;
+        } else {
+            // Si aún no se ha enviado el cuestionario, calcular el tiempo transcurrido normalmente
+            elapsedTime = Date.now() - startTime;
+        }
+
+        const minutes = Math.floor(elapsedTime / 60000);
+        const seconds = Math.floor((elapsedTime % 60000) / 1000);
+        document.getElementById('tiempoQuiz').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        setTimeout(updateClock, 1000);
+    }
+
+});
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let lockBoard = false;
     let firstCard, secondCard;
     let attempts = 0;
-    let score = 0;
+    let score = 0; 
     let gameStarted = false; // Asegura que el juego no comience hasta que se presione el botón de inicio
     let interval;
     let seconds = 0, minutes = 0;
@@ -258,15 +397,29 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
         document.getElementById('attempts').textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-
+    
         if (isMatch) {
-            score++;
+            if (seconds <= 20) {
+                score += 100; // Incrementar en 100 puntos si el tiempo es menor o igual a 20 segundos
+            } else if (seconds <= 40) {
+                score += 90; // Incrementar en 90 puntos si el tiempo es mayor a 20 segundos pero menor o igual a 40 segundos
+            } else {
+                score += 80; // Incrementar en 80 puntos si el tiempo es mayor a 40 segundos
+            }
+            
             document.getElementById('score').textContent = score;
             disableCards();
+            // Verificar si todas las cartas han sido emparejadas
+            if (score === cards.length * 100 / 2 || seconds >= 40) {
+                clearInterval(interval); // Detener el cronómetro
+            }
         } else {
             unflipCards();
         }
     }
+    
+    
+    
 
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
