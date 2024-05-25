@@ -21,7 +21,9 @@
     <input type="text" class="form-control" placeholder="Nombre del Jugador" id="UserName" required>
     <i class="fa fa-user"></i>
   </div>
-  <a href="/inicio"><button type="button" class="log-btn" id="loginBtn">Entrar</button></a>
+  <div style="display: flex; justify-content: center;">
+    <a href="/inicio" class="log-btn" id="loginBtn"><button type="button" class="btn-72">Entrar</button></a>
+  </div>
 </div>
 
    <script src="{{ asset('js/app.js') }}"></script>

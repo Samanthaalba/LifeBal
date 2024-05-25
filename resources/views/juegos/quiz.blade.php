@@ -11,7 +11,7 @@
         }</style>
 </head>
 <body> 
-    <a href="/inicio"><button id="backButton">regresar</button></a>
+    <a href="/inicio"><button id="backButton">Regresar</button></a>
 
     <div class="containerquiz">
         <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
