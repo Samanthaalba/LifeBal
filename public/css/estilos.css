@@ -9,12 +9,28 @@
 }
 
 /* estilos generales para el boton regresar*/
-#backButton{
+#backButton {
+    position: absolute;
     background: yellow;
     float: left;
     cursor: pointer;
-
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+#backButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#backButton:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /*Estilos gnerales para todas las vistas*/
 body {
     font-family: 'Arial', sans-serif;
@@ -32,6 +48,9 @@ sopa de letras
 /* Establece el estilo base para el cuerpo del documento */
 
 #startButton1 {
+    position: absolute;
+    left: 450px;
+    bottom: 520px;
     background-color: #28a745; /* Fondo verde */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
@@ -60,7 +79,7 @@ sopa de letras
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 20px; /* Espaciado interno */
-    max-width: 300px; /* Ancho máximo */
+    width: 200px; /* Ancho máximo */
     margin: 20px auto; /* Centrar en la página */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
     text-align: center; /* Centrarse en el texto */
@@ -81,7 +100,19 @@ sopa de letras
     font-size: 20px; /* Tamaño de fuente más grande para el temporizador */
     color: #2e8b57; /* Color verde para el tiempo */
 }
-
+.encontrar {
+    position: sticky;
+    left: 1170px;
+    background: linear-gradient(135deg, #ffcc00, #ff6699); /* Fondo degradado */
+    color: #fff; /* Color de texto blanco */
+    padding: 3px; /* Espacio interior */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Fuente amigable */
+    font-size: 1.5em; /* Tamaño de fuente aumentado */
+    text-align: center; /* Texto centrado */
+    transition: transform 0.3s, background 0.3s; /* Transición suave para transformaciones y fondo */
+}
 
 /* Estilos para cada letra */
 .letra {
@@ -136,53 +167,90 @@ sopa de letras
 
 /* Estilo para la sopa de letras */
 #sopa-de-letras {
+    position: absolute;
+    left: 24%;
+    top: 40%;
     max-width: 800px; /* Ajusta según el tamaño de tu sopa de letras */
-    border: 1px solid #f3cd7a; /* Borde opcional para la sopa de letras */
-    padding: 10px; /* Espacio interior */
-    margin: 0 auto;
-    background: #f3cd7a;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px #f3cd7a;
+    border: 3px solid #ffcc00; /* Borde más grueso y de color brillante */
+    padding: 20px; /* Espacio interior aumentado */
+    margin: 20px auto; /* Centrar y agregar margen superior e inferior */
+    background: #fffbe6; /* Fondo claro */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Fuente amigable */
+    color: #333; /* Color de texto */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición suave para transformaciones y sombra */
 }
+
 
 /* Estilo para las filas de letras */
 .fila {
     display: flex;
 }
-
 /* Estilo para la lista de palabras */
 #lista-palabras {
-    border: 1px solid #f3cd7a; /* Borde opcional para la lista de palabras */
-    padding: 10px; /* Espacio interior */
-    width: 600px; /* O el ancho que prefieras */
+    position: absolute;
+    right: 10px;
+    border: 3px solid #ffcc00; /* Borde más grueso y de color brillante */
+    padding: 3px; /* Espacio interior aumentado */
+    width: 400px; /* O el ancho que prefieras */
     height: auto; /* Altura automática basada en el contenido */
-    overflow-y: scroll; /* Scroll si el contenido excede la altura */
+    background-color: #fffbe6; /* Fondo claro para el contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
 }
 
 /* Estilo para los elementos de la lista */
 #lista-palabras ul {
-    /*list-style: none;  Quita los estilos predeterminados de lista */
+    list-style: none; /* Quita los estilos predeterminados de lista */
     padding: 0; /* Quita el padding predeterminado */
     margin: 0; /* Quita el margen predeterminado */
 }
 
 #lista-palabras li {
-    margin-bottom: 10px; /* Espacio entre las palabras */
-    cursor: pointer; /* Cursor para indicar interactividad */
-    padding: 5px; /* Espacio interior alrededor del texto */
-    background: #f3cd7a; /* Fondo de cada palabra */
-    border-radius: 5px; /* Bordes redondeados para cada palabra */
-    box-shadow: 0 2px 4px #f3cd7a; /* Sombra ligera */
+    margin-bottom: 12px; /* Espacio entre las palabras */ 
+    cursor:context-menu ;/* Cursor para indicar interactividad */
+    padding: 3px; /* Espacio interior aumentado */
+    background: linear-gradient(135deg, #c0b413, #66f5ff); /* Fondo degradado */
+    color: #3b3a3a; /* Color de texto blanco */
+    border-radius: 10px; /* Bordes más redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: transform 0.3s, background 0.3s; /* Transición suave para transformaciones y fondo */
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Fuente amigable */
+    font-size: 1.2em; /* Aumenta el tamaño de la fuente */
+    text-align: center; /* Centra el texto */
 }
 
-/* Estilos adicionales para el botón y títulos pueden ser necesarios */
-
+/* Animación al pasar el ratón por encima */
+#lista-palabras li:hover {
+    transform: scale(1.05); /* Escala ligeramente al pasar el ratón */
+    background: linear-gradient(135deg, #c0b413, #66f5ff); /* Invertir los colores del degradado */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
 
 /*
 //////////////////////////////////////////////////////////
 ESTILOS PARA EL QUIZ
 //////////////////////////////////////////////////////////
 */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .background .doc {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 /* Estilo base del botón */
 .Iniciarbtn {
     text-align: center; /* Centrar contenido */
@@ -246,7 +314,7 @@ ESTILOS PARA EL QUIZ
 
 
 .containerquiz {
-    max-width: 600px;
+    max-width: 700px;
     margin: 40px auto;
     background-color: #FFFFFF;
     padding: 25px;
@@ -455,6 +523,78 @@ label:hover {
 ESTILOS PARA EL MEMORAMA
 //////////////////////////////////////////////////////////
 */
+ /* Estilos para el modal */
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.close {
+    color: #333;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #d9534f;
+    text-decoration: none;
+}
+
+/* Añadir animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mejorar el botón de cierre */
+#closeInstructions {
+    display: inline-block;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+#closeInstructions:hover {
+    background-color: #c9302c;
+}
+
 #startButton {
     background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Fondo degradado */
     border: none; /* Sin borde */
@@ -468,6 +608,8 @@ ESTILOS PARA EL MEMORAMA
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
     transition: all 0.3s ease; /* Transición suave para todas las propiedades */
     position: relative; /* Posición relativa para el efecto de foco */
+    right: 35%;
+    top: 150px;
     overflow: hidden; /* Ocultar el contenido desbordante */
     z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
 }
@@ -682,8 +824,8 @@ ESTILOS PARA EL CRUSIGRAMA
     text-decoration: none; /* Sin subrayado */
     display: inline-block; /* Mostrar como bloque en línea */
     position: relative;
-    left: 90%;
-    bottom: 800px;
+    left: 30%;
+    bottom: 1150px;
     font-size: 16px; /* Tamaño de fuente */
     margin: 4px 2px; /* Margen */
     cursor: pointer; /* Cursor de mano */
@@ -701,42 +843,15 @@ ESTILOS PARA EL CRUSIGRAMA
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
 }
 
-/* Estilos para el botón "Verificar" */
-#VerificarC {
-    background-color: #008CBA; /* Azul */
-    border: none; /* Sin borde */
-    color: white; /* Texto blanco */
-    padding: 15px 32px; /* Espaciado interno */
-    text-align: center; /* Texto centrado */
-    text-decoration: none; /* Sin subrayado */
-    display: inline-block; /* Mostrar como bloque en línea */
-    position: relative;
-    left: 80%;
-    bottom: 600px;
-    font-size: 16px; /* Tamaño de fuente */
-    margin: 4px 2px; /* Margen */
-    cursor: pointer; /* Cursor de mano */
-    border-radius: 12px; /* Bordes redondeados */
-    transition-duration: 0.4s; /* Duración de la transición */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
-}
-
-#VerificarC:hover {
-    background-color: #007095; /* Azul más oscuro al pasar el ratón */
-}
-
-#VerificarC:active {
-    background-color: #005f80; /* Azul aún más oscuro al hacer clic */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
-}
 #pistaButton {
     display: inline-block;
     padding: 15px 32px; /* Smaller padding */
     font-size: 12px; /* Smaller font size */
     cursor: pointer;
-    position: relative;
-    right: 240px;
-    bottom: 800px;
+    position: absolute;
+    left: 90%;
+    bottom: 300px;
+    z-index: 10; /* Ensure it's above other content */
     background-color: #3498db; /* Blue background */
     color: white; /* White text */
     border: none; /* Remove borders */
@@ -766,7 +881,8 @@ ESTILOS PARA EL CRUSIGRAMA
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     background-color: #ecf0f1; /* Light grey background */
     position: absolute; /* Absolute positioning */
-    bottom: 350px;
+    bottom: 535px;
+    left: 91%;
     z-index: 1000; /* Ensure it's above other content */
 }
 
@@ -914,7 +1030,7 @@ td:not(:has(input[type="text"])) {
 }
 
 .palabras-lista li::before {
-    content: '➤'; /* Add arrow before each item */
+     /* Add arrow before each item */
     color: #3498db; /* Blue color for the arrow */
     margin-right: 8px; /* Space between arrow and text */
 }

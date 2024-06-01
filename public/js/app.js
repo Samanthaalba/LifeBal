@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
   loginBtn.addEventListener("click", function(event) {
     if (!userNameInput.value.trim()) {
       event.preventDefault(); // Evitar la acción por defecto (redireccionamiento)
-      alert("Por favor, complete el campo de usuario.");
+      alert("Por favor, complete el campo de Nombre del Jugador");
     }
   });
 });
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timerInterval;
     let totalSeconds = 0;
     let gameEnded = false;
+    let gameStarted = false; // Bandera para verificar si el juego ha comenzado
 
     const palabrasValidas = [
         'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     letras.forEach(letra => {
         letra.addEventListener('mousedown', (event) => {
-            if (!gameEnded) {
+            if (gameStarted && !gameEnded) {
                 esMouseDown = true;
                 agregarLetraASeleccion(event.target);
                 event.preventDefault();
@@ -52,14 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         letra.addEventListener('mouseenter', (event) => {
-            if (esMouseDown && !gameEnded) {
+            if (gameStarted && esMouseDown && !gameEnded) {
                 agregarLetraASeleccion(event.target);
             }
         });
     });
 
     document.addEventListener('mouseup', () => {
-        if (esMouseDown && palabraFormada.length > 0) {
+        if (gameStarted && esMouseDown && palabraFormada.length > 0) {
             verificarPalabra();
             attempts++;
             attemptsDisplay.textContent = attempts;
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.onunload = function() {
-        if (!gameEnded) {
+        if (gameStarted && !gameEnded) {
             clearInterval(timerInterval);
             alert("Has salido del juego antes de terminar.");
         }
@@ -80,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         foundWords = 0;
         totalSeconds = 0;
         gameEnded = false;
+        gameStarted = true; // Marcar que el juego ha comenzado
 
         attemptsDisplay.textContent = attempts;
         scoreDisplay.textContent = score;
@@ -156,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return value.toString().padStart(2, '0');
     }
 });
+
 
 
 
@@ -252,12 +255,12 @@ document.addEventListener('DOMContentLoaded', function() {
         let score = 0;
         questions.forEach(question => {
             if (answers[question.id] === question.correct_answer) {
-                score++;
+                score+=100;
             }
         });
 
         // Mostrar solo la puntuación y el botón de ver respuestas
-        document.getElementById('score-text').textContent = `Tu puntaje es: ${score}/${questions.length}`;
+        document.getElementById('score-text').textContent = `Tu puntaje es: ${score}`;
         document.getElementById('result-container').style.display = 'block';
         document.getElementById('btn-show-results').style.display = 'block';
 
@@ -284,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             // Obtener la respuesta completa
             let answerText = "";
+            let correctAnswerText = "";
             let isCorrect = answerGiven === correctAnswer;
     
             switch (answerGiven) {
@@ -304,8 +308,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     isCorrect = false; // Marcar como incorrecta si no se respondió
             }
     
+            switch (correctAnswer) {
+                case 'A':
+                    correctAnswerText = question.option_a;
+                    break;
+                case 'B':
+                    correctAnswerText = question.option_b;
+                    break;
+                case 'C':
+                    correctAnswerText = question.option_c;
+                    break;
+                case 'D':
+                    correctAnswerText = question.option_d;
+                    break;
+            }
+    
             // Agregar clases CSS para resaltar la respuesta
-            li.textContent = `${question.question} - Tu respuesta: ${answerText}. Respuesta correcta: ${correctAnswer}`;
+            li.innerHTML = `<strong>${question.question}</strong><br>Tu respuesta: ${answerText}<br>Respuesta correcta: ${correctAnswerText}`;
             li.classList.add(isCorrect ? 'correct-answer' : 'incorrect-answer');
     
             answersList.appendChild(li);
@@ -317,44 +336,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('btn-show-results').style.display = 'none';
         document.getElementById('answers-container').style.display = 'block';
     });
-
-    function showQuestion(index) {
-        const currentQuestion = questions[index];
-        questionText.textContent = currentQuestion.question;
-        optionA.textContent = `A) ${currentQuestion.option_a}`;
-        optionB.textContent = `B) ${currentQuestion.option_b}`;
-        optionC.textContent = `C) ${currentQuestion.option_c}`;
-        optionD.textContent = `D) ${currentQuestion.option_d}`;
-
-        const answer = answers[currentQuestion.id];
-        if (answer) {
-            document.querySelector(`input[name="answers"][value="${answer}"]`).checked = true;
-        } else {
-            document.querySelectorAll('input[name="answers"]').forEach(input => {
-                input.checked = false;
-            });
-        }
-
-        btnBack.style.display = index === 0 ? 'none' : 'inline';
-    }
-
-    function updateClock() {
-        let elapsedTime;
-        if (endTime) {
-            // Si ya se envió el cuestionario, calcular el tiempo total
-            elapsedTime = endTime - startTime;
-        } else {
-            // Si aún no se ha enviado el cuestionario, calcular el tiempo transcurrido normalmente
-            elapsedTime = Date.now() - startTime;
-        }
-
-        const minutes = Math.floor(elapsedTime / 60000);
-        const seconds = Math.floor((elapsedTime % 60000) / 1000);
-        document.getElementById('tiempoQuiz').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        setTimeout(updateClock, 1000);
-    }
-
 });
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -363,6 +346,32 @@ document.addEventListener('DOMContentLoaded', function() {
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', () => {
+    // Obtener elementos del DOM
+    const modal = document.getElementById('instructionsModal');
+    const span = document.getElementsByClassName('close')[0];
+    const closeInstructions = document.getElementById('closeInstructions');
+
+    // Mostrar el modal al cargar la página
+    modal.style.display = 'flex';
+
+    // Cerrar el modal al hacer clic en la 'x'
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Cerrar el modal al hacer clic en el botón de cerrar
+    closeInstructions.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Cerrar el modal si se hace clic fuera del contenido del modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
     const cards = document.querySelectorAll('.card');
     let hasFlippedCard = false;
@@ -370,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let firstCard, secondCard;
     let attempts = 0;
     let score = 0; 
-    let gameStarted = false; // Asegura que el juego no comience hasta que se presione el botón de inicio
+    let gameStarted = false; 
     let interval;
     let seconds = 0, minutes = 0;
 
@@ -400,26 +409,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
         if (isMatch) {
             if (seconds <= 20) {
-                score += 100; // Incrementar en 100 puntos si el tiempo es menor o igual a 20 segundos
+                score += 100;
             } else if (seconds <= 40) {
-                score += 90; // Incrementar en 90 puntos si el tiempo es mayor a 20 segundos pero menor o igual a 40 segundos
+                score += 90;
             } else {
-                score += 80; // Incrementar en 80 puntos si el tiempo es mayor a 40 segundos
+                score += 80;
             }
             
             document.getElementById('score').textContent = score;
             disableCards();
-            // Verificar si todas las cartas han sido emparejadas
             if (score === cards.length * 100 / 2 || seconds >= 40) {
-                clearInterval(interval); // Detener el cronómetro
+                clearInterval(interval);
             }
         } else {
             unflipCards();
         }
     }
-    
-    
-    
 
     function disableCards() {
         firstCard.removeEventListener('click', flipCard);
@@ -442,18 +447,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
-        if (gameStarted) return; // Previene reiniciar el juego si ya ha comenzado
+        if (gameStarted) return;
         gameStarted = true;
+        
+        // Barajar las cartas antes de voltearlas
         cards.forEach(card => {
-            card.classList.remove('flipped');
-            card.addEventListener('click', flipCard);
-            // Mezclar las cartas al inicio del juego
-            setTimeout(() => {
-                card.style.order = Math.floor(Math.random() * cards.length);
-            }, 500);
+            card.style.order = Math.floor(Math.random() * cards.length);
         });
+
+        cards.forEach(card => {
+            card.classList.add('flipped');
+            card.addEventListener('click', flipCard);
+        });
+
         resetGame();
-        startButton.disabled = true; // Deshabilita el botón después de iniciar el juego
+
+        setTimeout(() => {
+            cards.forEach(card => card.classList.remove('flipped'));
+            lockBoard = false; // Desbloquear el tablero después de 10 segundos
+        }, 10000);
+
+        startButton.disabled = true;
     }
 
     function resetGame() {
@@ -462,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('attempts').textContent = '0';
         document.getElementById('score').textContent = '0';
         document.getElementById('timer').textContent = '00:00';
-        startTimer(); // Inicia el cronómetro
+        startTimer();
     }
 
     function startTimer() {
@@ -487,24 +501,21 @@ function allowLeaving() {
 
 function handleBeforeUnload(event) {
     event.preventDefault();
-    // Establece un mensaje de retorno para navegadores compatibles
     event.returnValue = '¿Estás seguro de que quieres salir del juego?';
 }
 
 document.getElementById('startButton').addEventListener('click', () => {
-    // Activar la prevención de salida al iniciar el juego
     preventLeaving();
 
-    // Asumiendo que existe un botón para regresar al inicio que tiene un id "backButton"
     const backButton = document.getElementById('backButton');
     if (backButton) {
         backButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Previene la acción por defecto del botón
+            e.preventDefault();
             const confirmLeave = confirm('¿Estás seguro de que quieres regresar al inicio y abandonar el juego?');
             if (confirmLeave) {
-                allowLeaving(); // Remueve el listener que previene salir de la página
-                window.location.href = '/inicio' // Redirige manualmente
+                allowLeaving();
+                window.location.href = '/inicio';
             }
         });
     }
-});
+  });

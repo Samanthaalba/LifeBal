@@ -8,59 +8,9 @@
     <link rel="stylesheet" href="{{ asset('css/carrusel.css') }}">
 
     <style>
-     
-     
-      /* Estilo personalizado para eliminar el margen vertical */
-      body, html {
-          margin: 0;
-        background-color: rgb(247, 152, 191);
-         
-      }
-
-       /* Estilo para el banner superior */
-       #banner-superior {
-            background-color: #f1c462; /* Color de fondo */
-            color: #000000;
-            padding: 5px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        #imagen-izquierda {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            margin-left: 20px; /* Ajusta según sea necesario */
-        }
-
-        #contenedor-centrado {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        #imagen-centrada {
-            width: 300px;
-            height: 200px;
-            object-fit: contain;
-            margin-right: 700px;
-        }
-
-        /* Estilos para el banner inferior */
-        #banner-inferior {
-            background-color: #f1c462;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        #banner-inferior a {
-            margin-right: 20px;
-            color: #007bff;
-            text-decoration: none;
-        }
-       
-
+     body,html{
+        margin:0;
+     }
     </style>
 </head>
 <body>
@@ -68,22 +18,22 @@
     <!-- Banner superior -->
 
   <div id="banner-superior">
-    <img id="imagen-izquierda" src="img/uni.png" alt="Imagen Izquierda">
-    <div id="contenedor-centrado">
-        <img id="imagen-centrada" src="img/nombre.jpeg" alt="Imagen Centrada">
+         <img id="imagen-izquierda" src="img/uni.png" alt="Imagen Izquierda">
+        <div id="contenedor-centrado">
+            <img id="imagen-centrada" src="img/inicio.jpg" alt="Imagen Centrada">
+        </div>
     </div>
-</div>
-
-
-
-    
 
     <!-- //////////////////////////////////////////////////////
          ESTE ES EL CARRUSEL
          //////////////////////////////////////////////////////-->
-
+         <div class="fondo">
+            <img class="car" src="/img/car.jpg" alt="">
+            <div class="overlay"></div>
+        </div>
+           
          <div class="container__slider">
-
+        
           <div class="container">
               <input type="radio" name="slider" id="item-1" checked>
               <input type="radio" name="slider" id="item-2">
@@ -118,20 +68,57 @@
           </div>
       </div>
         
-                                                                                                                 
+    
+    <div id="instructions-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Instrucciones</h2>
+            <p>Sigue estas instrucciones para seleccionar un juego:</p>
+            <ul>
+                <li><strong>Seleccionar Juego</strong>: Haz clic en una de las imágenes del carrusel para seleccionar un juego.</li>
+                <li><strong>Navegación</strong>: Si la imagen seleccionada está marcada, serás redirigido automáticamente al juego correspondiente.</li>
+                <li><strong>Juegos Disponibles</strong>: Puedes elegir entre Quiz, Crucigrama, Memorama, y Sopa de Letras.</li>
+            </ul>
+            <button id="closeInstructions">Cerrar</button>
+        </div>
+    </div>                                                                                                     
 
       <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const cards = document.querySelectorAll(".card");
-        cards.forEach(card => {
-            card.addEventListener("click", function() {
-                const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
-                if (isChecked) {
-                    window.location.href = card.getAttribute("data-link");
-                }
+ document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card");
+            cards.forEach(card => {
+                card.addEventListener("click", function() {
+                    const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
+                    if (isChecked) {
+                        window.location.href = card.getAttribute("data-link");
+                    }
+                });
             });
+
+            var instructionsModal = document.getElementById('instructions-modal');
+            var closeModal = document.querySelector('.close');
+            var closeInstructions = document.getElementById('closeInstructions');
+
+            // Show the instructions modal on page load
+            instructionsModal.style.display = 'flex';
+
+            // Close the modal when the user clicks on the close button
+            closeModal.onclick = function() {
+                instructionsModal.style.display = 'none';
+            };
+
+            // Close the modal when the user clicks on the close button
+            closeInstructions.onclick = function() {
+                instructionsModal.style.display = 'none';
+            };
+
+            // Close the modal when the user clicks outside of the modal
+            window.onclick = function(event) {
+                if (event.target == instructionsModal) {
+                    instructionsModal.style.display = 'none';
+                }
+            };
         });
-    });
 </script>
 <br>
 <br>
@@ -139,7 +126,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6" style="display: flex; justify-content: flex-end;">
-            <button class="btn-89">
+            <button class="btn-89" id="mapa">
                 <a href="https://maps.app.goo.gl/32ukcNBnNUtG9A8K8" target="_blank" rel="noopener noreferrer" class="btn-89">
                     <svg viewBox="0 0 45.917 45.917">
                     <path
@@ -157,7 +144,12 @@
                     </svg>
                 </a>
               </button>
-              <button class="btn-94" onclick="window.location.href='mailto:lifebal.contacto@gmail.com'">
+                <div class="ubicacion">
+                    <h2 class="card-title-soporte">Ubicación</h2>
+                    <p class="card-text-soporte">Av. Tecnológico No. 1555 Sur <br> Periférico Gómez - Lerdo Km. 14.5, <br> Ciudad Lerdo, Estado de Durango C.P. 35150.</p>
+                </div>
+
+              <button class="btn-94" id="correo" onclick="window.location.href='mailto:lifebal.contacto@gmail.com'">
                 <svg viewBox="0 0 512 512">
                   <path
                     d="M309.333,341.333c29.419,0,53.333-23.936,53.333-53.333V96c0-29.397-23.915-53.333-53.333-53.333h-256
@@ -173,7 +165,10 @@
                   ></path>
                 </svg>
               </button>
-              
+              <div class="mail">
+                <h2>Contactanos</h2>
+                <span class="contacto">lifebal.contacto@gmail.com</span>
+              </div>              
               
            
         </div>
