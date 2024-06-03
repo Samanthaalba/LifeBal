@@ -283,12 +283,11 @@ ESTILOS PARA EL QUIZ
 }
 
 .background .doc {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    width: 100%; /* Ajusta el tamaño máximo de la imagen al ancho del contenedor */
+    height: 100%; /* Ajusta el tamaño máximo de la imagen a la altura del contenedor */
+     /* Ajusta la imagen dentro del contenedor sin recortes */
+    margin: auto;
 }
 
 /* Estilo base del botón */

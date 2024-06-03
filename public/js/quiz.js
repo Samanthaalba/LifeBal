@@ -102,36 +102,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    btnSubmit.addEventListener('click', function() {
-        endTime = Date.now();
-        let score = 0;
-        questions.forEach(question => {
-            if (answers[question.id] === question.correct_answer) {
-                score += 100;
-            }
-        });
-
-        document.getElementById('score-text').textContent = `Tu puntaje es: ${score}`;
-        document.getElementById('result-container').style.display = 'block';
-        document.getElementById('btn-show-results').style.display = 'block';
-
-        document.getElementById('quiz-container').style.display = 'none';
-        document.getElementById('btn-back').style.display = 'none';
-        document.getElementById('btn-submit').style.display = 'none';
-
-        const time = (endTime - startTime) / 1000;
-
-        // Guardar en localStorage
-        localStorage.setItem('quiz_score', score);
-        localStorage.setItem('quiz_time', time);
-
-        // Verificar si todos los juegos están completos
-        if (localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-            guardarResultadosTotales();
-        } else {
-            alert('Juego terminado, pero aún faltan otros juegos por completar.');
+// Dentro de la función donde verificas las respuestas finales:
+btnSubmit.addEventListener('click', function() {
+    endTime = Date.now();
+    let score = 0;
+    questions.forEach(question => {
+        if (answers[question.id] === question.correct_answer) {
+            score += 100;
         }
     });
+
+    // Mostrar solo la puntuación y el botón de ver respuestas
+    document.getElementById('score-text').textContent = `Tu puntaje es: ${score}`;
+    document.getElementById('result-container').style.display = 'block';
+    document.getElementById('btn-show-results').style.display = 'block';
+
+    // Ocultar el contenedor de preguntas
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('btn-back').style.display = 'none';
+    document.getElementById('btn-submit').style.display = 'none';
+
+    // Guardar resultados en localStorage
+    localStorage.setItem('quiz_score', score);
+    localStorage.setItem('quiz_time', Math.floor((endTime - startTime) / 1000));
+
+    // Verificar si todos los juegos están completos
+    if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
+        guardarResultadosTotales();
+    } else {
+        alert('Juego terminado, pero aún faltan otros juegos por completar.');
+    }
+});
+
 
     btnBack.addEventListener('click', function() {
         currentQuestionIndex--;

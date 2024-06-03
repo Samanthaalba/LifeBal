@@ -30,6 +30,7 @@ class GameResultController extends Controller
             ]);
         } catch (\Exception $e) {
             // Manejo de errores
+            \Log::error('Error al almacenar los resultados: ' . $e->getMessage()); // Añadir mensaje de error al log
             return response()->json([
                 'message' => 'Error al almacenar los resultados',
                 'error' => $e->getMessage(),

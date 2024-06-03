@@ -9,9 +9,5 @@ class GameResult extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_name',
-        'total_time',
-        'total_score',
-    ];
+    protected $fillable = ['game_name', 'score', 'time', 'user_name'];
 }

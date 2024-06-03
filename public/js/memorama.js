@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let lockBoard = false;
     let firstCard, secondCard;
     let attempts = 0;
-    let score = 0; 
-    let gameStarted = false; 
+    let score = 0;
+    let gameStarted = false;
     let interval;
     let seconds = 0, minutes = 0;
 
@@ -65,20 +65,24 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
         document.getElementById('attempts').textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-    
+
         if (isMatch) {
-            if (seconds <= 20) {
-                score += 100;
-            } else if (seconds <= 40) {
-                score += 90;
-            } else {
-                score += 80;
-            }
-            
+            score += calculateScore();
             document.getElementById('score').textContent = score;
             disableCards();
-            if (score === cards.length * 100 / 2 || seconds >= 40) {
+
+            if (document.querySelectorAll('.flipped').length === cards.length) {
                 clearInterval(interval);
+                alert("¡Has encontrado todas las parejas!");
+
+                localStorage.setItem('memorama_score', score);
+                localStorage.setItem('memorama_time', (minutes * 60) + seconds);
+
+                if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
+                    guardarResultadosTotales();
+                } else {
+                    alert('Juego terminado, pero aún faltan otros juegos por completar.');
+                }
             }
         } else {
             unflipCards();
@@ -108,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         if (gameStarted) return;
         gameStarted = true;
-        
+
         cards.forEach(card => {
             card.style.order = Math.floor(Math.random() * cards.length);
         });
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             cards.forEach(card => card.classList.remove('flipped'));
             lockBoard = false;
-        }, 10000);
+        }, 3000);
 
         startButton.disabled = true;
     }
@@ -148,16 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    const gameName = 'memorama';
-
     document.getElementById('endGameButton').addEventListener('click', function() {
         const time = (minutes * 60) + seconds;
 
-        // Guardar en localStorage
         localStorage.setItem('memorama_score', score);
         localStorage.setItem('memorama_time', time);
 
-        // Verificar si todos los juegos están completos
         if (localStorage.getItem('quiz_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
             guardarResultadosTotales();
         } else {
@@ -186,14 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             alert(data.message);
-            localStorage.removeItem('quiz_score');
-            localStorage.removeItem('quiz_time');
-            localStorage.removeItem('memorama_score');
-            localStorage.removeItem('memorama_time');
-            localStorage.removeItem('sopa_score');
-            localStorage.removeItem('sopa_time');
-            localStorage.removeItem('crucigrama_score');
-            localStorage.removeItem('crucigrama_time');
+            localStorage.clear();
             window.location.href = "/inicio";
         })
         .catch(error => {

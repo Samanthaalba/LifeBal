@@ -20,25 +20,14 @@ class CrucigramaController extends Controller
             'game_name' => 'required|string|max:255',
             'score' => 'required|integer',
             'time' => 'required|integer',
-            'user_name' => 'required|string|max:255', // Validar el nombre del usuario
+            'user_name' => 'required|string|max:255',
         ]);
+
+        // Log para depuración
+        \Log::info('Datos recibidos en saveResult:', $validatedData);
 
         GameResult::create($validatedData);
 
         return response()->json(['message' => 'Result saved successfully']);
-    }
-
-    public function saveTotalResult(Request $request)
-    {
-        $validatedData = $request->validate([
-            'game_name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
-            'user_name' => 'required|string|max:255',
-        ]);
-
-        GameResult::create($validatedData);
-
-        return response()->json(['message' => 'Total result saved successfully']);
     }
 }

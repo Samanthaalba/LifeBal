@@ -191,29 +191,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function verificarPalabras() {
         let todasCompletadas = true;
-
+    
         palabras.forEach(({ palabra, direccion, fila, columna }) => {
             let palabraUsuario = '';
             let palabraCompleta = true;
-
+    
             for (let i = 0; i < palabra.length; i++) {
                 const currentRow = direccion === 'horizontal' ? fila : fila + i;
                 const currentCol = direccion === 'horizontal' ? columna + i : columna;
                 const cellSelector = `input[data-row="${currentRow}"][data-col="${currentCol}"]`;
                 const inputCell = document.querySelector(cellSelector);
                 palabraUsuario += inputCell.value;
-
+    
                 if (!inputCell.value || inputCell.value.toUpperCase() !== palabra[i]) {
                     palabraCompleta = false;
                     todasCompletadas = false;
                 }
             }
-
+    
             if (palabraCompleta && palabraUsuario.toUpperCase() === palabra && !palabrasEncontradas.has(palabra)) {
                 score += 100;
                 document.getElementById('score').textContent = score;
                 palabrasEncontradas.add(palabra);
-
+    
                 for (let i = 0; i < palabra.length; i++) {
                     const currentRow = direccion === 'horizontal' ? fila : fila + i;
                     const currentCol = direccion === 'horizontal' ? columna + i : columna;
@@ -221,20 +221,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-
+    
         palabras.forEach(({ palabra, direccion, fila, columna }) => {
             marcarPalabra(fila, columna, palabra.length, direccion, palabra);
         });
-
+    
         if (todasCompletadas && palabrasEncontradas.size === palabras.length) {
             marcarTodasCeldasVerde();
             detenerCronometro();
-            guardarResultados(); // Llamar a la función para guardar resultados
+    
+            // Guardar resultados en localStorage
+            localStorage.setItem('crucigrama_score', score);
+            localStorage.setItem('crucigrama_time', totalSeconds);
+    
+            // Verificar si todos los juegos están completos
+            if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
+                guardarResultadosTotales();
+            } else {
+                alert('Juego terminado, pero aún faltan otros juegos por completar.');
+            }
         }
-
+    
         attempts++;
         document.getElementById('attempts').textContent = attempts;
     }
+    
 
     function marcarPalabra(fila, columna, longitud, direccion, palabra) {
         for (let i = 0; i < longitud; i++) {
@@ -280,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalScore = parseInt(localStorage.getItem('quiz_score')) + parseInt(localStorage.getItem('memorama_score')) + parseInt(localStorage.getItem('sopa_score')) + parseInt(localStorage.getItem('crucigrama_score'));
         const totalTime = parseInt(localStorage.getItem('quiz_time')) + parseInt(localStorage.getItem('memorama_time')) + parseInt(localStorage.getItem('sopa_time')) + parseInt(localStorage.getItem('crucigrama_time'));
         const playerName = localStorage.getItem('playerName');
-
+    
         fetch('/save-result/totales', {
             method: 'POST',
             headers: {
@@ -312,4 +323,4 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error al guardar los resultados totales.');
         });
     }
-});
+    });
