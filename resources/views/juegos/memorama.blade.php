@@ -27,7 +27,7 @@
             <p>Puntos: <span id="score">0</span></p>
             <p>Tiempo: <span id="timer">00:00</span></p>
         </div>
-        <button id="endGameButton" class="terminarmemo">Terminar</button>
+        
         <div id="gameBoard">
             @foreach ($items as $item)
             <div class="card" data-id="{{ $item['id'] }}" onclick="flipCard(this)">

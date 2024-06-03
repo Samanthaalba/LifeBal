@@ -54,7 +54,7 @@ sopa de letras
 #startButton1 {
     position: absolute;
     left: 350px;
-    bottom: 520px;
+    bottom: 535px;
     background-color: #28a745; /* Fondo verde */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
@@ -88,9 +88,9 @@ sopa de letras
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 20px; /* Espaciado interno */
-    width: 400px; /* Ajustar el ancho automáticamente */
+    width: 500px; /* Ajustar el ancho automáticamente */
     position: absolute;
-    left: 20%;
+    left: 17%;
     top: 200px;
     margin: 20px auto; /* Centrar en la página */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
@@ -353,7 +353,7 @@ ESTILOS PARA EL QUIZ
 .containerquiz {
     position: absolute;
     left: 27%;
-    top: 90px;
+    top:140px;
     max-width: 630px;
     margin: 40px auto;
     background-color: #FFFFFF;
@@ -365,7 +365,7 @@ ESTILOS PARA EL QUIZ
 h1 {
     color: #4e3936;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 4px;
 }
 
 .question {
@@ -636,7 +636,7 @@ ESTILOS PARA EL MEMORAMA
 }
 
 #startButton {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Fondo degradado */
+    background: #4CAF50; /* Fondo degradado */
     border: none; /* Sin borde */
     border-radius: 50px; /* Bordes muy redondeados */
     color: white; /* Texto blanco */
@@ -675,7 +675,7 @@ ESTILOS PARA EL MEMORAMA
 }
 
 #startButton:hover {
-    background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Inversión del degradado */
+    background: #4CAF50; /* Inversión del degradado */
     transform: translateY(-3px); /* Elevación al pasar el ratón */
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
 }
@@ -690,14 +690,14 @@ ESTILOS PARA EL MEMORAMA
 
 }
 .container {
-    max-width: 900px;
-    margin: 15px auto;
+    max-width: 800px;
+    margin: 5px;
     position: absolute;
     left: 23%;
-    top: 100px;
+    top: 150px;
     text-align: center;
     background-color: #f8f9fa; /* Un fondo sutil para el contenedor */
-    padding: 10px;
+    padding: 5px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
 }

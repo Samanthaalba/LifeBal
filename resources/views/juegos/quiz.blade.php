@@ -24,7 +24,6 @@
     <div id="Marcador">
         <p>Tiempo: <span id="tiempoQuiz">00:00</span></p>
     </div>
-    <button id="endGameButton">Terminar</button>
     <div id="result-container" style="display: none;">
         <h2>Resultados del Quiz</h2>
         <p id="score-text"></p>
