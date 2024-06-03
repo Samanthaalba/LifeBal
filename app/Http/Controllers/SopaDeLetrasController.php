@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\GameResult;
 
 class SopaDeLetrasController extends Controller
 {
@@ -10,16 +11,14 @@ class SopaDeLetrasController extends Controller
     {
         $palabras = [
             'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
-            'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
-            'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
+            'ANTICONCEPTIVO', 'EDUCACION', 'SALUD', 'PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
+            'INFORMACION', 'APOYO', 'RESPETO', 'COMUNICACION'
         ];
     
-        // Asegúrar de que las palabras estén en mayúsculas para coincidir con la generación y verificación
         $palabras = array_map('strtoupper', $palabras);
     
         $matriz = $this->generarSopaDeLetras($palabras);
     
-        // Pasa tanto la matriz como las palabras a la vista
         return view('juegos.sopa_letras', compact('matriz', 'palabras'));
     }
 
@@ -95,5 +94,19 @@ class SopaDeLetrasController extends Controller
                 }
             }
         }
+    }
+
+    public function saveResult(Request $request)
+    {
+        $validatedData = $request->validate([
+            'game_name' => 'required|string|max:255',
+            'score' => 'required|integer',
+            'time' => 'required|integer',
+            'user_name' => 'required|string|max:255',
+        ]);
+
+        GameResult::create($validatedData);
+
+        return response()->json(['message' => 'Result saved successfully']);
     }
 }

@@ -21,6 +21,10 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.terminar{
+    position: absolute;
+}
+
 #backButton:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -49,7 +53,7 @@ sopa de letras
 
 #startButton1 {
     position: absolute;
-    left: 450px;
+    left: 350px;
     bottom: 520px;
     background-color: #28a745; /* Fondo verde */
     border: none; /* Sin borde */
@@ -73,25 +77,35 @@ sopa de letras
     transform: translateY(0); /* Restablece la elevación al hacer clic */
 }
 
+.terminarsp{
+    position: absolute;
+    left: 40%;
+    bottom: 530px;
+}
 
 #scorePanelSp {
     background-color: #f0f0f0; /* Fondo claro para contraste */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 20px; /* Espaciado interno */
-    width: 200px; /* Ancho máximo */
+    width: 400px; /* Ajustar el ancho automáticamente */
+    position: absolute;
+    left: 20%;
+    top: 200px;
     margin: 20px auto; /* Centrar en la página */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-    text-align: center; /* Centrarse en el texto */
+    display: flex; /* Usar flexbox */
+    justify-content: space-around; /* Espacio entre los elementos */
+    align-items: center; /* Alinear elementos verticalmente */
 }
 
 #scorePanelSp p {
-    margin: 10px 0; /* Espaciado entre párrafos */
+    margin: 0 10px; /* Espaciado entre los elementos */
     font-size: 18px; /* Tamaño de fuente mediano */
     color: #333; /* Color de texto oscuro */
 }
 
-#scorePanelSP span {
+#scorePanelSp span {
     font-weight: bold; /* Texto en negrita para los valores */
     color: #ff6347; /* Color llamativo para resaltar */
 }
@@ -100,18 +114,22 @@ sopa de letras
     font-size: 20px; /* Tamaño de fuente más grande para el temporizador */
     color: #2e8b57; /* Color verde para el tiempo */
 }
+
 .encontrar {
-    position: sticky;
+    position: absolute;
     left: 1170px;
+    top: 250px;
     background: linear-gradient(135deg, #ffcc00, #ff6699); /* Fondo degradado */
     color: #fff; /* Color de texto blanco */
     padding: 3px; /* Espacio interior */
     border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra */
     font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Fuente amigable */
     font-size: 1.5em; /* Tamaño de fuente aumentado */
     text-align: center; /* Texto centrado */
     transition: transform 0.3s, background 0.3s; /* Transición suave para transformaciones y fondo */
+    cursor:context-menu ;
+    
 }
 
 /* Estilos para cada letra */
@@ -130,9 +148,37 @@ sopa de letras
     margin-bottom: -1px; /* Ajuste para evitar espacios adicionales */
 }
 
-.letra-seleccionada, .letra-encontrada {
+.letra-seleccionada {
     background-color: #90EE90; /* Verde claro para las letras seleccionadas */
 }
+.letra-encontrada-rosa {
+    background-color: #cca5d6; /* Verde claro */
+    color: #8d388e; /* Verde */
+    font-weight: bold;
+}
+
+.letra-encontrada-azul {
+    background-color: #90CAF9; /* Azul claro */
+    color: #1976D2; /* Azul */
+    font-weight: bold;
+}
+
+.letra-encontrada-rojo {
+    background-color: #EF9A9A; /* Rojo claro */
+    color: #D32F2F; /* Rojo */
+    font-weight: bold;
+}
+
+.letra-encontrada-amarillo {
+    background-color: #FFF59D; /* Amarillo claro */
+    color: #FBC02D; /* Amarillo */
+    font-weight: bold;
+}
+.palabra-encontrada-tachada {
+    text-decoration: line-through;
+    color: #999; /* Color gris para indicar que está tachada */
+}
+
 
 /* Opcional: Cambia el color de fondo cuando el cursor pasa sobre las letras */
 .letra:hover {
@@ -148,14 +194,7 @@ sopa de letras
     color: #0c0c0c;
     transition: color 0.3s;
 }
-
-/* Estilos para las palabras encontradas */
-.palabra-encontrada {
-    text-decoration: line-through;
-    color: #388E3C;
-    font-weight: bold;
-}                    
-                    
+                           
     /* Estilo para el contenedor principal */
 #contenedor-principal {
     display: flex;
@@ -168,12 +207,11 @@ sopa de letras
 /* Estilo para la sopa de letras */
 #sopa-de-letras {
     position: absolute;
-    left: 24%;
+    left: 13%;
     top: 40%;
-    max-width: 800px; /* Ajusta según el tamaño de tu sopa de letras */
+    max-width: 700px; /* Ajusta según el tamaño de tu sopa de letras */
     border: 3px solid #ffcc00; /* Borde más grueso y de color brillante */
     padding: 20px; /* Espacio interior aumentado */
-    margin: 20px auto; /* Centrar y agregar margen superior e inferior */
     background: #fffbe6; /* Fondo claro */
     border-radius: 15px; /* Bordes redondeados */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
@@ -191,6 +229,7 @@ sopa de letras
 #lista-palabras {
     position: absolute;
     right: 10px;
+    top: 320px;
     border: 3px solid #ffcc00; /* Borde más grueso y de color brillante */
     padding: 3px; /* Espacio interior aumentado */
     width: 400px; /* O el ancho que prefieras */
@@ -240,17 +279,18 @@ ESTILOS PARA EL QUIZ
     width: 100%;
     height: 100%;
     overflow: hidden;
-  }
-  
-  .background .doc {
+    z-index: -1; /* Ensure the background is behind everything */
+}
+
+.background .doc {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
-  }
+}
+
 /* Estilo base del botón */
 .Iniciarbtn {
     text-align: center; /* Centrar contenido */
@@ -311,15 +351,16 @@ ESTILOS PARA EL QUIZ
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
-
-
 .containerquiz {
-    max-width: 700px;
+    position: absolute;
+    left: 27%;
+    top: 90px;
+    max-width: 630px;
     margin: 40px auto;
     background-color: #FFFFFF;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 6px 10px rgba(255, 255, 255, 0.966);
+    box-shadow: 0 6px 10px rgba(19, 18, 18, 0.966);
 }
 
 h1 {
@@ -609,7 +650,8 @@ ESTILOS PARA EL MEMORAMA
     transition: all 0.3s ease; /* Transición suave para todas las propiedades */
     position: relative; /* Posición relativa para el efecto de foco */
     right: 35%;
-    top: 150px;
+    top: 0px;
+    padding: 10px;
     overflow: hidden; /* Ocultar el contenido desbordante */
     z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
 }
@@ -643,48 +685,54 @@ ESTILOS PARA EL MEMORAMA
     transform: translateY(-1px); /* Elevación menor al hacer clic */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
 }
+.terminarmemo{
+    position: absolute;
+    left: 80%;
 
+}
 .container {
-    max-width: 1000px;
-    margin: 40px auto;
+    max-width: 900px;
+    margin: 15px auto;
+    position: absolute;
+    left: 23%;
+    top: 100px;
     text-align: center;
     background-color: #f8f9fa; /* Un fondo sutil para el contenedor */
-    padding: 20px;
+    padding: 10px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
 }
 
 #scorePanel {
-    background: linear-gradient(135deg, #f0d478, #7f8c0c); /* Fondo degradado */
-    border-radius: 15px; /* Bordes redondeados */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra profunda */
-    padding: 20px; /* Espaciado interno */
-    max-width: 350px; /* Ancho máximo */
+    background-color: #f0f0f0; /* Fondo claro para contraste */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4); /* Sombra suave */
+    padding: 5px; /* Espaciado interno */
+    width: 500px; /* Ajustar el ancho automáticamente */
+    position: absolute;
+    left: 25%;
+    top: -10px;
     margin: 20px auto; /* Centrar en la página */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-    text-align: center; /* Centrarse en el texto */
-    color: white; /* Texto blanco */
+    display: flex; /* Usar flexbox */
+    justify-content: space-around; /* Espacio e1tre los elementos */
+    align-items: center; /* Alinear elementos verticalmente */
 }
 
 #scorePanel p {
-    margin: 15px 0; /* Espaciado entre párrafos */
-    font-size: 20px; /* Tamaño de fuente */
-    font-weight: bold; /* Texto en negrita */
+    margin: 0 10px; /* Espaciado entre los elementos */
+    font-size: 18px; /* Tamaño de fuente mediano */
+    color: #333; /* Color de texto oscuro */
 }
 
 #scorePanel span {
-    display: inline-block;
-    padding: 5px 10px;
-    background: rgba(255, 255, 255, 0.3); /* Fondo semitransparente */
-    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita para los valores */
+    color: #ff6347; /* Color llamativo para resaltar */
 }
 
-#timer {
-    font-size: 24px; /* Tamaño de fuente más grande para el temporizador */
-    color: #ffeb3b; /* Color amarillo brillante para el tiempo */
-    background: rgba(255, 255, 255, 0.2); /* Fondo semitransparente */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 5px 15px; /* Espaciado interno */
+#scorePanel #timer {
+    font-size: 20px; /* Tamaño de fuente más grande para el temporizador */
+    color: #2e8b57; /* Color verde para el tiempo */
 }
 
 
@@ -697,8 +745,8 @@ ESTILOS PARA EL MEMORAMA
 }
 
 .card {
-    width: 120px;
-    height: 160px;
+    width: 100px;
+    height: 140px;
     margin: 5px;
     display: inline-block;
     position: relative;
@@ -765,27 +813,33 @@ ESTILOS PARA EL CRUSIGRAMA
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */.puntuacion {
-    background: linear-gradient(135deg, #f0d478, #7f8c0c);
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    max-width: 250px;
-    margin: 10px auto;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    color: white;
+    background-color: #f0f0f0; /* Fondo claro para contraste */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 10px; /* Espaciado interno */
+    width: 500px; /* Ajustar el ancho automáticamente */
+    position: absolute;
+    left: 25%;
+    top: 140px;
+    margin: 10px auto; /* Centrar en la página */
+    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+    display: flex; /* Usar flexbox */
+    justify-content: space-around; /* Espacio entre los elementos */
+    align-items: center; /* Alinear elementos verticalmente */
+}
+
+.puntuacion p {
+    margin: 0 5px; /* Espaciado entre los elementos */
+    font-size: 18px; /* Tamaño de fuente mediano */
+    color: #333; /* Color de texto oscuro */
 }
 
 .puntuacion span {
-    display: inline-block;
-    margin: 5px;
-    padding: 5px 10px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    font-size: 16px;
+    font-weight: bold; /* Texto en negrita para los valores */
+    color: #ff6347; /* Color llamativo para resaltar */
 }
 
-#intentos::before, #puntaje::before, #tiempo::before {
+#attempts::before, #score::before, #timer::before {
     display: inline-block;
     width: 40px;
     height: 10px;
@@ -793,19 +847,19 @@ ESTILOS PARA EL CRUSIGRAMA
     margin-right: 5px;
 }
 
-#puntaje::before {
+#score::before {
     content: "🏆 : ";
     font-size: 14px;
     margin-right: 5px;
 }
 
-#intentos::before {
+#attempts::before {
     content: "🔄 : ";
     font-size: 14px;
     margin-right: 5px;
 }
 
-#tiempo::before {
+#timer::before {
     content: "⏰ : ";
     font-size: 14px;
     margin-right: 5px;
@@ -823,9 +877,9 @@ ESTILOS PARA EL CRUSIGRAMA
     text-align: center; /* Texto centrado */
     text-decoration: none; /* Sin subrayado */
     display: inline-block; /* Mostrar como bloque en línea */
-    position: relative;
-    left: 30%;
-    bottom: 1150px;
+    position: absolute;
+    left: 15%;
+    top: 150px;
     font-size: 16px; /* Tamaño de fuente */
     margin: 4px 2px; /* Margen */
     cursor: pointer; /* Cursor de mano */
@@ -841,6 +895,12 @@ ESTILOS PARA EL CRUSIGRAMA
 #IniciarC:active {
     background-color: #3e8e41; /* Verde aún más oscuro al hacer clic */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
+}
+
+.terminarc{
+    position: absolute;
+    left: 60%;
+    top: 170px;
 }
 
 #pistaButton {
@@ -881,7 +941,7 @@ ESTILOS PARA EL CRUSIGRAMA
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     background-color: #ecf0f1; /* Light grey background */
     position: absolute; /* Absolute positioning */
-    bottom: 535px;
+    bottom: 10px;
     left: 91%;
     z-index: 1000; /* Ensure it's above other content */
 }
@@ -909,15 +969,16 @@ table {
     margin: 20px auto; /* Center the table */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for the table */
     border-radius: 10px; /* Rounded corners for the table */
-/* Ensure rounded corners are visible */
+    position: relative;
+    top: 150px;
     background-color: #fff; /* White background for the table */
 }
 
 /* Table cell styling */
 td {
     border: 1px solid #f5daa0; /* Subtle borders for all cells */
-    width: 40px; /* Slightly larger cells */
-    height: 40px; /* Slightly larger cells */
+    width: 30px; /* Slightly larger cells */
+    height: 30px; /* Slightly larger cells */
     position: relative;
     background-color: #fff8dc; /* Light background for all cells */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
@@ -985,6 +1046,8 @@ td:not(:has(input[type="text"])) {
     }
 
     .pistas-container {
+        position: absolute;
+        top: 130%;
     display: flex;
     justify-content: space-around;
     padding: 20px;

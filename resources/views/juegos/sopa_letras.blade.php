@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>LifeBal</title>
-    
-<style>
-     body {
+    <style>
+        body {
             background-color: #f5daa0; 
         }
-</style>
+    </style>
 </head>
 <body>
-<body>
-<h1>Sopa De Letras</h1>
     <div class="background">
-        <img class="doc" src="/img/doc2.jpg" alt="">
+        <img class="doc" src="/img/sopa_letras.jpg" alt="">
         <div class="overlay"></div>
     </div>
 
@@ -26,6 +24,7 @@
         <p>Puntos: <span id="Score">0</span></p>
         <p>Tiempo: <span id="Timer">00:00</span></p>
     </div>
+    <button id="endGameButton" class="terminarsp">Terminar</button>
     <br>
     <button id="startButton1">Iniciar Juego</button>
     <span class="encontrar">Palabras Por Encontrar</span>
@@ -77,22 +76,18 @@
         </div>
     </div>
 
-
-    <script src="/js/app.js"></script>
+    <script src="/js/sopa.js"></script>
     <script>
         window.addEventListener('beforeunload', function (e) {
-  // Cancelar el evento como estándar indica
-  e.preventDefault();
-  // Chrome requiere que se establezca el valor de retorno
-  e.returnValue = '';
-});
+            e.preventDefault();
+            e.returnValue = '';
+        });
 
-// Alternativamente, si tienes un botón específico para "Volver", podrías vincular un evento de clic a ese botón:
-document.querySelector('a[href="/inicio"]').addEventListener('click', function(e) {
-  if (!confirm('Se perderán los cambios realizados si regresas. ¿Quieres continuar?')) {
-      e.preventDefault(); // Evitar que el enlace navegue realmente
-  }
-});
+        document.querySelector('a[href="/inicio"]').addEventListener('click', function(e) {
+            if (!confirm('Se perderán los cambios realizados si regresas. ¿Quieres continuar?')) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>

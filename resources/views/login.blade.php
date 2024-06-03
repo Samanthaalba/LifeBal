@@ -5,21 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión</title>
   <link rel="stylesheet" href="css/login.css">
-
   <style>
     .form-control {
-        text-align: center; /* Centra el texto horizontalmente */
-        line-height: 38px; /* Centra el texto verticalmente */
+        text-align: center;
+        line-height: 38px;
     }
   </style>
 </head>
 <body>
-
 <div class="background">
   <img class="doc" src="/img/doc2.jpg" alt="">
   <div class="overlay"></div>
 </div>
-
 <div class="login-container">
   <div class="login-form">
     <h1>LifeBal</h1>
@@ -28,7 +25,7 @@
       <i class="fa fa-user"></i>
     </div>
     <div style="display: flex; justify-content: center;">
-      <a href="/inicio" class="log-btn" id="loginBtn"><button type="button" class="btn-72">Entrar</button></a>
+      <button type="button" class="btn-72" id="loginBtn">Entrar</button>
     </div>
   </div>
 </div>

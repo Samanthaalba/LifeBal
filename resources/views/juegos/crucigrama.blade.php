@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LifeBal</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 </head>
 <body class="crusi">
 <div class="background">
-  <img class="doc" src="/img/doc2.jpg" alt="">
+  <img class="doc" src="/img/crusi.jpg" alt="">
   <div class="overlay"></div>
 </div>
-<h1 class="uno">Crucigrama</h1>
-
 <a href="/inicio"><button id="backButton">Regresar</button></a>
 <div class="puntuacion"> 
-    <span>Intentos: <span id="intentos">0</span></span>
-    <span>Puntaje: <span id="puntaje">0</span></span>
-    <span>Tiempo: <span id="tiempo">00:00</span></span>
+    <p>Intentos: <span id="attempts">0</span></p>
+    <p>Puntos: <span id="score">0</span></p>
+    <p>Tiempo: <span id="timer">00:00</span></p>
 </div>
+<button id="endGameButton" class="terminarc">Terminar</button>
 
 <br>
 <table id="crucigrama-grid"></table>
@@ -74,7 +74,7 @@
             <li><strong>Selección de Pistas</strong>: Utiliza el botón "Pista" para mostrar una pista durante 10 segundos.</li>
             <li><strong>Llenado del Crucigrama</strong>: Haz clic en las celdas del crucigrama para ingresar tus respuestas.</li>
             <li><strong>Puntuación</strong>: Los intentos y el puntaje se actualizarán automáticamente.</li>
-            <li><strong>Verticales y Horizontales</strong>: En la parte inferior de la pagina se veran un listado de las descripciones de las palabras que estan en el crucigrama.</li>
+            <li><strong>Verticales y Horizontales</strong>: En la parte inferior de la página se verán un listado de las descripciones de las palabras que están en el crucigrama.</li>
             <li><strong>Regresar</strong>: Puedes regresar a la página anterior en cualquier momento presionando el botón "Regresar".</li>
         </ul>
         <button id="closeInstructions">Cerrar</button>
@@ -82,7 +82,7 @@
 </div>
 <script src="{{ asset('js/crusigrama.js') }}"></script>
 <script>
-      document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var pistaButton = document.getElementById('pistaButton');
         var pistaList = document.getElementById('pistaList');
 
@@ -94,7 +94,6 @@
             }, 10000);
         });
     });
-    
 </script>
 </body>
 </html>
