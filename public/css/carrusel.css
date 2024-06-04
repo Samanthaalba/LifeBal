@@ -106,10 +106,10 @@
 
 .fondo .car {
   width: 100%;
-  height: 100%;
+  height: 70%;
   object-fit: cover;
   position: absolute;
-  top: 200px;
+  top: 100px;
   left: 0;
   z-index: -1;
 }
@@ -119,15 +119,15 @@
      #banner-superior {
           background-color: #f8cea4; /* Color de fondo */
           color: #000000;
-          padding: 5px 0;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          height: 150px;
       }
 
       #imagen-izquierda {
-          width: 150px;
-          height: 150px;
+          width: 120px;
+          height: 120px;
           object-fit: cover;
           margin-left: 20px; /* Ajusta según sea necesario */
       }
@@ -136,11 +136,13 @@
           flex-grow: 1;
           display: flex;
           justify-content: center;
+          position: absolute;
+          left: 43%;
       }
 
       #imagen-centrada {
-          width: 300px;
-          height: 200px;
+          width: 240px;
+          height: 160px;
           object-fit: contain;
           margin-right: 595px;
       }
@@ -148,7 +150,6 @@
       /* Estilos para el banner inferior */
       #banner-inferior {
           background-color: #f8cea4;
-          padding: 20px 0;
           text-align: center;
           margin: 0;
       }
@@ -369,8 +370,10 @@ body {
    
 }
 .container__slider {
+    position: relative;
+    top: 50px;
     max-width: 1000px;
-    height: 500px;
+    height: 350px;
     margin: 0 auto; /* Centra horizontalmente el contenedor */
     display: flex;
     align-items: center;
@@ -392,8 +395,8 @@ body {
 
 .cards {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    height: 70%;
 }
 
 .card {

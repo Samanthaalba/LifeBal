@@ -21,6 +21,7 @@
     <div class="container">
         <div id="gameControls">
             <button id="startButton">Iniciar Juego</button>
+            <button id="viewResultsButton">Ver Resultados</button>
         </div>  
         <div id="scorePanel">
             <p>Intentos: <span id="attempts">0</span></p>

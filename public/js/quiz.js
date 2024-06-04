@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const optionD = document.getElementById('option-d');
     const timerDisplay = document.getElementById('timer');
     const scoreDisplay = document.getElementById('score');
+    const viewResultsButton = document.getElementById('viewResultsButton');
 
     let startTime;
     let endTime;
@@ -125,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Guardar resultados en localStorage
         localStorage.setItem('quiz_score', score);
         localStorage.setItem('quiz_time', Math.floor((endTime - startTime) / 1000));
+
+        alert('Juego terminado. Puedes ver tus resultados.');
     });
 
     btnBack.addEventListener('click', function() {
@@ -190,58 +193,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('answers-container').style.display = 'block';
     });
 
-    const gameName = 'Quiz';
-    function guardarResultadosTotales() {
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
-                          parseInt(localStorage.getItem('memorama_time')) + 
-                          parseInt(localStorage.getItem('sopa_time')) + 
-                          parseInt(localStorage.getItem('crucigrama_time'));
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
-                           parseInt(localStorage.getItem('memorama_score')) + 
-                           parseInt(localStorage.getItem('sopa_score')) + 
-                           parseInt(localStorage.getItem('crucigrama_score'));
-        
-        const playerName = localStorage.getItem('playerName');
-    
-        if (isNaN(totalTime)|| isNaN(totalScore)  || !playerName) {
-            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
-            return;
-        }
-    
-        fetch('/store-final-result', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                game_name: gameName,
-                user_name: playerName,
-                total_time: totalTime,
-                total_score: totalScore
-            })
-        })
-        .then(response => response.text()) // Captura la respuesta como texto
-        .then(text => {
-            console.log(text); // Muestra la respuesta del servidor
-            let data;
-            try {
-                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
-            } catch (e) {
-                throw new Error('La respuesta no es un JSON válido: ' + text);
-            }
-    
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            alert(data.message);
-            localStorage.clear();
-            window.location.href = "/inicio";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al guardar los resultados totales: ' + error.message);
-        });
+    viewResultsButton.addEventListener('click', viewResults);
+
+    function viewResults() {
+        const score = localStorage.getItem('quiz_score');
+        const time = localStorage.getItem('quiz_time');
+
+        alert(`Resultados del Quiz:\n\nPuntuación: ${score}\nTiempo: ${time} segundos`);
     }
-    
 });

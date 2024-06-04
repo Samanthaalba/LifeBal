@@ -20,7 +20,7 @@
 <a href="/inicio"><button id="backButton">Regresar</button></a>
 <div class="containerquiz">
     <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
-    <div class="Iniciarbtn"><button id="btn-start-quiz">Iniciar Quiz</button></div><br>
+    <div class="Iniciarbtn"><button id="btn-start-quiz">Iniciar Juego</button></div><br>
     <div id="Marcador">
         <p>Tiempo: <span id="timer">00:00</span></p>
     </div>
@@ -45,6 +45,7 @@
         <button id="btn-next">Siguiente</button>
         <button id="btn-back" style="display: none;">Atrás</button>
         <button id="btn-submit" style="display: none;">Enviar</button>
+        <button id="viewResultsButton">Ver Resultados</button>
     </div>
 </div>
 

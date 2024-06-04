@@ -53,8 +53,8 @@ sopa de letras
 
 #startButton1 {
     position: absolute;
-    left: 350px;
-    bottom: 535px;
+    left: 450px;
+    bottom: 450px;
     background-color: #28a745; /* Fondo verde */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
@@ -91,7 +91,7 @@ sopa de letras
     width: 500px; /* Ajustar el ancho automáticamente */
     position: absolute;
     left: 17%;
-    top: 200px;
+    top: 150px;
     margin: 20px auto; /* Centrar en la página */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
     display: flex; /* Usar flexbox */
@@ -353,11 +353,11 @@ ESTILOS PARA EL QUIZ
 .containerquiz {
     position: absolute;
     left: 27%;
-    top:140px;
-    max-width: 630px;
-    margin: 40px auto;
+    top:150px;
+    max-width: 680px;
+    
     background-color: #FFFFFF;
-    padding: 25px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 6px 10px rgba(19, 18, 18, 0.966);
 }

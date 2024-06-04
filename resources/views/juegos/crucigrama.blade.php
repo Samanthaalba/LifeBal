@@ -22,7 +22,7 @@
 
 <br>
 <table id="crucigrama-grid"></table>
-<button id="IniciarC" onclick="iniciarJuego()">Iniciar</button>
+<button id="IniciarC" onclick="iniciarJuego()">Iniciar Juego</button>
 <button id="pistaButton">Pistas</button>
 
 <div class="PalabrasC">

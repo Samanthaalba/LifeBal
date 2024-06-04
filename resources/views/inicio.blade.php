@@ -16,7 +16,10 @@
 <body>
 
     <!-- Banner superior -->
-
+    <div class="fondo">
+            <img class="car" src="/img/car.jpg" alt="">
+            <div class="overlay"></div>
+        </div>
   <div id="banner-superior">
          <img id="imagen-izquierda" src="img/uni.png" alt="Imagen Izquierda">
         <div id="contenedor-centrado">
@@ -27,10 +30,7 @@
     <!-- //////////////////////////////////////////////////////
          ESTE ES EL CARRUSEL
          //////////////////////////////////////////////////////-->
-         <div class="fondo">
-            <img class="car" src="/img/car.jpg" alt="">
-            <div class="overlay"></div>
-        </div>
+        
            
          <div class="container__slider">
         

@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startButton');
+    const viewResultsButton = document.getElementById('viewResultsButton');
     const cards = document.querySelectorAll('.card');
     let hasFlippedCard = false;
     let lockBoard = false;
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let seconds = 0, minutes = 0;
 
     startButton.addEventListener('click', startGame);
+    viewResultsButton.addEventListener('click', viewResults);
 
     function flipCard() {
         if (!gameStarted || lockBoard) return;
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
 
         if (isMatch) {
-            score += calculateScore();
+            score += 100;
             document.getElementById('score').textContent = score;
             disableCards();
 
@@ -72,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Guardar resultados en localStorage
                 localStorage.setItem('memorama_score', score);
                 localStorage.setItem('memorama_time', (minutes * 60) + seconds);
+                localStorage.setItem('memorama_attempts', attempts);
+
+                alert('Juego terminado. Puedes ver tus resultados.');
             }
         } else {
             unflipCards();
@@ -116,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             cards.forEach(card => card.classList.remove('flipped'));
             lockBoard = false;
-        }, 300000);//timepo de ver las cartas antes de empezar
+        }, 3000);
 
         startButton.disabled = true;
     }
@@ -141,62 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    function calculateScore() {
-        return 100; // Puedes ajustar esta función según sea necesario
-    }
+    function viewResults() {
+        const score = localStorage.getItem('memorama_score');
+        const time = localStorage.getItem('memorama_time');
+        const attempts = localStorage.getItem('memorama_attempts');
 
-    const gameName = 'memorama';
-
-    function guardarResultadosTotales() {
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
-                           parseInt(localStorage.getItem('memorama_score')) + 
-                           parseInt(localStorage.getItem('sopa_score')) + 
-                           parseInt(localStorage.getItem('crucigrama_score'));
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
-                          parseInt(localStorage.getItem('memorama_time')) + 
-                          parseInt(localStorage.getItem('sopa_time')) + 
-                          parseInt(localStorage.getItem('crucigrama_time'));
-        const playerName = localStorage.getItem('playerName');
-    
-        if (isNaN(totalScore) || isNaN(totalTime) || !playerName) {
-            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
-            return;
-        }
-    
-        fetch('/store-final-result', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                game_name: gameName,
-                user_name: playerName,
-                total_score: totalScore,
-                total_time: totalTime
-            })
-        })
-        .then(response => response.text()) // Captura la respuesta como texto
-        .then(text => {
-            console.log(text); // Muestra la respuesta del servidor
-            let data;
-            try {
-                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
-            } catch (e) {
-                throw new Error('La respuesta no es un JSON válido: ' + text);
-            }
-    
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            alert(data.message);
-            localStorage.clear();
-            window.location.href = "/inicio";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al guardar los resultados totales: ' + error.message);
-        });
+        alert(`Resultados del Memorama:\n\nPuntuación: ${score}\nTiempo: ${time} segundos\nIntentos: ${attempts}`);
     }
-    
 });

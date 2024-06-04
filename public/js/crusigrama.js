@@ -233,6 +233,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Guardar resultados en localStorage
             localStorage.setItem('crucigrama_score', score);
             localStorage.setItem('crucigrama_time', totalSeconds);
+    
+            // Verificar si todos los juegos están completos
+            if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
+                guardarResultadosTotales();
+            } else {
+                alert('Juego terminado, pero aún faltan otros juegos por completar.');
+            }
         }
     
         attempts++;

@@ -144,6 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('sopa_score', score);
         localStorage.setItem('sopa_time', totalSeconds);
 
+        // Verificar si todos los juegos están completos
+        if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('crucigrama_score')) {
+            guardarResultadosTotales();
+        } else {
+            alert('Juego terminado, pero aún faltan otros juegos por completar.');
+        }
     }
 
     function calcularPuntaje() {
@@ -185,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const gameName = 'Sopa_letras';
-
+    
     function guardarResultadosTotales() {
         const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
                            parseInt(localStorage.getItem('memorama_score')) + 

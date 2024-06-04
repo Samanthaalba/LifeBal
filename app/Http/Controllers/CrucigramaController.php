@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Palabra;
+use App\Models\GameResult;
 
 class CrucigramaController extends Controller
 {
