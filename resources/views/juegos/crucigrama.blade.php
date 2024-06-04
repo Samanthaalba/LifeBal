@@ -18,12 +18,12 @@
     <p>Puntos: <span id="score">0</span></p>
     <p>Tiempo: <span id="timer">00:00</span></p>
 </div>
-<button id="endGameButton" class="terminarc">Terminar</button>
+
 
 <br>
 <table id="crucigrama-grid"></table>
 <button id="IniciarC" onclick="iniciarJuego()">Iniciar</button>
-<button id="pistaButton">Pista</button>
+<button id="pistaButton">Pistas</button>
 
 <div class="PalabrasC">
     <ul id="pistaList" style="display: none;">
