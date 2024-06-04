@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Palabra;
-use App\Models\GameResult;
 
 class CrucigramaController extends Controller
 {
@@ -18,8 +17,8 @@ class CrucigramaController extends Controller
     {
         $validatedData = $request->validate([
             'game_name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
+            'total_score' => 'required|integer',
+            'total_time' => 'required|integer',
             'user_name' => 'required|string|max:255',
         ]);
 

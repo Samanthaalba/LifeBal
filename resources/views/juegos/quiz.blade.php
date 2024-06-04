@@ -22,11 +22,11 @@
     <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
     <div class="Iniciarbtn"><button id="btn-start-quiz">Iniciar Quiz</button></div><br>
     <div id="Marcador">
-        <p>Tiempo: <span id="tiempoQuiz">00:00</span></p>
+        <p>Tiempo: <span id="timer">00:00</span></p>
     </div>
     <div id="result-container" style="display: none;">
         <h2>Resultados del Quiz</h2>
-        <p id="score-text"></p>
+        <p id="score"></p>
         <button id="btn-show-results">Ver Respuestas</button>
     </div>
 

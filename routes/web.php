@@ -1,27 +1,30 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameResultController;
 use App\Http\Controllers\SopaDeLetrasController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\MemoramaController;
 use App\Http\Controllers\CrucigramaController;
-use App\Http\Controllers\GameResultController;
 
-Route::get('/', function () { return view('login'); });
-Route::get('/inicio', function () { return view('inicio'); });
-Route::get('/juegos/memorama', [MemoramaController::class, 'show']);
-Route::get('/juegos/sopa_letras', [SopaDeLetrasController::class, 'index']);
+Route::get('/', function () {
+    return view('login');
+});
+
+Route::get('/inicio', function () {
+    return view('inicio');
+});
+
+Route::get('/juegos/crucigrama', [CrucigramaController::class, 'index'])->name('crucigrama.index');
+Route::post('/crucigrama/save-result', [CrucigramaController::class, 'saveResult'])->name('crucigrama.saveResult');
+
+Route::get('/juegos/memorama', [MemoramaController::class, 'show'])->name('memorama.show');
+Route::post('/memorama/save-result', [MemoramaController::class, 'saveResult'])->name('memorama.saveResult');
+
 Route::get('/juegos/quiz', [QuizController::class, 'show'])->name('quiz.show');
-Route::post('/juegos/quiz', [QuizController::class, 'process'])->name('quiz.process');
-Route::get('/juegos/crucigrama', [CrucigramaController::class, 'index']);
+Route::post('/quiz/process', [QuizController::class, 'process'])->name('quiz.process');
+Route::post('/quiz/save-result', [QuizController::class, 'saveResult'])->name('quiz.saveResult');
 
-Route::post('/save-result', [CrucigramaController::class, 'saveResult']);
-Route::post('/save-result/totales', [CrucigramaController::class, 'saveResult']);
+Route::get('/juegos/sopa_letras', [SopaDeLetrasController::class, 'index'])->name('sopaLetras.index');
+Route::post('/sopa_letras/save-result', [SopaDeLetrasController::class, 'saveResult'])->name('sopaLetras.saveResult');
 
-// Rutas para guardar los resultados individuales de cada juego
-Route::post('/save-result/memorama', [MemoramaController::class, 'saveResult']);
-Route::post('/save-result/sopa_letras', [SopaDeLetrasController::class, 'saveResult']);
-Route::post('/save-result/quiz', [QuizController::class, 'saveResult']);
-
-
-// Ruta para guardar los resultados totales
-Route::post('/save-result/totales', [GameResultController::class, 'storeFinalResult']);
+Route::post('/store-final-result', [GameResultController::class, 'storeFinalResult'])->name('storeFinalResult');

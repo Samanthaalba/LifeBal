@@ -20,11 +20,10 @@
 
     <a href="{{asset('/inicio')}}"><button id="backButton">Regresar</button></a>
     <div id="scorePanelSp"> 
-        <p>Intentos: <span id="Attempts">0</span></p>
-        <p>Puntos: <span id="Score">0</span></p>
-        <p>Tiempo: <span id="Timer">00:00</span></p>
+        <p>Intentos: <span id="attempts">0</span></p>
+        <p>Puntos: <span id="score">0</span></p>
+        <p>Tiempo: <span id="timer">00:00</span></p>
     </div>
-    <button id="endGameButton" class="terminarsp">Terminar</button>
     <br>
     <button id="startButton1">Iniciar Juego</button>
     <span class="encontrar">Palabras Por Encontrar</span>

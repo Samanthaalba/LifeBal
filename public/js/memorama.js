@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let lockBoard = false;
     let firstCard, secondCard;
     let attempts = 0;
-    let score = 0; 
-    let gameStarted = false; 
+    let score = 0;
+    let gameStarted = false;
     let interval;
     let seconds = 0, minutes = 0;
 
@@ -59,20 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
         document.getElementById('attempts').textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-    
+
         if (isMatch) {
-            if (seconds <= 20) {
-                score += 100;
-            } else if (seconds <= 40) {
-                score += 90;
-            } else {
-                score += 80;
-            }
-            
+            score += calculateScore();
             document.getElementById('score').textContent = score;
             disableCards();
-            if (score === cards.length * 100 / 2 || seconds >= 40) {
+
+            if (document.querySelectorAll('.flipped').length === cards.length) {
                 clearInterval(interval);
+                alert("¡Has encontrado todas las parejas!");
+
+                // Guardar resultados en localStorage
+                localStorage.setItem('memorama_score', score);
+                localStorage.setItem('memorama_time', (minutes * 60) + seconds);
             }
         } else {
             unflipCards();
@@ -102,8 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         if (gameStarted) return;
         gameStarted = true;
-        
-        // Barajar las cartas antes de voltearlas
+
         cards.forEach(card => {
             card.style.order = Math.floor(Math.random() * cards.length);
         });
@@ -117,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             cards.forEach(card => card.classList.remove('flipped'));
-            lockBoard = false; // Desbloquear el tablero después de 10 segundos
-        }, 4000);
+            lockBoard = false;
+        }, 300000);//timepo de ver las cartas antes de empezar
 
         startButton.disabled = true;
     }
@@ -143,13 +141,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    const gameName = 'memorama'; // Nombre del juego específico
+    function calculateScore() {
+        return 100; // Puedes ajustar esta función según sea necesario
+    }
 
-    document.getElementById('endGameButton').addEventListener('click', function() {
-        const score = document.getElementById('score').innerText;
-        const time = document.getElementById('timer').innerText;
+    const gameName = 'memorama';
 
-        fetch('/save-result/memorama', {
+    function guardarResultadosTotales() {
+        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
+                           parseInt(localStorage.getItem('memorama_score')) + 
+                           parseInt(localStorage.getItem('sopa_score')) + 
+                           parseInt(localStorage.getItem('crucigrama_score'));
+        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
+                          parseInt(localStorage.getItem('memorama_time')) + 
+                          parseInt(localStorage.getItem('sopa_time')) + 
+                          parseInt(localStorage.getItem('crucigrama_time'));
+        const playerName = localStorage.getItem('playerName');
+    
+        if (isNaN(totalScore) || isNaN(totalTime) || !playerName) {
+            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
+            return;
+        }
+    
+        fetch('/store-final-result', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -157,50 +171,32 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({
                 game_name: gameName,
-                score: parseInt(score),
-                time: convertTimeToSeconds(time)
+                user_name: playerName,
+                total_score: totalScore,
+                total_time: totalTime
             })
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text()) // Captura la respuesta como texto
+        .then(text => {
+            console.log(text); // Muestra la respuesta del servidor
+            let data;
+            try {
+                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
+            } catch (e) {
+                throw new Error('La respuesta no es un JSON válido: ' + text);
+            }
+    
+            if (data.error) {
+                throw new Error(data.error);
+            }
             alert(data.message);
+            localStorage.clear();
             window.location.href = "/inicio";
         })
-        .catch(error => console.error('Error:', error));
-    });
-
-    function convertTimeToSeconds(time) {
-        const [minutes, seconds] = time.split(':').map(Number);
-        return minutes * 60 + seconds;
-    }
-});
-
-
-function preventLeaving() {
-    window.addEventListener('beforeunload', handleBeforeUnload);
-}
-
-function allowLeaving() {
-    window.removeEventListener('beforeunload', handleBeforeUnload);
-}
-
-function handleBeforeUnload(event) {
-    event.preventDefault();
-    event.returnValue = '¿Estás seguro de que quieres salir del juego?';
-}
-
-document.getElementById('startButton').addEventListener('click', () => {
-    preventLeaving();
-
-    const backButton = document.getElementById('backButton');
-    if (backButton) {
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const confirmLeave = confirm('¿Estás seguro de que quieres regresar al inicio y abandonar el juego?');
-            if (confirmLeave) {
-                allowLeaving();
-                window.location.href = '/inicio';
-            }
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al guardar los resultados totales: ' + error.message);
         });
     }
-  });
+    
+});

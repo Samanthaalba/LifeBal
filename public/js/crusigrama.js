@@ -233,13 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Guardar resultados en localStorage
             localStorage.setItem('crucigrama_score', score);
             localStorage.setItem('crucigrama_time', totalSeconds);
-    
-            // Verificar si todos los juegos están completos
-            if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-                guardarResultadosTotales();
-            } else {
-                alert('Juego terminado, pero aún faltan otros juegos por completar.');
-            }
         }
     
         attempts++;
@@ -270,57 +263,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.getElementById('endGameButton').addEventListener('click', function() {
-        const scoreValue = parseInt(document.getElementById('score').innerText);
-        const timeValue = totalSeconds;
-        const playerName = localStorage.getItem('playerName'); // Obtener el nombre del jugador
-
-        // Guardar resultados en localStorage
-        localStorage.setItem('crucigrama_score', scoreValue);
-        localStorage.setItem('crucigrama_time', timeValue);
-
-        // Verificar si todos los juegos están completos
-        if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score')) {
-            guardarResultadosTotales();
-        } else {
-            alert('Juego terminado, pero aún faltan otros juegos por completar.');
-        }
-    });
-
+    const gameName = 'Crucigrama';
     function guardarResultadosTotales() {
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + parseInt(localStorage.getItem('memorama_score')) + parseInt(localStorage.getItem('sopa_score')) + parseInt(localStorage.getItem('crucigrama_score'));
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + parseInt(localStorage.getItem('memorama_time')) + parseInt(localStorage.getItem('sopa_time')) + parseInt(localStorage.getItem('crucigrama_time'));
+        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
+                           parseInt(localStorage.getItem('memorama_score')) + 
+                           parseInt(localStorage.getItem('sopa_score')) + 
+                           parseInt(localStorage.getItem('crucigrama_score'));
+        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
+                          parseInt(localStorage.getItem('memorama_time')) + 
+                          parseInt(localStorage.getItem('sopa_time')) + 
+                          parseInt(localStorage.getItem('crucigrama_time'));
         const playerName = localStorage.getItem('playerName');
     
-        fetch('/save-result/totales', {
+        if (isNaN(totalScore) || isNaN(totalTime) || !playerName) {
+            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
+            return;
+        }
+    
+        fetch('/store-final-result', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-                game_name: 'total',
-                score: totalScore,
-                time: totalTime,
-                user_name: playerName
+                game_name: gameName,
+                user_name: playerName,
+                total_score: totalScore,
+                total_time: totalTime
             })
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text()) // Captura la respuesta como texto
+        .then(text => {
+            console.log(text); // Muestra la respuesta del servidor
+            let data;
+            try {
+                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
+            } catch (e) {
+                throw new Error('La respuesta no es un JSON válido: ' + text);
+            }
+    
+            if (data.error) {
+                throw new Error(data.error);
+            }
             alert(data.message);
-            localStorage.removeItem('quiz_score');
-            localStorage.removeItem('quiz_time');
-            localStorage.removeItem('memorama_score');
-            localStorage.removeItem('memorama_time');
-            localStorage.removeItem('sopa_score');
-            localStorage.removeItem('sopa_time');
-            localStorage.removeItem('crucigrama_score');
-            localStorage.removeItem('crucigrama_time');
+            localStorage.clear();
             window.location.href = "/inicio";
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Error al guardar los resultados totales.');
+            alert('Error al guardar los resultados totales: ' + error.message);
         });
     }
-    });
+    
+});

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Question;
-use App\Models\GameResult;
 
 class QuizController extends Controller
 {

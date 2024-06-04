@@ -24,14 +24,14 @@ class GameResultController extends Controller
                 'total_score' => $validatedData['total_score'],
             ]);
 
-            return response()->json([
+            return response()->JSON([
                 'message' => 'Resultados almacenados con éxito',
                 'result' => $result,
             ]);
         } catch (\Exception $e) {
             // Manejo de errores
             \Log::error('Error al almacenar los resultados: ' . $e->getMessage()); // Añadir mensaje de error al log
-            return response()->json([
+            return response()->JSON([
                 'message' => 'Error al almacenar los resultados',
                 'error' => $e->getMessage(),
             ], 500);
