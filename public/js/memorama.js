@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             cards.forEach(card => card.classList.remove('flipped'));
             lockBoard = false; // Desbloquear el tablero después de 10 segundos
-        }, 10000);
+        }, 4000);
 
         startButton.disabled = true;
     }
