@@ -1,9 +1,3 @@
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-/*ESTO ES SOBRE EL MEMRAMA */
-///////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener elementos del DOM
     const modal = document.getElementById('instructionsModal');
@@ -37,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let lockBoard = false;
     let firstCard, secondCard;
     let attempts = 0;
-    let score = 0;
-    let gameStarted = false;
+    let score = 0; 
+    let gameStarted = false; 
     let interval;
     let seconds = 0, minutes = 0;
 
@@ -65,24 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
         document.getElementById('attempts').textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-
+    
         if (isMatch) {
-            score += calculateScore();
+            if (seconds <= 20) {
+                score += 100;
+            } else if (seconds <= 40) {
+                score += 90;
+            } else {
+                score += 80;
+            }
+            
             document.getElementById('score').textContent = score;
             disableCards();
-
-            if (document.querySelectorAll('.flipped').length === cards.length) {
+            if (score === cards.length * 100 / 2 || seconds >= 40) {
                 clearInterval(interval);
-                alert("¡Has encontrado todas las parejas!");
-
-                localStorage.setItem('memorama_score', score);
-                localStorage.setItem('memorama_time', (minutes * 60) + seconds);
-
-                if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-                    guardarResultadosTotales();
-                } else {
-                    alert('Juego terminado, pero aún faltan otros juegos por completar.');
-                }
             }
         } else {
             unflipCards();
@@ -112,7 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         if (gameStarted) return;
         gameStarted = true;
-
+        
+        // Barajar las cartas antes de voltearlas
         cards.forEach(card => {
             card.style.order = Math.floor(Math.random() * cards.length);
         });
@@ -126,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             cards.forEach(card => card.classList.remove('flipped'));
-            lockBoard = false;
-        }, 3000);
+            lockBoard = false; // Desbloquear el tablero después de 10 segundos
+        }, 10000);
 
         startButton.disabled = true;
     }
@@ -152,46 +143,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
+    const gameName = 'memorama'; // Nombre del juego específico
+
     document.getElementById('endGameButton').addEventListener('click', function() {
-        const time = (minutes * 60) + seconds;
+        const score = document.getElementById('score').innerText;
+        const time = document.getElementById('timer').innerText;
 
-        localStorage.setItem('memorama_score', score);
-        localStorage.setItem('memorama_time', time);
-
-        if (localStorage.getItem('quiz_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-            guardarResultadosTotales();
-        } else {
-            alert('Juego terminado, pero aún faltan otros juegos por completar.');
-        }
-    });
-
-    function guardarResultadosTotales() {
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + parseInt(localStorage.getItem('memorama_score')) + parseInt(localStorage.getItem('sopa_score')) + parseInt(localStorage.getItem('crucigrama_score'));
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + parseInt(localStorage.getItem('memorama_time')) + parseInt(localStorage.getItem('sopa_time')) + parseInt(localStorage.getItem('crucigrama_time'));
-        const playerName = localStorage.getItem('playerName');
-
-        fetch('/save-result/totales', {
+        fetch('/save-result/memorama', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-                game_name: 'total',
-                score: totalScore,
-                time: totalTime,
-                user_name: playerName
+                game_name: gameName,
+                score: parseInt(score),
+                time: convertTimeToSeconds(time)
             })
         })
         .then(response => response.json())
         .then(data => {
             alert(data.message);
-            localStorage.clear();
             window.location.href = "/inicio";
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al guardar los resultados totales.');
-        });
+        .catch(error => console.error('Error:', error));
+    });
+
+    function convertTimeToSeconds(time) {
+        const [minutes, seconds] = time.split(':').map(Number);
+        return minutes * 60 + seconds;
     }
 });
+
+
+function preventLeaving() {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+}
+
+function allowLeaving() {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+}
+
+function handleBeforeUnload(event) {
+    event.preventDefault();
+    event.returnValue = '¿Estás seguro de que quieres salir del juego?';
+}
+
+document.getElementById('startButton').addEventListener('click', () => {
+    preventLeaving();
+
+    const backButton = document.getElementById('backButton');
+    if (backButton) {
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const confirmLeave = confirm('¿Estás seguro de que quieres regresar al inicio y abandonar el juego?');
+            if (confirmLeave) {
+                allowLeaving();
+                window.location.href = '/inicio';
+            }
+        });
+    }
+  });

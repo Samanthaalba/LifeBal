@@ -123,27 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
             tacharPalabraLista(palabraFormada);
             score += calcularPuntaje();
             scoreDisplay.textContent = score;
-    
+
             foundWords++;
             if (foundWords === palabrasValidas.length) {
                 stopGame();
-    
-                // Guardar resultados en localStorage
-                localStorage.setItem('sopa_score', score);
-                localStorage.setItem('sopa_time', totalSeconds);
-    
-                // Verificar si todos los juegos están completos
-                if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-                    guardarResultadosTotales();
-                } else {
-                    alert('Juego terminado, pero aún faltan otros juegos por completar.');
-                }
             }
         } else {
             limpiarSeleccionActual();
         }
+        seleccionActual = [];
+        palabraFormada = '';
     }
-    
 
     function stopGame() {
         clearInterval(timerInterval);
