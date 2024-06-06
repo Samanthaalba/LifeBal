@@ -34,6 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let score = 0;
     let attempts = 0;
     const celdasCorrectas = new Set();
+    const palabrasEncontradas = new Set();
+    const startButton = document.getElementById('IniciarC');
+    const attemptsDisplay = document.getElementById('attempts');
+    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const viewResultsButton = document.getElementById('viewResultsButton');
+    const resultsModal = document.getElementById('resultsModal');
+    const closeResultsModal = document.getElementById('closeResultsModal');
+
+    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+    setInterval(() => {
+        localStorage.clear();
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
+    }, 2400000);
 
     function habilitarInteraccion() {
         juegoIniciado = true;
@@ -91,8 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { palabra: 'PUBIS', direccion: 'vertical', fila: 1, columna: 17 },
     ];
 
-    const palabrasEncontradas = new Set();
-
     palabras.forEach(({ palabra, direccion, fila, columna }, index) => {
         for (let i = 0; i < palabra.length; i++) {
             const currentRow = direccion === 'horizontal' ? fila : fila + i;
@@ -109,15 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('IniciarC').addEventListener('click', function() {
+    startButton.addEventListener('click', function() {
+        startButton.style.display = 'none';
         iniciarCronometro();
         habilitarInteraccion();
-    });
-
-    document.getElementById('crucigrama-container').addEventListener('click', function(event) {
-        if (!juegoIniciado) {
-            event.preventDefault();
-        }
     });
 
     function moveNextCell(currentInput, direction) {
@@ -181,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
             totalSeconds++;
             const minutes = Math.floor(totalSeconds / 60);
             const seconds = totalSeconds % 60;
-            document.getElementById('timer').textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }, 1000);
     }
 
@@ -191,29 +198,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function verificarPalabras() {
         let todasCompletadas = true;
-    
+
         palabras.forEach(({ palabra, direccion, fila, columna }) => {
             let palabraUsuario = '';
             let palabraCompleta = true;
-    
+
             for (let i = 0; i < palabra.length; i++) {
                 const currentRow = direccion === 'horizontal' ? fila : fila + i;
                 const currentCol = direccion === 'horizontal' ? columna + i : columna;
                 const cellSelector = `input[data-row="${currentRow}"][data-col="${currentCol}"]`;
                 const inputCell = document.querySelector(cellSelector);
                 palabraUsuario += inputCell.value;
-    
+
                 if (!inputCell.value || inputCell.value.toUpperCase() !== palabra[i]) {
                     palabraCompleta = false;
                     todasCompletadas = false;
                 }
             }
-    
+
             if (palabraCompleta && palabraUsuario.toUpperCase() === palabra && !palabrasEncontradas.has(palabra)) {
                 score += 100;
-                document.getElementById('score').textContent = score;
+                scoreDisplay.textContent = score;
                 palabrasEncontradas.add(palabra);
-    
+
                 for (let i = 0; i < palabra.length; i++) {
                     const currentRow = direccion === 'horizontal' ? fila : fila + i;
                     const currentCol = direccion === 'horizontal' ? columna + i : columna;
@@ -221,31 +228,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    
+
         palabras.forEach(({ palabra, direccion, fila, columna }) => {
             marcarPalabra(fila, columna, palabra.length, direccion, palabra);
         });
-    
+
         if (todasCompletadas && palabrasEncontradas.size === palabras.length) {
             marcarTodasCeldasVerde();
             detenerCronometro();
-    
+
             // Guardar resultados en localStorage
-            localStorage.setItem('crucigrama_score', score);
-            localStorage.setItem('crucigrama_time', totalSeconds);
-    
-            // Verificar si todos los juegos están completos
-            if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('sopa_score') && localStorage.getItem('crucigrama_score')) {
-                guardarResultadosTotales();
-            } else {
-                alert('Juego terminado, pero aún faltan otros juegos por completar.');
+            const playerName = localStorage.getItem('playerName');
+            if (!playerName) {
+                alert('Error: El nombre del jugador no está disponible.');
+                return;
             }
+            saveResult(playerName, score, totalSeconds);
         }
-    
+
         attempts++;
-        document.getElementById('attempts').textContent = attempts;
+        attemptsDisplay.textContent = attempts;
     }
-    
 
     function marcarPalabra(fila, columna, longitud, direccion, palabra) {
         for (let i = 0; i < longitud; i++) {
@@ -270,57 +273,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const gameName = 'Crucigrama';
-    function guardarResultadosTotales() {
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
-                           parseInt(localStorage.getItem('memorama_score')) + 
-                           parseInt(localStorage.getItem('sopa_score')) + 
-                           parseInt(localStorage.getItem('crucigrama_score'));
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
-                          parseInt(localStorage.getItem('memorama_time')) + 
-                          parseInt(localStorage.getItem('sopa_time')) + 
-                          parseInt(localStorage.getItem('crucigrama_time'));
-        const playerName = localStorage.getItem('playerName');
-    
-        if (isNaN(totalScore) || isNaN(totalTime) || !playerName) {
-            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
-            return;
+    function saveResult(name, score, time) {
+        let results = JSON.parse(localStorage.getItem('crucigrama_results')) || [];
+        results.push({ name, score, time, attempts });
+        if (results.length > 5) {
+            results.shift(); // Mantener solo los últimos 5 resultados
         }
-    
-        fetch('/store-final-result', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                game_name: gameName,
-                user_name: playerName,
-                total_score: totalScore,
-                total_time: totalTime
-            })
-        })
-        .then(response => response.text()) // Captura la respuesta como texto
-        .then(text => {
-            console.log(text); // Muestra la respuesta del servidor
-            let data;
-            try {
-                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
-            } catch (e) {
-                throw new Error('La respuesta no es un JSON válido: ' + text);
-            }
-    
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            alert(data.message);
-            localStorage.clear();
-            window.location.href = "/inicio";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al guardar los resultados totales: ' + error.message);
-        });
+        localStorage.setItem('crucigrama_results', JSON.stringify(results));
     }
-    
+
+    viewResultsButton.addEventListener('click', viewResults);
+
+    function viewResults() {
+        const results = JSON.parse(localStorage.getItem('crucigrama_results')) || [];
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = ''; // Limpiar la lista de resultados
+
+        results.forEach(result => {
+            const minutes = Math.floor(result.time / 60);
+            const seconds = result.time % 60;
+            const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
+            const li = document.createElement('li');
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Intentos: ${result.attempts}`;
+            resultsList.appendChild(li);
+        });
+
+        resultsModal.style.display = 'block';
+    }
+
+    closeResultsModal.addEventListener('click', function() {
+        resultsModal.style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+        if (event.target == resultsModal) {
+            resultsModal.style.display = 'none';
+        }
+    };
+    function pad(value) {
+        return value.toString().padStart(2, '0');
+    };
 });

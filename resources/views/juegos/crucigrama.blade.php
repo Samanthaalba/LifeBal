@@ -80,6 +80,17 @@
         <button id="closeInstructions">Cerrar</button>
     </div>
 </div>
+
+<!-- Modal de resultados -->
+<div id="resultsModal" class="modal1">
+    <div class="modal-content1">
+        <span id="closeResultsModal" class="close1">&times;</span>
+        <h2>Resultados Anteriores</h2>
+        <ul id="results-list"></ul>
+    </div>
+</div>
+
+<button id="viewResultsButton" class="verpuntoscruci">Ver Resultados</button>
 <script src="{{ asset('js/crusigrama.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -94,6 +105,10 @@
             }, 10000);
         });
     });
+    window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
 </script>
 </body>
 </html>

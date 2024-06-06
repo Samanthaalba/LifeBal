@@ -25,20 +25,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 document.addEventListener('DOMContentLoaded', () => {
+    // Obtener elementos del DOM
+    const modal = document.getElementById('instructionsModal');
+    const span = document.getElementsByClassName('close')[0];
+    const closeInstructions = document.getElementById('closeInstructions');
     const startButton = document.getElementById('startButton');
-    const viewResultsButton = document.getElementById('viewResultsButton');
     const cards = document.querySelectorAll('.card');
+    const attemptsDisplay = document.getElementById('attempts');
+    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const viewResultsButton = document.getElementById('viewResultsButton');
+    const resultsModal = document.getElementById('resultsModal');
+    const closeResultsModal = document.getElementById('closeResultsModal');
+
     let hasFlippedCard = false;
     let lockBoard = false;
     let firstCard, secondCard;
     let attempts = 0;
-    let score = 0;
-    let gameStarted = false;
+    let score = 0; 
+    let gameStarted = false; 
     let interval;
     let seconds = 0, minutes = 0;
 
+    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+    setInterval(() => {
+        localStorage.clear();
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
+    }, 2400000);
+
+    // Mostrar el modal al cargar la página
+    modal.style.display = 'flex';
+
+    // Cerrar el modal al hacer clic en la 'x'
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Cerrar el modal al hacer clic en el botón de cerrar
+    closeInstructions.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Cerrar el modal si se hace clic fuera del contenido del modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
     startButton.addEventListener('click', startGame);
-    viewResultsButton.addEventListener('click', viewResults);
 
     function flipCard() {
         if (!gameStarted || lockBoard) return;
@@ -59,24 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkForMatch() {
         attempts++;
-        document.getElementById('attempts').textContent = attempts;
+        attemptsDisplay.textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-
+    
         if (isMatch) {
-            score += 100;
-            document.getElementById('score').textContent = score;
+            score += calculateScore();
+            scoreDisplay.textContent = score;
             disableCards();
-
+            
+            // Verificar si se han encontrado todas las parejas
             if (document.querySelectorAll('.flipped').length === cards.length) {
                 clearInterval(interval);
                 alert("¡Has encontrado todas las parejas!");
-
-                // Guardar resultados en localStorage
-                localStorage.setItem('memorama_score', score);
-                localStorage.setItem('memorama_time', (minutes * 60) + seconds);
-                localStorage.setItem('memorama_attempts', attempts);
-
-                alert('Juego terminado. Puedes ver tus resultados.');
+                saveResult();
             }
         } else {
             unflipCards();
@@ -106,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         if (gameStarted) return;
         gameStarted = true;
-
+        
         cards.forEach(card => {
             card.style.order = Math.floor(Math.random() * cards.length);
         });
@@ -124,14 +154,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
 
         startButton.disabled = true;
+        startButton.style.display = 'none';
     }
 
     function resetGame() {
         if (interval) clearInterval(interval);
         [seconds, minutes, attempts, score] = [0, 0, 0, 0];
-        document.getElementById('attempts').textContent = '0';
-        document.getElementById('score').textContent = '0';
-        document.getElementById('timer').textContent = '00:00';
+        attemptsDisplay.textContent = '0';
+        scoreDisplay.textContent = '0';
+        timerDisplay.textContent = '00:00';
         startTimer();
     }
 
@@ -142,15 +173,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 minutes++;
                 seconds = 0;
             }
-            document.getElementById('timer').textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         }, 1000);
     }
 
-    function viewResults() {
-        const score = localStorage.getItem('memorama_score');
-        const time = localStorage.getItem('memorama_time');
-        const attempts = localStorage.getItem('memorama_attempts');
-
-        alert(`Resultados del Memorama:\n\nPuntuación: ${score}\nTiempo: ${time} segundos\nIntentos: ${attempts}`);
+    function calculateScore() {
+        return 100;
     }
+
+    function saveResult() {
+        const playerName = localStorage.getItem('playerName');
+        if (!playerName) {
+            alert('Error: El nombre del jugador no está disponible.');
+            return;
+        }
+        let results = JSON.parse(localStorage.getItem('memorama_results')) || [];
+        results.push({ name: playerName, score, time: minutes * 60 + seconds, attempts });
+        if (results.length > 5) {
+            results.shift(); // Mantener solo los últimos 5 resultados
+        }
+        localStorage.setItem('memorama_results', JSON.stringify(results));
+    }
+
+    viewResultsButton.addEventListener('click', viewResults);
+
+    function viewResults() {
+        const results = JSON.parse(localStorage.getItem('memorama_results')) || [];
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = ''; // Limpiar la lista de resultados
+
+        results.forEach(result => {
+            const minutes = Math.floor(result.time / 60);
+            const seconds = result.time % 60;
+            const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
+            const li = document.createElement('li');
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Intentos: ${result.attempts}`;
+            resultsList.appendChild(li);
+        });
+
+        resultsModal.style.display = 'block';
+    }
+
+    closeResultsModal.addEventListener('click', function() {
+        resultsModal.style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+        if (event.target == resultsModal) {
+            resultsModal.style.display = 'none';
+        }
+    };
+    function pad(value) {
+        return value.toString().padStart(2, '0');
+    };
 });

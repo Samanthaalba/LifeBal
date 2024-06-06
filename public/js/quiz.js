@@ -39,11 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const timerDisplay = document.getElementById('timer');
     const scoreDisplay = document.getElementById('score');
     const viewResultsButton = document.getElementById('viewResultsButton');
+    const modal = document.getElementById('resultsModal');
+    const closeModal = document.getElementById('closeModal1');
 
     let startTime;
     let endTime;
     let currentQuestionIndex = 0;
     const answers = {};
+
+    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+    setInterval(() => {
+        localStorage.clear();
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
+    }, 2400000);
 
     btnStartQuiz.addEventListener('click', function() {
         startTime = Date.now();
@@ -124,10 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
         btnSubmit.style.display = 'none';
 
         // Guardar resultados en localStorage
-        localStorage.setItem('quiz_score', score);
-        localStorage.setItem('quiz_time', Math.floor((endTime - startTime) / 1000));
-
-        alert('Juego terminado. Puedes ver tus resultados.');
+        const playerName = localStorage.getItem('playerName');
+        if (!playerName) {
+            alert('Error: El nombre del jugador no está disponible.');
+            return;
+        }
+        saveResult(playerName, score, Math.floor((endTime - startTime) / 1000));
     });
 
     btnBack.addEventListener('click', function() {
@@ -193,12 +203,44 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('answers-container').style.display = 'block';
     });
 
+    function saveResult(name, score, time) {
+        let results = JSON.parse(localStorage.getItem('quiz_results')) || [];
+        results.push({ name, score, time });
+        if (results.length > 5) {
+            results.shift(); // Mantener solo los últimos 5 resultados
+        }
+        localStorage.setItem('quiz_results', JSON.stringify(results));
+    }
+
     viewResultsButton.addEventListener('click', viewResults);
 
     function viewResults() {
-        const score = localStorage.getItem('quiz_score');
-        const time = localStorage.getItem('quiz_time');
+        const results = JSON.parse(localStorage.getItem('quiz_results')) || [];
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = ''; // Limpiar la lista de resultados
 
-        alert(`Resultados del Quiz:\n\nPuntuación: ${score}\nTiempo: ${time} segundos`);
+        results.forEach(result => {
+            const minutes = Math.floor(result.time / 60);
+            const seconds = result.time % 60;
+            const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
+            const li = document.createElement('li');
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}`;
+            resultsList.appendChild(li);
+        });
+
+        modal.style.display = 'block';
     }
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+    function pad(value) {
+        return value.toString().padStart(2, '0');
+    };
 });

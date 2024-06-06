@@ -41,20 +41,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let colorIndex = 0;
 
     const colores = ['letra-encontrada-rosa', 'letra-encontrada-azul', 'letra-encontrada-rojo', 'letra-encontrada-amarillo'];
-
     const palabrasValidas = [
         'CUIDADO', 'ADOLESCENCIA', 'FAMILIA', 'ENFERMEDADES', 'ORIENTACION', 'EMBARAZO', 
-        'ANTICONCEPTIVO', 'EDUCACION', 'SALUD','PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
-        'INFORMACION', 'APOYO', 'RESPETO','COMUNICACION'
+        'ANTICONCEPTIVO', 'EDUCACION', 'SALUD', 'PREVENCION', 'SEXUALIDAD', 'RESPONSABILIDAD', 
+        'INFORMACION', 'APOYO', 'RESPETO', 'COMUNICACION'
     ].map(palabra => palabra.toUpperCase());
 
     const letras = document.querySelectorAll('.letra');
-    const startButton1 = document.getElementById('startButton1');
+    const startButton = document.getElementById('startButton1');
     const attemptsDisplay = document.getElementById('attempts');
     const scoreDisplay = document.getElementById('score');
     const timerDisplay = document.getElementById('timer');
+    const viewResultsButton = document.getElementById('viewResultsButton');
+    const resultsModal = document.getElementById('resultsModal');
+    const closeResultsModal = document.getElementById('closeResultsModal');
 
-    startButton1.addEventListener('click', startGame);
+    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+    setInterval(() => {
+        localStorage.clear();
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
+    }, 2400000);
+
+    startButton.addEventListener('click', startGame);
 
     letras.forEach(letra => {
         letra.addEventListener('mousedown', (event) => {
@@ -141,15 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("¡Has encontrado todas las palabras!");
 
         // Guardar en localStorage
-        localStorage.setItem('sopa_score', score);
-        localStorage.setItem('sopa_time', totalSeconds);
-
-        // Verificar si todos los juegos están completos
-        if (localStorage.getItem('quiz_score') && localStorage.getItem('memorama_score') && localStorage.getItem('crucigrama_score')) {
-            guardarResultadosTotales();
-        } else {
-            alert('Juego terminado, pero aún faltan otros juegos por completar.');
+        const playerName = localStorage.getItem('playerName');
+        if (!playerName) {
+            alert('Error: El nombre del jugador no está disponible.');
+            return;
         }
+        saveResult(playerName, score, totalSeconds, attempts);
     }
 
     function calcularPuntaje() {
@@ -190,59 +195,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return colorClase;
     }
 
-    const gameName = 'Sopa_letras';
-    
-    function guardarResultadosTotales() {
-        const totalScore = parseInt(localStorage.getItem('quiz_score')) + 
-                           parseInt(localStorage.getItem('memorama_score')) + 
-                           parseInt(localStorage.getItem('sopa_score')) + 
-                           parseInt(localStorage.getItem('crucigrama_score'));
-        const totalTime = parseInt(localStorage.getItem('quiz_time')) + 
-                          parseInt(localStorage.getItem('memorama_time')) + 
-                          parseInt(localStorage.getItem('sopa_time')) + 
-                          parseInt(localStorage.getItem('crucigrama_time'));
-        const playerName = localStorage.getItem('playerName');
-    
-        if (isNaN(totalScore) || isNaN(totalTime) || !playerName) {
-            alert('Error: Faltan datos para guardar los resultados totales. Asegúrate de haber completado todos los juegos.');
-            return;
+    function saveResult(name, score, time, attempts) {
+        let results = JSON.parse(localStorage.getItem('sopa_results')) || [];
+        results.push({ name, score, time, attempts });
+        if (results.length > 5) {
+            results.shift(); // Mantener solo los últimos 5 resultados
         }
-    
-        fetch('/store-final-result', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                game_name: gameName,
-                user_name: playerName,
-                total_time: totalTime,
-                total_score: totalScore
-                
-            })
-        })
-        .then(response => response.text()) // Captura la respuesta como texto
-        .then(text => {
-            console.log(text); // Muestra la respuesta del servidor
-            let data;
-            try {
-                data = JSON.parse(text); // Intenta convertir la respuesta a JSON
-            } catch (e) {
-                throw new Error('La respuesta no es un JSON válido: ' + text);
-            }
-    
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            alert(data.message);
-            localStorage.clear();
-            window.location.href = "/inicio";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al guardar los resultados totales: ' + error.message);
-        });
+        localStorage.setItem('sopa_results', JSON.stringify(results));
     }
-    
+
+    viewResultsButton.addEventListener('click', viewResults);
+
+    function viewResults() {
+        const results = JSON.parse(localStorage.getItem('sopa_results')) || [];
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = ''; // Limpiar la lista de resultados
+
+        results.forEach(result => {
+            const minutes = Math.floor(result.time / 60);
+            const seconds = result.time % 60;
+            const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
+            const li = document.createElement('li');
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Intentos: ${result.attempts}`;
+            resultsList.appendChild(li);
+        });
+
+        resultsModal.style.display = 'flex';
+    }
+
+    closeResultsModal.addEventListener('click', function() {
+        resultsModal.style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+        if (event.target == resultsModal) {
+            resultsModal.style.display = 'none';
+        }
+    };
 });
+

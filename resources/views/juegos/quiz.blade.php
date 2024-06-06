@@ -10,6 +10,37 @@
         body {
             background-color: #f5daa0; 
         }
+        .modal1 {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content1 {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+        }
+        .close1 {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body> 
@@ -20,7 +51,9 @@
 <a href="/inicio"><button id="backButton">Regresar</button></a>
 <div class="containerquiz">
     <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
-    <div class="Iniciarbtn"><button id="btn-start-quiz">Iniciar Juego</button></div><br>
+    <div class="Iniciarbtn">
+        <button id="btn-start-quiz">Iniciar Quiz</button>
+    </div><br>
     <div id="Marcador">
         <p>Tiempo: <span id="timer">00:00</span></p>
     </div>
@@ -45,10 +78,9 @@
         <button id="btn-next">Siguiente</button>
         <button id="btn-back" style="display: none;">Atrás</button>
         <button id="btn-submit" style="display: none;">Enviar</button>
-        <button id="viewResultsButton">Ver Resultados</button>
     </div>
 </div>
-
+<button id="viewResultsButton" class="verpuntosquiz">Record de intentos</button>
 <div id="instructionsModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -65,9 +97,24 @@
     </div>
 </div>
 
+<div id="resultsModal" class="modal1">
+    <div class="modal-content1">
+        <span id="closeModal1" class="close1">&times;</span>
+        <h2>Resultados Anteriores</h2>
+        <ul id="results-list"></ul>
+    </div>
+</div>
+
 <script>
     const questions = {!! json_encode($questions) !!};
 </script>
 <script src="{{ asset('js/quiz.js') }}"></script>
+<script>
+    window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+   
+</script>
 </body>
 </html>

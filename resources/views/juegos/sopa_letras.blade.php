@@ -75,6 +75,17 @@
         </div>
     </div>
 
+    <!-- Modal de resultados -->
+<div id="resultsModal" class="modal1">
+    <div class="modal-content1">
+        <span id="closeResultsModal" class="close1">&times;</span>
+        <h2>Resultados Anteriores</h2>
+        <ul id="results-list"></ul>
+    </div>
+</div>
+
+<button id="viewResultsButton" class="verpuntos">Ver Resultados</button>
+
     <script src="/js/sopa.js"></script>
     <script>
         window.addEventListener('beforeunload', function (e) {
