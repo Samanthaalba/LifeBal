@@ -11,7 +11,8 @@
 /* estilos generales para el boton regresar*/
 #backButton {
     position: absolute;
-    background: yellow;
+    background: rgb(167, 3, 221);
+    color: white;
     float: left;
     cursor: pointer;
     padding: 10px 20px;
@@ -136,13 +137,42 @@ sopa de letras
     border: 2px solid #4CAF50;
 }
 
+.otravezsopa {
+    background-color: #ff5733; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 15px 30px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    border: none; /* Sin borde */
+    border-radius: 12px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    position: absolute;
+    left: 60%;
+    top: 25%;
+  }
+
+  .otravezsopa:hover {
+    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+  }
+
+  .otravezsopa:active {
+    background-color: #e63e00; /* Color de fondo al hacer clic */
+    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  }
+
+  .otravezsopa:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
+  }
 
 #scorePanelSp {
     background-color: #f0f0f0; /* Fondo claro para contraste */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 20px; /* Espaciado interno */
-    width: 500px; /* Ajustar el ancho automáticamente */
+    width: 600px; /* Ajustar el ancho automáticamente */
     position: absolute;
     left: 17%;
     top: 150px;
@@ -404,6 +434,33 @@ ESTILOS PARA EL QUIZ
     color: black;
     border: 2px solid #4CAF50;
 }
+
+.otravez {
+    background-color: #ff5733; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 15px 30px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    border: none; /* Sin borde */
+    border-radius: 12px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+  }
+
+  .otravez:hover {
+    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+  }
+
+  .otravez:active {
+    background-color: #e63e00; /* Color de fondo al hacer clic */
+    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  }
+
+  .otravez:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
+  }
 
 
 #Marcador {
@@ -722,7 +779,7 @@ ESTILOS PARA EL MEMORAMA
     text-decoration: none;
     display: inline-block;
     position: absolute;
-    left: 80%;
+    left: 8%;
     top: 170px;
     font-size: 16px;
     margin: 4px 2px;
@@ -742,7 +799,7 @@ ESTILOS PARA EL MEMORAMA
     border: none; /* Sin borde */
     border-radius: 50px; /* Bordes muy redondeados */
     color: white; /* Texto blanco */
-    padding: 15px 30px; /* Espaciado interno */
+    padding: 10px 20px; /* Espaciado interno */
     font-size: 18px; /* Tamaño de fuente */
     font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
     font-weight: bold; /* Texto en negrita */
@@ -750,9 +807,8 @@ ESTILOS PARA EL MEMORAMA
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
     transition: all 0.3s ease; /* Transición suave para todas las propiedades */
     position: relative; /* Posición relativa para el efecto de foco */
-    right: 35%;
+    right: 40%;
     top: 0px;
-    padding: 10px;
     overflow: hidden; /* Ocultar el contenido desbordante */
     z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
 }
@@ -786,11 +842,7 @@ ESTILOS PARA EL MEMORAMA
     transform: translateY(-1px); /* Elevación menor al hacer clic */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
 }
-.terminarmemo{
-    position: absolute;
-    left: 80%;
 
-}
 .container {
     max-width: 800px;
     margin: 5px;
@@ -809,7 +861,7 @@ ESTILOS PARA EL MEMORAMA
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4); /* Sombra suave */
     padding: 5px; /* Espaciado interno */
-    width: 500px; /* Ajustar el ancho automáticamente */
+    width: 600px; /* Ajustar el ancho automáticamente */
     position: absolute;
     left: 25%;
     top: -10px;
@@ -844,6 +896,36 @@ ESTILOS PARA EL MEMORAMA
     padding: 20px;
     gap: 15px; /* Espacio uniforme entre las cartas */
 }
+
+.otravezmemo {
+    background-color: #ff5733; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 15px 30px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    border: none; /* Sin borde */
+    border-radius: 12px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    position: absolute;
+    left: 80%;
+    top: 20%;
+  }
+
+  .otravezmemo:hover {
+    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+  }
+
+  .otravezmemo:active {
+    background-color: #e63e00; /* Color de fondo al hacer clic */
+    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  }
+
+  .otravezmemo:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
+  }
 
 .card {
     width: 100px;
@@ -918,7 +1000,7 @@ ESTILOS PARA EL CRUSIGRAMA
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 10px; /* Espaciado interno */
-    width: 500px; /* Ajustar el ancho automáticamente */
+    width: 600px; /* Ajustar el ancho automáticamente */
     position: absolute;
     left: 33%;
     top: 140px;
@@ -966,8 +1048,39 @@ ESTILOS PARA EL CRUSIGRAMA
     margin-right: 5px;
 }
 
+.otravezcruci {
+    background-color: #ff5733; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 15px 30px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    border: none; /* Sin borde */
+    border-radius: 12px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    position: absolute;
+    left: 80%;
+    top: 20%;
+  }
+
+  .otravezcruci:hover {
+    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
+    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+  }
+
+  .otravezcruci:active {
+    background-color: #e63e00; /* Color de fondo al hacer clic */
+    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  }
+
+  .otravezcruci:focus {
+    outline: none; /* Sin borde de enfoque */
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
+  }
+
+
 .verpuntoscruci {
-    background-color: #4CAF50; /* Green */
+    background-color: #f30cc9; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -975,7 +1088,7 @@ ESTILOS PARA EL CRUSIGRAMA
     text-decoration: none;
     display: inline-block;
     position: absolute;
-    left: 80%;
+    left: 3%;
     top: 150px;
     font-size: 16px;
     margin: 4px 2px;
@@ -996,12 +1109,12 @@ ESTILOS PARA EL CRUSIGRAMA
     background-color: #4CAF50; /* Verde */
     border: none; /* Sin borde */
     color: white; /* Texto blanco */
-    padding: 15px 32px; /* Espaciado interno */
+    padding: 10px 25px; /* Espaciado interno */
     text-align: center; /* Texto centrado */
     text-decoration: none; /* Sin subrayado */
     display: inline-block; /* Mostrar como bloque en línea */
     position: absolute;
-    left: 20%;
+    left: 22%;
     top: 150px;
     font-size: 16px; /* Tamaño de fuente */
     margin: 4px 2px; /* Margen */

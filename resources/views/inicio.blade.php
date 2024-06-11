@@ -82,44 +82,6 @@
             <button id="closeInstructions">Cerrar</button>
         </div>
     </div>                                                                                                     
-
-      <script>
- document.addEventListener("DOMContentLoaded", function() {
-            const cards = document.querySelectorAll(".card");
-            cards.forEach(card => {
-                card.addEventListener("click", function() {
-                    const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
-                    if (isChecked) {
-                        window.location.href = card.getAttribute("data-link");
-                    }
-                });
-            });
-
-            var instructionsModal = document.getElementById('instructions-modal');
-            var closeModal = document.querySelector('.close');
-            var closeInstructions = document.getElementById('closeInstructions');
-
-            // Show the instructions modal on page load
-            instructionsModal.style.display = 'flex';
-
-            // Close the modal when the user clicks on the close button
-            closeModal.onclick = function() {
-                instructionsModal.style.display = 'none';
-            };
-
-            // Close the modal when the user clicks on the close button
-            closeInstructions.onclick = function() {
-                instructionsModal.style.display = 'none';
-            };
-
-            // Close the modal when the user clicks outside of the modal
-            window.onclick = function(event) {
-                if (event.target == instructionsModal) {
-                    instructionsModal.style.display = 'none';
-                }
-            };
-        });
-</script>
 <br>
 <br>
 <div id="banner-inferior">
@@ -174,8 +136,7 @@
         </div>
     </div>
 </div> 
-   
 
-
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

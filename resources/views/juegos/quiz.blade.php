@@ -10,37 +10,7 @@
         body {
             background-color: #f5daa0; 
         }
-        .modal1 {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-        }
-        .modal-content1 {
-            background-color: #fefefe;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-        }
-        .close1 {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    
     </style>
 </head>
 <body> 
@@ -61,6 +31,7 @@
         <h2>Resultados del Quiz</h2>
         <p id="score"></p>
         <button id="btn-show-results">Ver Respuestas</button>
+        <button onclick="refreshpage()" class="otravez">Otro Intento</button>
     </div>
 
     <div id="answers-container" style="display: none;">
@@ -80,7 +51,7 @@
         <button id="btn-submit" style="display: none;">Enviar</button>
     </div>
 </div>
-<button id="viewResultsButton" class="verpuntosquiz">Record de intentos</button>
+<button id="viewResultsButton" class="verpuntosquiz">Ver Resultados</button>
 <div id="instructionsModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -110,10 +81,9 @@
 </script>
 <script src="{{ asset('js/quiz.js') }}"></script>
 <script>
-    window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = '';
-        });
+    function refreshpage(){
+        location.reload();
+    }
    
 </script>
 </body>

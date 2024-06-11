@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsList.appendChild(li);
         });
 
-        resultsModal.style.display = 'block';
+        resultsModal.style.display = 'flex';
     }
 
     closeResultsModal.addEventListener('click', function() {

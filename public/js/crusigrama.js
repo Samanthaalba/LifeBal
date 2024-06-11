@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
             marcarTodasCeldasVerde();
             detenerCronometro();
 
+            alert("¡Has encontrado todas las palabras!");
             // Guardar resultados en localStorage
             const playerName = localStorage.getItem('playerName');
             if (!playerName) {
@@ -298,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsList.appendChild(li);
         });
 
-        resultsModal.style.display = 'block';
+        resultsModal.style.display = 'flex';
     }
 
     closeResultsModal.addEventListener('click', function() {

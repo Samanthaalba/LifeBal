@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const letras = document.querySelectorAll('.letra');
     const startButton = document.getElementById('startButton1');
+    const otraVez = document.getElementById('otraVez');
     const attemptsDisplay = document.getElementById('attempts');
     const scoreDisplay = document.getElementById('score');
     const timerDisplay = document.getElementById('timer');
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2400000);
 
     startButton.addEventListener('click', startGame);
+
 
     letras.forEach(letra => {
         letra.addEventListener('mousedown', (event) => {
@@ -89,13 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         esMouseDown = false;
     });
 
-    window.onunload = function() {
-        if (gameStarted && !gameEnded) {
-            clearInterval(timerInterval);
-            alert("Has salido del juego antes de terminar.");
-        }
-    };
-
     function startGame() {
         attempts = 0;
         score = 0;
@@ -108,6 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
         attemptsDisplay.textContent = attempts;
         scoreDisplay.textContent = score;
         timerDisplay.textContent = '00:00';
+        startButton.style.display = 'none';
+        otraVez.style.display = 'none';
 
         letras.forEach(letra => letra.classList.remove('letra-seleccionada', ...colores));
         document.querySelectorAll('.palabra').forEach(palabra => palabra.classList.remove('palabra-encontrada-tachada'));

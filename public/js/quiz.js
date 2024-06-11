@@ -3,8 +3,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('instructionsModal');
     const span = document.getElementsByClassName('close')[0];
     const closeInstructions = document.getElementById('closeInstructions');
+    const btnStartQuiz = document.getElementById('btn-start-quiz');
+    const quizContainer = document.getElementById('quiz-container');
+    const btnNext = document.getElementById('btn-next');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnBack = document.getElementById('btn-back');
+    const btnShowResults = document.getElementById('btn-show-results');
+    const questionText = document.getElementById('question-text');
+    const optionA = document.getElementById('option-a');
+    const optionB = document.getElementById('option-b');
+    const optionC = document.getElementById('option-c');
+    const optionD = document.getElementById('option-d');
+    const timerDisplay = document.getElementById('timer');
+    const scoreDisplay = document.getElementById('score');
+    const viewResultsButton = document.getElementById('viewResultsButton');
+    const resultsModal = document.getElementById('resultsModal');
+    const closeModal = document.getElementById('closeModal1');
 
-    // Mostrar el modal al cargar la página
+    let startTime;
+    let endTime;
+    let currentQuestionIndex = 0;
+    const answers = {};
+
+    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+    setInterval(() => {
+        localStorage.clear();
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
+    }, 2400000);
+
+    // Asegurarse de que el nombre del jugador esté en sessionStorage
+    const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+    if (!playerData || !playerData.name) {
+        alert('Debe ingresar un nombre en la página de inicio para continuar.');
+        window.location.href = '/'; // Redirigir al inicio si no hay nombre
+        return;
+    }
+    const jugador = playerData.name;
+    const sessionId = playerData.sessionId;
+
+    // Mostrar el modal de instrucciones al cargar la página
     modal.style.display = 'flex';
 
     // Cerrar el modal al hacer clic en la 'x'
@@ -23,35 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
         }
     }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const btnStartQuiz = document.getElementById('btn-start-quiz');
-    const quizContainer = document.getElementById('quiz-container');
-    const btnNext = document.getElementById('btn-next');
-    const btnSubmit = document.getElementById('btn-submit');
-    const btnBack = document.getElementById('btn-back');
-    const btnShowResults = document.getElementById('btn-show-results');
-    const questionText = document.getElementById('question-text');
-    const optionA = document.getElementById('option-a');
-    const optionB = document.getElementById('option-b');
-    const optionC = document.getElementById('option-c');
-    const optionD = document.getElementById('option-d');
-    const timerDisplay = document.getElementById('timer');
-    const scoreDisplay = document.getElementById('score');
-    const viewResultsButton = document.getElementById('viewResultsButton');
-    const modal = document.getElementById('resultsModal');
-    const closeModal = document.getElementById('closeModal1');
-
-    let startTime;
-    let endTime;
-    let currentQuestionIndex = 0;
-    const answers = {};
-
-    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
-    setInterval(() => {
-        localStorage.clear();
-        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
-    }, 2400000);
 
     btnStartQuiz.addEventListener('click', function() {
         startTime = Date.now();
@@ -132,12 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btnSubmit.style.display = 'none';
 
         // Guardar resultados en localStorage
-        const playerName = localStorage.getItem('playerName');
-        if (!playerName) {
-            alert('Error: El nombre del jugador no está disponible.');
-            return;
-        }
-        saveResult(playerName, score, Math.floor((endTime - startTime) / 1000));
+        saveResult(sessionId, jugador, score, Math.floor((endTime - startTime) / 1000));
     });
 
     btnBack.addEventListener('click', function() {
@@ -203,9 +206,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('answers-container').style.display = 'block';
     });
 
-    function saveResult(name, score, time) {
+    function saveResult(sessionId, playerName, score, time) {
         let results = JSON.parse(localStorage.getItem('quiz_results')) || [];
-        results.push({ name, score, time });
+        results.push({ sessionId: sessionId, playerName: playerName, score, time, timestamp: new Date().toISOString() });
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
@@ -219,28 +222,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultsList = document.getElementById('results-list');
         resultsList.innerHTML = ''; // Limpiar la lista de resultados
 
-        results.forEach(result => {
+        // Filtrar resultados para mostrar solo los del jugador actual
+        const playerResults = results.filter(result => result.sessionId === sessionId);
+
+        playerResults.forEach(result => {
             const minutes = Math.floor(result.time / 60);
             const seconds = result.time % 60;
             const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
             const li = document.createElement('li');
-            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}`;
+            li.textContent = `Nombre: ${result.playerName}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Fecha: ${new Date(result.timestamp).toLocaleString()}`;
             resultsList.appendChild(li);
         });
 
-        modal.style.display = 'block';
+        resultsModal.style.display = 'flex';
     }
 
     closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
+        resultsModal.style.display = 'none';
     });
 
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+        if (event.target == resultsModal) {
+            resultsModal.style.display = 'none';
         }
     };
+
     function pad(value) {
         return value.toString().padStart(2, '0');
-    };
+    }
 });
+

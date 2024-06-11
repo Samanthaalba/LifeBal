@@ -13,6 +13,7 @@
   <div class="overlay"></div>
 </div>
 <a href="/inicio"><button id="backButton">Regresar</button></a>
+<button onclick="refreshpage()" class="otravezcruci">Otro Intento</button>
 <div class="puntuacion"> 
     <p>Intentos: <span id="attempts">0</span></p>
     <p>Puntos: <span id="score">0</span></p>
@@ -105,10 +106,9 @@
             }, 10000);
         });
     });
-    window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = '';
-        });
+    function refreshpage(){
+        location.reload();
+    }
 </script>
 </body>
 </html>

@@ -49,6 +49,7 @@
     <div class="overlay"></div>
 </div>
 <a href="/inicio"><button id="backButton">Regresar</button></a>
+<button onclick="refreshpage()" class="otravezmemo">Otro Intento</button>
 <div class="container">
     <div id="gameControls">
         <button id="startButton">Iniciar Juego</button>
@@ -105,10 +106,9 @@
 
 <script src="{{ asset('js/memorama.js') }}"></script>
 <script>
-    window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = '';
-        });
+    function refreshpage(){
+        location.reload();
+    }
    
 </script>
 </body>

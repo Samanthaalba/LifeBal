@@ -24,6 +24,7 @@
         <p>Puntos: <span id="score">0</span></p>
         <p>Tiempo: <span id="timer">00:00</span></p>
     </div>
+    <button onclick="refreshpage()" class="otravezsopa" id="otraVez">Otro Intento</button>
     <br>
     <button id="startButton1">Iniciar Juego</button>
     <span class="encontrar">Palabras Por Encontrar</span>
@@ -88,16 +89,9 @@
 
     <script src="/js/sopa.js"></script>
     <script>
-        window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = '';
-        });
-
-        document.querySelector('a[href="/inicio"]').addEventListener('click', function(e) {
-            if (!confirm('Se perderán los cambios realizados si regresas. ¿Quieres continuar?')) {
-                e.preventDefault();
-            }
-        });
+        function refreshpage(){
+        location.reload();
+    }
     </script>
 </body>
 </html>
