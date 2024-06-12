@@ -10,65 +10,7 @@
         body {
             background-color: #f5daa0; 
         }
-        
-        .watchVideo {
-        position: relative;
-        width: 130px;
-        height: 35px;
-        border-radius: 30px;
-        background-color: white;
-        border: 1px #cd201f solid;
-        overflow: hidden;
-        }
-
-        .watchVideo .text1 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-left: 22%;
-        float: left;
-        }
-
-        .watchVideo .text2 {
-        position: absolute;
-        top: 25%;
-        left: -50px;
-        font-weight: 700;
-        font-size: 14px;
-        color: white;
-        }
-
-        .watchVideo .icon {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: transform 0.5s;
-        }
-
-        .watchVideo .icon::before {
-        position: absolute;
-        left: -100px;
-        top: 0;
-        z-index: -1;
-        content: '';
-        width: 130px;
-        height: 33px;
-        border-radius: 30px;
-        background-color: #cd201f;
-        }
-
-        .watchVideo:hover .icon {
-        transform: translateX(96px);
-        transition: transform 0.5s;
-        }
-
-        .watchVideo:hover .text2 {
-        transform: translateX(100px);
-        transition: transform 0.6s;
-        }
-
-        .watchVideo:active {
-        transform: scale(1.03);
-        }
+    
     
     </style>
 </head>
@@ -130,7 +72,7 @@
             <li><strong>Puntuación</strong>: Los intentos y el puntaje se actualizarán automáticamente.</li>
             <li><strong>¡Para una mejor introducción al tema, mira el siguiente video!</strong></li>
         </ul>
-        <button class="watchVideo">
+        <button class="watchVideo3">
             <a href="https://youtu.be/sxGSNOWedI0" target="_blank">
                 <span class="icon">
                   <svg fill="none" height="33" viewBox="0 0 120 120" width="33" xmlns="http://www.w3.org/2000/svg">

@@ -1404,3 +1404,255 @@ td:not(:has(input[type="text"])) {
     color: #3498db; /* Blue color for the arrow */
     margin-right: 8px; /* Space between arrow and text */
 }
+
+
+
+/* BOTONES DE VIDEO -> Crucig -> sopa de letras -> quiz -> memo*/
+
+.watchVideo1 {
+    position: relative;
+    width: 130px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px #cd201f solid;
+    overflow: hidden;
+    }
+
+    .watchVideo1 .text1 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 22%;
+    float: left;
+    }
+
+    .watchVideo1 .text2 {
+    position: absolute;
+    top: 25%;
+    left: -50px;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+    }
+
+    .watchVideo1 .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s;
+    }
+
+    .watchVideo1 .icon::before {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    z-index: -1;
+    content: '';
+    width: 130px;
+    height: 33px;
+    border-radius: 30px;
+    background-color: #cd201f;
+    }
+
+    .watchVideo1:hover .icon {
+    transform: translateX(96px);
+    transition: transform 0.5s;
+    }
+
+    .watchVideo1:hover .text2 {
+    transform: translateX(100px);
+    transition: transform 0.6s;
+    }
+
+    .watchVideo1:active {
+    transform: scale(1.03);
+    }
+
+    /* Sopa */
+
+    .watchVideo2 {
+        position: relative;
+        width: 130px;
+        height: 35px;
+        border-radius: 30px;
+        background-color: white;
+        border: 1px #cd201f solid;
+        overflow: hidden;
+        }
+
+        .watchVideo2 .text1 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-left: 22%;
+        float: left;
+        }
+
+        .watchVideo2 .text2 {
+        position: absolute;
+        top: 25%;
+        left: -50px;
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+        }
+
+        .watchVideo2 .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 0.5s;
+        }
+
+        .watchVideo2 .icon::before {
+        position: absolute;
+        left: -100px;
+        top: 0;
+        z-index: -1;
+        content: '';
+        width: 130px;
+        height: 33px;
+        border-radius: 30px;
+        background-color: #cd201f;
+        }
+
+        .watchVideo2:hover .icon {
+        transform: translateX(96px);
+        transition: transform 0.5s;
+        }
+
+        .watchVideo2:hover .text2 {
+        transform: translateX(100px);
+        transition: transform 0.6s;
+        }
+
+        .watchVideo2:active {
+        transform: scale(1.03);
+        }
+
+
+
+
+    /* quiz */
+
+    .watchVideo3 {
+        position: relative;
+        width: 130px;
+        height: 35px;
+        border-radius: 30px;
+        background-color: white;
+        border: 1px #cd201f solid;
+        overflow: hidden;
+        }
+
+        .watchVideo3 .text1 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-left: 22%;
+        float: left;
+        }
+
+        .watchVideo3 .text2 {
+        position: absolute;
+        top: 25%;
+        left: -50px;
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+        }
+
+        .watchVideo3 .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 0.5s;
+        }
+
+        .watchVideo3 .icon::before {
+        position: absolute;
+        left: -100px;
+        top: 0;
+        z-index: -1;
+        content: '';
+        width: 130px;
+        height: 33px;
+        border-radius: 30px;
+        background-color: #cd201f;
+        }
+
+        .watchVideo3:hover .icon {
+        transform: translateX(96px);
+        transition: transform 0.5s;
+        }
+
+        .watchVideo3:hover .text2 {
+        transform: translateX(100px);
+        transition: transform 0.6s;
+        }
+
+        .watchVideo3:active {
+        transform: scale(1.03);
+        }
+
+    /* memo */
+
+    .watchVideo4 {
+        position: relative;
+        width: 130px;
+        height: 35px;
+        border-radius: 30px;
+        background-color: white;
+        border: 1px #cd201f solid;
+        overflow: hidden;
+        }
+
+        .watchVideo4 .text1 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-left: 22%;
+        float: left;
+        }
+
+        .watchVideo4 .text2 {
+        position: absolute;
+        top: 25%;
+        left: -50px;
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+        }
+
+        .watchVideo4 .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 0.5s;
+        }
+
+        .watchVideo4 .icon::before {
+        position: absolute;
+        left: -100px;
+        top: 0;
+        z-index: -1;
+        content: '';
+        width: 130px;
+        height: 33px;
+        border-radius: 30px;
+        background-color: #cd201f;
+        }
+
+        .watchVideo4:hover .icon {
+        transform: translateX(96px);
+        transition: transform 0.5s;
+        }
+
+        .watchVideo4:hover .text2 {
+        transform: translateX(100px);
+        transition: transform 0.6s;
+        }
+
+        .watchVideo4:active {
+        transform: scale(1.03);
+        }
+
+
+
