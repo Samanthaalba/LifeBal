@@ -11,7 +11,7 @@
 /* estilos generales para el boton regresar*/
 #backButton {
     position: absolute;
-    background: rgb(167, 3, 221);
+    background: rgba(167, 3, 221, 0.795);
     color: white;
     float: left;
     cursor: pointer;
@@ -58,7 +58,7 @@
 
 .close1:hover,
 .close1:focus {
-    color: #d9534f;
+    color: #f01066;
     text-decoration: none;
 }
 
@@ -115,9 +115,9 @@ sopa de letras
 }
 
 .verpuntos {
-    background-color: #4CAF50; /* Green */
+    background-color: #ffffff; /* Green */
     border: none;
-    color: white;
+    color: rgb(7, 7, 7);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -132,36 +132,56 @@ sopa de letras
 }
 
 .verpuntos:hover {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
+    background-color: #d9534f;
+    color: rgb(255, 255, 255);
+    border: 2px solid #ffffff;
 }
 
 .otravezsopa {
-    background-color: #ff5733; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 15px 30px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    font-weight: bold; /* Grosor de la fuente */
+    background: #ffffff; /* Color de fondo */
+    color: #FF342B;; /* Color del texto */
+    padding: 20px 5px; /* Espaciado interno */
     border: none; /* Sin borde */
-    border-radius: 12px; /* Bordes redondeados */
+    border-radius: 50px; /* Bordes redondeados */
     cursor: pointer; /* Cambiar cursor al pasar por encima */
     transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
     position: absolute;
     left: 60%;
     top: 25%;
+    gap: 8px;
+    height: 30px;
+    width: 112px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
+  .lable {
+    line-height: 20px;
+    font-size: 17px;
+    color: #000000;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
   .otravezsopa:hover {
-    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+    background: #ff362b52;
   }
-
-  .otravezsopa:active {
-    background-color: #e63e00; /* Color de fondo al hacer clic */
-    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  
+  .otravezsopa:hover .svg-icon {
+    animation: spin 2s linear infinite;
   }
-
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
   .otravezsopa:focus {
     outline: none; /* Sin borde de enfoque */
     box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
@@ -413,9 +433,9 @@ ESTILOS PARA EL QUIZ
 }
 
 .verpuntosquiz {
-    background-color: #4CAF50; /* Green */
+    background-color: #ffffff; /* Green */
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -430,37 +450,57 @@ ESTILOS PARA EL QUIZ
 }
 
 .verpuntosquiz:hover {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
+    background-color: #d9534f;
+    color: rgb(255, 255, 255);
+    border: 2px solid #ffffff;
 }
 
 .otravez {
-    background-color: #ff5733; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 15px 30px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    font-weight: bold; /* Grosor de la fuente */
-    border: none; /* Sin borde */
-    border-radius: 12px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar por encima */
-    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 5px;
+    gap: 8px;
+    height: 30px;
+    width: 112px;
+    border: none;
+    background: #ffffff;
+    color: #FF342B;
+    border-radius: 50px;
+    cursor: pointer;
   }
-
+  
+  .lable {
+    line-height: 20px;
+    font-size: 17px;
+    color: #000000;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
   .otravez:hover {
-    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+    background: #ff362b52;
   }
-
-  .otravez:active {
-    background-color: #e63e00; /* Color de fondo al hacer clic */
-    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  
+  .otravez:hover .svg-icon {
+    animation: spin 2s linear infinite;
   }
-
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
   .otravez:focus {
     outline: none; /* Sin borde de enfoque */
     box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
   }
+  
 
 
 #Marcador {
@@ -715,7 +755,7 @@ ESTILOS PARA EL MEMORAMA
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: #eea5a5;
     margin: auto;
     padding: 30px;
     border-radius: 12px;
@@ -736,7 +776,7 @@ ESTILOS PARA EL MEMORAMA
 
 .close:hover,
 .close:focus {
-    color: #d9534f;
+    color: #ff024e;
     text-decoration: none;
 }
 
@@ -755,7 +795,7 @@ ESTILOS PARA EL MEMORAMA
 /* Mejorar el botón de cierre */
 #closeInstructions {
     display: inline-block;
-    background-color: #d9534f;
+    background-color: #fa5d72;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -767,13 +807,13 @@ ESTILOS PARA EL MEMORAMA
 }
 
 #closeInstructions:hover {
-    background-color: #c9302c;
+    background-color: #f01066;
 }
 
 .verpuntosmemo {
-    background-color: #4CAF50; /* Green */
+    background-color: #ffffff; /* Green */
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -789,9 +829,9 @@ ESTILOS PARA EL MEMORAMA
 }
 
 .verpuntosmemo:hover {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
+    background-color: #d9534f;
+    color: rgb(255, 255, 255);
+    border: 2px solid #ffffff;
 }
 
 #startButton {
@@ -898,34 +938,49 @@ ESTILOS PARA EL MEMORAMA
 }
 
 .otravezmemo {
-    background-color: #ff5733; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 15px 30px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    font-weight: bold; /* Grosor de la fuente */
-    border: none; /* Sin borde */
-    border-radius: 12px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar por encima */
-    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 34px;
+    width: 112px;
+    border: none;
+    color: #FF342B;
+    background: #ffffff;
+    border-radius: 20px;
+    cursor: pointer;
     position: absolute;
     left: 80%;
     top: 20%;
   }
-
+  
+  .otravezmemo .lable {
+    line-height: 20px;
+    font-size: 17px;
+    color: #000000;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
   .otravezmemo:hover {
-    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+    background: #ff362b52;
+  }
+  
+  .otravezmemo:hover .svg-icon {
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(-360deg);
+    }
   }
 
-  .otravezmemo:active {
-    background-color: #e63e00; /* Color de fondo al hacer clic */
-    transform: scale(0.95); /* Reducir tamaño al hacer clic */
-  }
-
-  .otravezmemo:focus {
-    outline: none; /* Sin borde de enfoque */
-    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
-  }
 
 .card {
     width: 100px;
@@ -1048,41 +1103,56 @@ ESTILOS PARA EL CRUSIGRAMA
     margin-right: 5px;
 }
 
-.otravezcruci {
-    background-color: #ff5733; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 15px 30px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    font-weight: bold; /* Grosor de la fuente */
-    border: none; /* Sin borde */
-    border-radius: 12px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar por encima */
-    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+
+  .otravezcruci {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 34px;
+    width: 112px;
+    border: none;
+    color: #FF342B;
+    background: #ffffff;
+    border-radius: 20px;
+    cursor: pointer;
     position: absolute;
     left: 80%;
     top: 20%;
   }
-
+  
+  .lable {
+    line-height: 20px;
+    font-size: 17px;
+    color: #000000;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
   .otravezcruci:hover {
-    background-color: #ff4500; /* Color de fondo al pasar el ratón por encima */
-    transform: scale(1.05); /* Aumentar tamaño al pasar el ratón por encima */
+    background: #ff362b52;
   }
-
-  .otravezcruci:active {
-    background-color: #e63e00; /* Color de fondo al hacer clic */
-    transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  
+  .otravezcruci:hover .svg-icon {
+    animation: spin 2s linear infinite;
   }
-
-  .otravezcruci:focus {
-    outline: none; /* Sin borde de enfoque */
-    box-shadow: 0 0 10px rgba(255, 87, 51, 0.5); /* Sombra al recibir foco */
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(-360deg);
+    }
   }
-
+  
 
 .verpuntoscruci {
-    background-color: #f30cc9; /* Green */
+    background-color: #ffffff; /* Green */
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -1098,9 +1168,9 @@ ESTILOS PARA EL CRUSIGRAMA
 }
 
 .verpuntoscruci:hover {
-    background-color: white;
-    color: black;
-    border: 2px solid #4CAF50;
+    background-color: #d9534f;
+    color: white;
+    border: 2px solid #ffffff;
 }
 
 

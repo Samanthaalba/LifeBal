@@ -70,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Abrir el modal de jugadores con autenticación
     viewPlayersBtn.addEventListener('click', function() {
-        const password = prompt('Por favor, ingrese la contraseña para ver los jugadores:');
-        if (password === 'test1234') {
+        const password = prompt('Por favor, ingrese la contraseña para acceder al infome de los jugadores:');
+        if (password === 'admin2024') {
             playersModal.style.display = 'flex';
         } else {
             alert('Contraseña incorrecta. Intente nuevamente.');
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /////////    Logioca para el carrusel
 ///////////////////////////////////////////////////////// */
 document.addEventListener("DOMContentLoaded", function() {
-  const correctPassword = 'test1234';
+  const correctPassword = 'admin2024';
   const cards = document.querySelectorAll(".card");
   cards.forEach(card => {
       card.addEventListener("click", function() {

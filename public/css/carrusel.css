@@ -15,7 +15,7 @@
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #eea5a5;
   margin: auto;
   padding: 20px;
   border-radius: 10px;
@@ -58,8 +58,8 @@
 /* Mejorar el botón de cierre */
 #closeInstructions {
   display: inline-block;
-  background-color: #eb2424;
-  color: white;
+  background-color: #fa5d72;
+  color: rgb(255, 255, 255);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -67,10 +67,12 @@
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 20px;
+  
 }
 
+
 #closeInstructions:hover {
-  background-color: #b30000;
+  background-color: #f01066;
 }
 
 /* Estilos adicionales para mejorar la apariencia del modal */
@@ -152,12 +154,14 @@
           background-color: #f8cea4;
           text-align: center;
           margin: 0;
+          height: 149px;
       }
 
       #banner-inferior a {
           margin-right: 20px;
           color: #007bff;
           text-decoration: none;
+          text-align: justify;
       }
      
       .btn-89,

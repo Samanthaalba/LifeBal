@@ -15,6 +15,8 @@
 </head>
 <body>
 
+    
+
     <!-- Banner superior -->
     <div class="fondo">
             <img class="car" src="/img/car.jpg" alt="">
@@ -75,8 +77,8 @@
             <h2>Instrucciones</h2>
             <p>Sigue estas instrucciones para seleccionar un juego:</p>
             <ul>
-                <li><strong>Seleccionar Juego</strong>: Haz clic en una de las imágenes del carrusel para seleccionar un juego.</li>
-                <li><strong>Navegación</strong>: Si la imagen seleccionada está marcada, serás redirigido automáticamente al juego correspondiente.</li>
+                <li><strong>Navegación</strong>: Haz clic en una de las imágenes del carrusel para seleccionar un juego.</li>
+                <li><strong>Seleccionar Juego</strong>: Si la imagen elegida está marcada, da clic y serás redirigido al juego.</li>
                 <li><strong>Juegos Disponibles</strong>: Puedes elegir entre Quiz, Crucigrama, Memorama, y Sopa de Letras.</li>
             </ul>
             <button id="closeInstructions">Cerrar</button>
@@ -111,7 +113,7 @@
                     <p class="card-text-soporte">Av. Tecnológico No. 1555 Sur <br> Periférico Gómez - Lerdo Km. 14.5, <br> Ciudad Lerdo, Estado de Durango C.P. 35150.</p>
                 </div>
 
-              <button class="btn-94" id="correo" onclick="window.location.href='mailto:lifebal.contacto@gmail.com'">
+              <button class="btn-94" id="correo" onclick="window.location.href='mailto:subdirposgrado_investigacion@itslerdo.edu.mx'">
                 <svg viewBox="0 0 512 512">
                   <path
                     d="M309.333,341.333c29.419,0,53.333-23.936,53.333-53.333V96c0-29.397-23.915-53.333-53.333-53.333h-256
@@ -129,9 +131,15 @@
               </button>
               <div class="mail">
                 <h2>Contactanos</h2>
-                <span class="contacto">lifebal.contacto@gmail.com</span>
-              </div>              
-              
+                <p>
+                    <strong>subdirposgrado_investigacion@itslerdo.edu.mx</strong><br> 
+                    M.A.T.I Lilia Parada Morado<br> 
+                    Dra. Elena Tzetzangary Aguirre Mejía <br> 
+                    M.A.T.S.I Rocio Lorena Rodriguez Chacon
+                </p>
+                
+
+            </div>       
            
         </div>
     </div>
