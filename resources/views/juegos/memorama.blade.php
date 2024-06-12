@@ -26,6 +26,7 @@
         font-size: 15px;
         font-weight: 600;
         margin-left: 22%;
+        float: left;
         }
 
         .watchVideo .text2 {
