@@ -182,13 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveResult() {
-        const playerName = localStorage.getItem('playerName');
-        if (!playerName) {
+        const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        if (!playerData || !playerData.name) {
             alert('Error: El nombre del jugador no está disponible.');
             return;
         }
+        const jugador = playerData.name;
+        const sessionId = playerData.sessionId;
+
         let results = JSON.parse(localStorage.getItem('memorama_results')) || [];
-        results.push({ name: playerName, score, time: minutes * 60 + seconds, attempts });
+        results.push({ sessionId, name: jugador, score, time: minutes * 60 + seconds, attempts });
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
@@ -198,11 +201,21 @@ document.addEventListener('DOMContentLoaded', () => {
     viewResultsButton.addEventListener('click', viewResults);
 
     function viewResults() {
+        const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        if (!playerData || !playerData.sessionId) {
+            alert('Error: El identificador de sesión no está disponible.');
+            return;
+        }
+        const sessionId = playerData.sessionId;
+
         const results = JSON.parse(localStorage.getItem('memorama_results')) || [];
         const resultsList = document.getElementById('results-list');
         resultsList.innerHTML = ''; // Limpiar la lista de resultados
 
-        results.forEach(result => {
+        // Filtrar resultados para mostrar solo los del jugador actual
+        const playerResults = results.filter(result => result.sessionId === sessionId);
+
+        playerResults.forEach(result => {
             const minutes = Math.floor(result.time / 60);
             const seconds = result.time % 60;
             const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;

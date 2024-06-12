@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', startGame);
 
-
     letras.forEach(letra => {
         letra.addEventListener('mousedown', (event) => {
             if (gameStarted && !gameEnded) {
@@ -145,13 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         gameEnded = true;
         alert("¡Has encontrado todas las palabras!");
 
-        // Guardar en localStorage
-        const playerName = localStorage.getItem('playerName');
-        if (!playerName) {
+        // Asegurarse de que el nombre del jugador esté en sessionStorage
+        const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        if (!playerData || !playerData.name) {
             alert('Error: El nombre del jugador no está disponible.');
             return;
         }
-        saveResult(playerName, score, totalSeconds, attempts);
+        const jugador = playerData.name;
+        const sessionId = playerData.sessionId;
+
+        // Guardar en localStorage
+        saveResult(sessionId, jugador, score, totalSeconds, attempts);
     }
 
     function calcularPuntaje() {
@@ -192,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return colorClase;
     }
 
-    function saveResult(name, score, time, attempts) {
+    function saveResult(sessionId, name, score, time, attempts) {
         let results = JSON.parse(localStorage.getItem('sopa_results')) || [];
-        results.push({ name, score, time, attempts });
+        results.push({ sessionId, name, score, time, attempts });
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
@@ -204,11 +207,21 @@ document.addEventListener('DOMContentLoaded', () => {
     viewResultsButton.addEventListener('click', viewResults);
 
     function viewResults() {
+        const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        if (!playerData || !playerData.sessionId) {
+            alert('Error: El identificador de sesión no está disponible.');
+            return;
+        }
+        const sessionId = playerData.sessionId;
+
         const results = JSON.parse(localStorage.getItem('sopa_results')) || [];
         const resultsList = document.getElementById('results-list');
         resultsList.innerHTML = ''; // Limpiar la lista de resultados
 
-        results.forEach(result => {
+        // Filtrar resultados para mostrar solo los del jugador actual
+        const playerResults = results.filter(result => result.sessionId === sessionId);
+
+        playerResults.forEach(result => {
             const minutes = Math.floor(result.time / 60);
             const seconds = result.time % 60;
             const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
@@ -230,4 +243,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
-
