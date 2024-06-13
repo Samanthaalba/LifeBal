@@ -19,7 +19,15 @@
     <img class="doc" src="/img/quiz.jpg" alt="">
     <div class="overlay"></div>
 </div>
-<a href="/inicio"><button id="backButton">Regresar</button></a>
+<a href="/inicio">
+    <button id="backButton" class="cta">
+      <svg width="15px" height="10px" viewBox="0 0 13 10">
+        <path d="M12,5 L2,5"></path> 
+        <polyline points="5 1 1 5 5 9"></polyline> <!-- Modificado para apuntar a la izquierda -->
+      </svg>
+      <span>Regresar</span>
+    </button>
+  </a>
 <div class="containerquiz">
     <h1>Quiz sobre Prevención del Embarazo Adolescente</h1>
     <div class="Iniciarbtn">
@@ -57,7 +65,7 @@
         <button id="btn-submit" style="display: none;">Enviar</button>
     </div>
 </div>
-<button id="viewResultsButton" class="verpuntosquiz">Puntuación Record</button>
+<button id="viewResultsButton" class="verpuntosquiz"><strong>Puntuación Record</strong></button>
 <div id="instructionsModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>

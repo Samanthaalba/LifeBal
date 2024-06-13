@@ -20,8 +20,16 @@
         <img class="doc" src="/img/sopa_letras.jpg" alt="">
         <div class="overlay"></div>
     </div>
-
-    <a href="{{asset('/inicio')}}"><button id="backButton">Regresar</button></a>
+    <a href="/inicio">
+        <button id="backButton" class="cta">
+          <svg width="15px" height="10px" viewBox="0 0 13 10">
+            <path d="M12,5 L2,5"></path> 
+            <polyline points="5 1 1 5 5 9"></polyline> <!-- Modificado para apuntar a la izquierda -->
+          </svg>
+          <span>Regresar</span>
+        </button>
+      </a>
+      
     <div id="scorePanelSp"> 
         <p>Intentos: <span id="attempts">0</span></p>
         <p>Puntos: <span id="score">0</span></p>
@@ -104,7 +112,8 @@
     </div>
 </div>
 
-<button id="viewResultsButton" class="verpuntos">Ver Resultados</button>
+<button id="viewResultsButton" class="verpuntos"><strong>Puntuación Record</strong></button>
+
 
     <script src="/js/sopa.js"></script>
     <script>

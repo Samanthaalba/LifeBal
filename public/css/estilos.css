@@ -10,17 +10,72 @@
 
 /* estilos generales para el boton regresar*/
 #backButton {
-    position: absolute;
-    background: rgba(167, 3, 221, 0.795);
-    color: white;
-    float: left;
-    cursor: pointer;
-    padding: 10px 20px;
+    position: relative;
+    margin: auto;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
     border: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+    background: none;
+    cursor: pointer;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #080808; /* Color de texto */
+  }
+  
+  #backButton:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0; /* Ajustado para que el efecto de fondo comience desde la derecha */
+    display: block;
+    border-radius: 50px;
+    background: #d29df3; /* Color de fondo */
+    width: 45px;
+    height: 45px;
+    transition: all 0.3s ease;
+  }
+  
+  #backButton span {
+    position: relative;
+    z-index: 1;
+    color: #080808; /* Color de texto */
+  }
+  
+  #backButton svg {
+    position: relative;
+    top: 0;
+    margin-right: 10px; /* Ajustado para la separación a la izquierda */
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #e816a9; /* Color de la flecha */
+    stroke-width: 2;
+    transform: translateX(5px); /* Ajustado para la posición inicial */
+    transition: all 0.3s ease;
+  }
+  
+  #backButton:hover:before {
+    width: 100%;
+    background: #d29df3; /* Color de fondo en hover */
+  }
+  
+  #backButton:hover span {
+    color: white; /* Color de texto en hover */
+  }
+  
+  #backButton:hover svg {
+    transform: translateX(0); /* Ajustado para el desplazamiento de la flecha */
+    stroke: white; /* Color de la flecha en hover */
+  }
+  
+  #backButton:active {
+    transform: scale(0.95);
+  }
+  
+  
+  
 /*resultados de los juegos*/
 .modal1 {
     display: none;
@@ -92,50 +147,77 @@ sopa de letras
     position: absolute;
     left: 450px;
     bottom: 450px;
-    background-color: #28a745; /* Fondo verde */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    color: white; /* Texto blanco */
-    padding: 10px 20px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-    cursor: pointer; /* Cursor de mano */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-}
-
-#startButton1:hover {
-    background-color: #218838; /* Color de fondo más oscuro al pasar el ratón */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #00a50b;
+    text-shadow: none;
+    background: #aeff8e;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #aeff8e;
+    transition: 0.5s ease;
+    user-select: none;
+  }
+  
+  /* Estilo al pasar el ratón */
+  #startButton1:hover,
+  #startButton1:focus {
+    color: #ffffff;
+    background: #45f45c;
+    border: 1px solid #45f45c;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #1dff6c, 0 0 20px #24ff3a, 0 0 50px #22ff59, 0 0 100px #13ff65;
     transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
-}
-
-#startButton1:active {
-    background-color: #1e7e34; /* Color de fondo aún más oscuro al hacer clic */
+  }
+  
+  /* Estilo al hacer clic */
+  #startButton1:active {
     transform: translateY(0); /* Restablece la elevación al hacer clic */
-}
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #1e7e34; /* Color de fondo aún más oscuro al hacer clic */
+  }
+  
+  /* Estilo cuando está deshabilitado */
+  #startButton1:disabled {
+    background-color: #cccccc; 
+    color: #666666; 
+    cursor: not-allowed; 
+  }
+  
 
-.verpuntos {
-    background-color: #ffffff; /* Green */
+  .verpuntos {
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 9px;
+    background: #d2a1fd; /* Fondo morado */
     border: none;
-    color: rgb(7, 7, 7);
-    padding: 15px 32px;
+    font-family: inherit;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    cursor: pointer;
+    transition: 0.4s;
     position: absolute;
-    top: 170px;
+    left: 3%;
+    top: 150px;
     font-size: 16px;
     margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition-duration: 0.4s;
+    color: #000000; /* Texto negro */
 }
 
 .verpuntos:hover {
-    background-color: #d9534f;
-    color: rgb(255, 255, 255);
-    border: 2px solid #ffffff;
+    box-shadow: 7px 5px 56px -14px #f204a3; /* Sombra al hacer hover */
 }
+
+.verpuntos:active {
+    transform: scale(0.97); /* Escala ligeramente al hacer clic */
+    box-shadow: 7px 5px 56px -10px #ff02ea; /* Sombra al hacer clic */
+}
+
+
 
 .otravezsopa {
     background: #ffffff; /* Color de fondo */
@@ -399,61 +481,77 @@ ESTILOS PARA EL QUIZ
     text-align: center; /* Centrar contenido */
 }
 #btn-start-quiz {
-    background-color: #4CAF50; /* Color de fondo */
-    color: white; /* Color del texto */
-    padding: 15px 25px; /* Espaciado interno */
-    font-size: 18px; /* Tamaño de fuente */
-    border: none; /* Sin borde */
-    cursor: pointer; /* Cambiar cursor al pasar el ratón */
-    border-radius: 8px; /* Bordes redondeados */
-    transition: all 0.3s ease; /* Transición suave */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #00a50b;
+    text-shadow: none;
+    background: #aeff8e;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #aeff8e;
+    transition: 0.5s ease;
+    user-select: none;
     display: block; /* Convertir a bloque para aplicar márgenes automáticamente */
     margin: 0 auto; /* Centrar horizontalmente */
-}
-
-/* Estilo al pasar el ratón */
-#btn-start-quiz:hover {
-    background-color: #45a049; /* Cambiar color de fondo */
-    transform: translateY(-2px); /* Desplazar ligeramente hacia arriba */
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Añadir sombra más pronunciada */
-}
-
-/* Estilo al hacer clic */
-#btn-start-quiz:active {
+  }
+  
+  /* Estilo al pasar el ratón */
+  #btn-start-quiz:hover,
+  #btn-start-quiz:focus {
+    color: #ffffff;
+    background: #45f45c;
+    border: 1px solid #45f45c;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #1dff6c, 0 0 20px #24ff3a, 0 0 50px #22ff59, 0 0 100px #13ff65;
+  }
+  
+  /* Estilo al hacer clic */
+  #btn-start-quiz:active {
     transform: translateY(0px); /* Volver a la posición original */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Reducir sombra */
-}
-
-/* Estilo cuando está deshabilitado */
-#btn-start-quiz:disabled {
+  }
+  
+  /* Estilo cuando está deshabilitado */
+  #btn-start-quiz:disabled {
     background-color: #cccccc; /* Cambiar color de fondo */
     color: #666666; /* Cambiar color del texto */
     cursor: not-allowed; /* Cursor no permitido */
-}
+  }
+  
 
-.verpuntosquiz {
-    background-color: #ffffff; /* Green */
+  .verpuntosquiz {
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 9px;
+    background: #d2a1fd; /* Fondo morado */
     border: none;
-    color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    font-family: inherit;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    cursor: pointer;
+    transition: 0.4s;
     position: absolute;
-    top: 200px;
+    left: 3%;
+    top: 150px;
     font-size: 16px;
     margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition-duration: 0.4s;
+    color: #000000; /* Texto negro */
 }
 
 .verpuntosquiz:hover {
-    background-color: #d9534f;
-    color: rgb(255, 255, 255);
-    border: 2px solid #ffffff;
+    box-shadow: 7px 5px 56px -14px #f204a3; /* Sombra al hacer hover */
 }
+
+.verpuntosquiz:active {
+    transform: scale(0.97); /* Escala ligeramente al hacer clic */
+    box-shadow: 7px 5px 56px -10px #ff02ea; /* Sombra al hacer clic */
+}
+
+
 
 .otravez {
     display: flex;
@@ -811,78 +909,80 @@ ESTILOS PARA EL MEMORAMA
 }
 
 .verpuntosmemo {
-    background-color: #ffffff; /* Green */
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 9px;
+    background: #d2a1fd; /* Fondo morado */
     border: none;
-    color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    font-family: inherit;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    cursor: pointer;
+    transition: 0.4s;
     position: absolute;
-    left: 8%;
-    top: 170px;
+    left: 3%;
+    top: 150px;
     font-size: 16px;
     margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition-duration: 0.4s;
+    color: #000000; /* Texto negro */
 }
 
 .verpuntosmemo:hover {
-    background-color: #d9534f;
-    color: rgb(255, 255, 255);
-    border: 2px solid #ffffff;
+    box-shadow: 7px 5px 56px -14px #f204a3; /* Sombra al hacer hover */
 }
+
+.verpuntosmemo:active {
+    transform: scale(0.97); /* Escala ligeramente al hacer clic */
+    box-shadow: 7px 5px 56px -10px #ff02ea; /* Sombra al hacer clic */
+}
+
 
 #startButton {
-    background: #4CAF50; /* Fondo degradado */
-    border: none; /* Sin borde */
-    border-radius: 50px; /* Bordes muy redondeados */
-    color: white; /* Texto blanco */
-    padding: 10px 20px; /* Espaciado interno */
-    font-size: 18px; /* Tamaño de fuente */
-    font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-    font-weight: bold; /* Texto en negrita */
-    cursor: pointer; /* Cursor de mano */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    transition: all 0.3s ease; /* Transición suave para todas las propiedades */
-    position: relative; /* Posición relativa para el efecto de foco */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #00a50b;
+    text-shadow: none;
+    background: #aeff8e;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #aeff8e;
+    transition: 0.5s ease;
+    user-select: none;
+    display: inline-block;
+    position: relative;
     right: 40%;
     top: 0px;
-    overflow: hidden; /* Ocultar el contenido desbordante */
-    z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
-}
-
-#startButton:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: rgba(255, 255, 255, 0.15);
-    transform: translate(-50%, -50%) rotate(45deg);
-    transition: all 0.75s ease;
-    opacity: 0;
-}
-
-#startButton:hover:before {
-    opacity: 1;
-    width: 400%;
-    height: 400%;
-}
-
-#startButton:hover {
-    background: #4CAF50; /* Inversión del degradado */
-    transform: translateY(-3px); /* Elevación al pasar el ratón */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-}
-
-#startButton:active {
-    transform: translateY(-1px); /* Elevación menor al hacer clic */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
-}
-
+    overflow: hidden; 
+    z-index: 1; 
+  }
+  
+  /* Estilo al pasar el ratón */
+  #startButton:hover,
+  #startButton:focus {
+    color: #ffffff;
+    background: #45f45c;
+    border: 1px solid #45f45c;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #1dff6c, 0 0 20px #24ff3a, 0 0 50px #22ff59, 0 0 100px #13ff65;
+  }
+  
+  /* Estilo al hacer clic */
+  #startButton:active {
+    transform: translateY(-1px); 
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); 
+  }
+  
+  /* Estilo cuando está deshabilitado */
+  #startButton:disabled {
+    background-color: #cccccc; 
+    color: #666666; 
+    cursor: not-allowed; 
+  }
+  
 .container {
     max-width: 800px;
     margin: 5px;
@@ -1149,59 +1249,66 @@ ESTILOS PARA EL CRUSIGRAMA
   }
   
 
-.verpuntoscruci {
-    background-color: #ffffff; /* Green */
+  .verpuntoscruci {
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 9px;
+    background: #d2a1fd; /* Fondo verde */
     border: none;
-    color: rgb(0, 0, 0);
-    padding: 15px 32px;
+    font-family: inherit;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    cursor: pointer;
+    transition: 0.4s;
     position: absolute;
     left: 3%;
     top: 150px;
     font-size: 16px;
     margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition-duration: 0.4s;
 }
 
 .verpuntoscruci:hover {
-    background-color: #d9534f;
-    color: white;
-    border: 2px solid #ffffff;
+    box-shadow: 7px 5px 56px -14px #f204a3; /* Sombra al hacer hover */
 }
+
+.verpuntoscruci:active {
+    transform: scale(0.97); /* Escala ligeramente al hacer clic */
+    box-shadow: 7px 5px 56px -10px #ff02ea; /* Sombra al hacer clic */
+}
+
 
 
 /* Estilos para el botón "Iniciar" */
 #IniciarC {
-    background-color: #4CAF50; /* Verde */
-    border: none; /* Sin borde */
-    color: white; /* Texto blanco */
-    padding: 10px 25px; /* Espaciado interno */
-    text-align: center; /* Texto centrado */
-    text-decoration: none; /* Sin subrayado */
-    display: inline-block; /* Mostrar como bloque en línea */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #00a50b;
+    text-shadow: none;
+    background: #aeff8e;
+    cursor: pointer;
+    box-shadow: transparent;
+    border: 1px solid #aeff8e;
+    transition: 0.5s ease;
+    user-select: none;
     position: absolute;
-    left: 22%;
+    left: 20%;
     top: 150px;
-    font-size: 16px; /* Tamaño de fuente */
-    margin: 4px 2px; /* Margen */
-    cursor: pointer; /* Cursor de mano */
-    border-radius: 12px; /* Bordes redondeados */
-    transition-duration: 0.4s; /* Duración de la transición */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
-}
-
-#IniciarC:hover {
-    background-color: #45a049; /* Verde más oscuro al pasar el ratón */
-}
-
-#IniciarC:active {
-    background-color: #3e8e41; /* Verde aún más oscuro al hacer clic */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más suave al hacer clic */
-}
+    margin: 4px 2px;
+  }
+  
+  #IniciarC:hover,
+  #IniciarC:focus {
+    color: #ffffff;
+    background: #45f45c;
+    border: 1px solid #45f45c;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+    box-shadow: 0 0 5px #1dff6c, 0 0 20px #24ff3a, 0 0 50px #22ff59, 0 0 100px #13ff65;
+  }
+  
 
 .terminarc{
     position: absolute;
