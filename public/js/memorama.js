@@ -45,6 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let seconds = 0, minutes = 0;
 
+
+    const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+    if (!playerData || !playerData.name) {
+        alert('Debe ingresar un nombre en la página de inicio para continuar.');
+        window.location.href = '/'; // Redirigir al inicio si no hay nombre
+        return;
+    }
+    
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
         localStorage.clear();

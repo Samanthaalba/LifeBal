@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
         }
     }
+
+    const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+    if (!playerData || !playerData.name) {
+        alert('Debe ingresar un nombre en la página de inicio para continuar.');
+        window.location.href = '/'; // Redirigir al inicio si no hay nombre
+        return;
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {

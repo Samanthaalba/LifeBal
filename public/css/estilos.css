@@ -1411,6 +1411,8 @@ td:not(:has(input[type="text"])) {
 
 .watchVideo1 {
     position: relative;
+    left: 180px;
+    padding: 10px;
     width: 130px;
     height: 35px;
     border-radius: 30px;
@@ -1472,6 +1474,8 @@ td:not(:has(input[type="text"])) {
 
     .watchVideo2 {
         position: relative;
+        left: 180px;
+        padding: 10px;
         width: 130px;
         height: 35px;
         border-radius: 30px;
@@ -1536,6 +1540,8 @@ td:not(:has(input[type="text"])) {
 
     .watchVideo3 {
         position: relative;
+        left: 180px;
+        padding: 10px;
         width: 130px;
         height: 35px;
         border-radius: 30px;
@@ -1597,6 +1603,8 @@ td:not(:has(input[type="text"])) {
 
     .watchVideo4 {
         position: relative;
+        left: 180px;
+        padding: 10px;
         width: 130px;
         height: 35px;
         border-radius: 30px;

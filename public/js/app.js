@@ -18,6 +18,20 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Por favor, ingresa un nombre.');
             return;
         }
+
+        const sessionId = generateSessionId();
+        const timestamp = new Date().toISOString();
+
+        const entry = { name: playerName, timestamp: timestamp, sessionId: sessionId };
+
+        // Guardar en sessionStorage en lugar de localStorage para evitar conflictos de pestañas
+        sessionStorage.setItem('currentPlayer', JSON.stringify(entry));
+
+        // Guardar la sesión actual en localStorage
+        let entries = JSON.parse(localStorage.getItem('players')) || [];
+        entries.push(entry);
+        localStorage.setItem('players', JSON.stringify(entries));
+
         // Redirigir al usuario a la página de inicio
         window.location.href = '/inicio';
     });
@@ -27,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = prompt('Por favor, ingrese la contraseña para acceder al informe de los jugadores:');
         if (password === 'admin2024') {
             playersModal.style.display = 'flex';
-            //downloadCsvBtn.style.display = 'block'; // Mostrar botón de descargar CSV
+           // downloadCsvBtn.style.display = 'block'; // Mostrar botón de descargar CSV
             document.getElementById('playerList').style.display = 'none'; // Ocultar tabla
         } else {
             alert('Contraseña incorrecta. Intente nuevamente.');
@@ -109,6 +123,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Mostrar el contador de visitas en la página
     const visitCountElement = document.getElementById('visit-count');
     visitCountElement.textContent = localStorage.getItem('visitCount');
+
+    const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+    if (!playerData || !playerData.name) {
+        alert('Debe ingresar un nombre en la página de inicio para continuar.');
+        window.location.href = '/'; // Redirigir al inicio si no hay nombre
+        return;
+    }
 
   var instructionsModal = document.getElementById('instructions-modal');
   var closeModal = document.querySelector('.close');

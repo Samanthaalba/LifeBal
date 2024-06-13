@@ -149,20 +149,55 @@
           margin-right: 595px;
       }
 
-      /* Estilos para el banner inferior */
-      #banner-inferior {
-          background-color: #f8cea4;
-          text-align: center;
-          margin: 0;
-          height: 149px;
-      }
+/* Estilos para el banner inferior */
+#banner-inferior {
+  background-color: #f8cea4;
+  text-align: center;
+  box-sizing: border-box; /* Incluir padding y border en el tamaño total del elemento */
+  overflow: hidden; /* Ocultar cualquier contenido que sobrepase el área del banner */
+}
 
-      #banner-inferior a {
-          margin-right: 20px;
-          color: #007bff;
-          text-decoration: none;
-          text-align: justify;
-      }
+#banner-inferior .container {
+  max-width: 1200px; /* Limitar el ancho máximo del contenedor */
+   /* Centrar horizontalmente el contenedor */
+}
+
+#banner-inferior .row {
+  display: flex;
+  flex-wrap: nowrap; /* No permitir que los elementos se envuelvan */
+  justify-content: space-around; /* Distribuir espacio entre columnas */
+  align-items: center; /* Centrar verticalmente los elementos */
+}
+
+#banner-inferior .col-md-4 {
+  flex: 1; /* Hacer que cada columna ocupe el mismo espacio */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center; /* Centrar verticalmente el contenido */
+  justify-content: center;
+}
+
+#banner-inferior .ubicacion, #banner-inferior .mail {
+  text-align: left; /* Alinear texto a la izquierda */
+  margin: 10px;
+}
+
+#banner-inferior h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+#banner-inferior p {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+#visit-counter {
+  text-align: center;
+  flex-direction: column;
+}
+
+
      
       .btn-89,
       .btn-89 *,
@@ -186,7 +221,6 @@
         font-size: 100%;
         font-weight: 900;
         line-height: 1.5;
-        margin: 0;
         -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
         padding: 0;
       }
@@ -302,7 +336,7 @@
   font-size: 100%;
   font-weight: 900;
   line-height: 1.5;
-  margin: 0;
+  margin: 10px;
   -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
   text-transform: uppercase;
 }
@@ -347,19 +381,6 @@
   border: 10px solid transparent;
 }
 
-#correo{
-  position: fixed;
-  left: 1000px;
-}
-.mail{
-  position: fixed;
-  left: 1125px;
-}
-.contacto{
-  color:#007bff;
-  font-size: 20px;
-
-}
 
 .carousel {
     padding: 0;
