@@ -18,61 +18,17 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Por favor, ingresa un nombre.');
             return;
         }
-
-        const sessionId = generateSessionId();
-        const timestamp = new Date().toISOString();
-
-        const entry = { name: playerName, timestamp: timestamp, sessionId: sessionId };
-
-        // Guardar en sessionStorage en lugar de localStorage para evitar conflictos de pestañas
-        sessionStorage.setItem('currentPlayer', JSON.stringify(entry));
-
-        // Guardar la sesión actual en localStorage
-        let entries = JSON.parse(localStorage.getItem('players')) || [];
-        entries.push(entry);
-        localStorage.setItem('players', JSON.stringify(entries));
-
         // Redirigir al usuario a la página de inicio
         window.location.href = '/inicio';
     });
 
-    // Cargar jugadores almacenados
-    loadPlayers();
-
-    function loadPlayers() {
-        let players = JSON.parse(localStorage.getItem('players')) || [];
-        const playerList = document.querySelector('#playerList tbody');
-        playerList.innerHTML = ''; // Limpiar la lista antes de cargar
-        players.forEach(player => addPlayerToTable(player));
-    }
-
-    function addPlayerToTable(player) {
-        const playerList = document.querySelector('#playerList tbody');
-        const row = document.createElement('tr');
-        const nameCell = document.createElement('td');
-        const dateCell = document.createElement('td');
-
-        nameCell.textContent = player.name;
-        dateCell.textContent = new Date(player.timestamp).toLocaleString();
-
-        row.appendChild(nameCell);
-        row.appendChild(dateCell);
-        playerList.appendChild(row);
-    }
-
-    // No limpiar jugadores más viejos
-    function clearOldPlayers() {
-        // No se realiza ninguna acción para borrar jugadores
-        // Los jugadores se mantendrán permanentemente en el localStorage
-    }
-
-    // No llamar a clearOldPlayers();
-
     // Abrir el modal de jugadores con autenticación
     viewPlayersBtn.addEventListener('click', function() {
-        const password = prompt('Por favor, ingrese la contraseña para acceder al infome de los jugadores:');
+        const password = prompt('Por favor, ingrese la contraseña para acceder al informe de los jugadores:');
         if (password === 'admin2024') {
             playersModal.style.display = 'flex';
+            //downloadCsvBtn.style.display = 'block'; // Mostrar botón de descargar CSV
+            document.getElementById('playerList').style.display = 'none'; // Ocultar tabla
         } else {
             alert('Contraseña incorrecta. Intente nuevamente.');
         }
@@ -103,8 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const csvContent = "data:text/csv;charset=utf-8," + 
-            "Nombre,Fecha de Ingreso\n" +
-            players.map(p => `${p.name},${new Date(p.timestamp).toLocaleString()}`).join("\n");
+            "Nombre,Fecha de Ingreso,Puntuación Quiz,Tiempo Quiz,Puntuación Memorama,Tiempo Memorama,Puntuación Sopa,Tiempo Sopa,Puntuación Crucigrama,Tiempo Crucigrama\n" +
+            players.map(p => `${p.name},${new Date(p.timestamp).toLocaleString()},${p.quizScore || ''},${p.quizTime || ''},${p.memoramaScore || ''},${p.memoramaTime || ''},${p.sopaDeLetrasScore || ''},${p.sopaDeLetrasTime || ''},${p.crucigramaScore || ''},${p.crucigramaTime || ''}`).join("\n");
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
@@ -116,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.removeChild(link);
     }
 });
-
 
 
 /* /////////////////////////////////////////////////////////
@@ -134,6 +89,26 @@ document.addEventListener("DOMContentLoaded", function() {
           }
       });
   });
+
+      // Verificar si la sesión actual ya ha sido contada
+      if (!sessionStorage.getItem('sessionCounted')) {
+        // Incrementar el contador de visitas
+        let visitCount = localStorage.getItem('visitCount');
+        if (visitCount === null) {
+            visitCount = 0;
+        } else {
+            visitCount = parseInt(visitCount);
+        }
+        visitCount++;
+        localStorage.setItem('visitCount', visitCount);
+
+        // Marcar la sesión como contada
+        sessionStorage.setItem('sessionCounted', 'true');
+    }
+
+    // Mostrar el contador de visitas en la página
+    const visitCountElement = document.getElementById('visit-count');
+    visitCountElement.textContent = localStorage.getItem('visitCount');
 
   var instructionsModal = document.getElementById('instructions-modal');
   var closeModal = document.querySelector('.close');

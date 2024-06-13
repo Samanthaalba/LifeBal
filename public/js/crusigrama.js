@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const grid = document.getElementById('crucigrama-grid');
     const gridSize = 23;
@@ -46,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
         localStorage.clear();
-        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
-    }, 2400000);
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 1 hora.");
+    }, 3600000);
 
     function habilitarInteraccion() {
         juegoIniciado = true;
@@ -284,6 +285,23 @@ document.addEventListener('DOMContentLoaded', function() {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('crucigrama_results', JSON.stringify(results));
+
+        // Actualizar la entrada del jugador actual en sessionStorage
+        const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        currentPlayer.crucigramaScore = score;
+        currentPlayer.crucigramaTime = time;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
+
+        // Actualizar la entrada del jugador en localStorage
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+        if (playerIndex !== -1) {
+            players[playerIndex].crucigramaScore = score;
+            players[playerIndex].crucigramaTime = time;
+        } else {
+            players.push(currentPlayer);
+        }
+        localStorage.setItem('players', JSON.stringify(players));
     }
 
     viewResultsButton.addEventListener('click', viewResults);
@@ -324,7 +342,8 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsModal.style.display = 'none';
         }
     };
+
     function pad(value) {
         return value.toString().padStart(2, '0');
-    };
+    }
 });

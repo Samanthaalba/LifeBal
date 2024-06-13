@@ -1,6 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-///Sopa de letras 
-////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener elementos del DOM
     const modal = document.getElementById('instructionsModal');
@@ -27,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     let esMouseDown = false;
     let seleccionActual = [];
@@ -60,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
         localStorage.clear();
-        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
-    }, 2400000);
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 1 hora.");
+    }, 3600000);
 
     startButton.addEventListener('click', startGame);
 
@@ -103,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.textContent = score;
         timerDisplay.textContent = '00:00';
         startButton.style.display = 'none';
-        otraVez.style.display = 'none';
 
         letras.forEach(letra => letra.classList.remove('letra-seleccionada', ...colores));
         document.querySelectorAll('.palabra').forEach(palabra => palabra.classList.remove('palabra-encontrada-tachada'));
@@ -197,11 +194,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function saveResult(sessionId, name, score, time, attempts) {
         let results = JSON.parse(localStorage.getItem('sopa_results')) || [];
-        results.push({ sessionId, name, score, time, attempts });
+        results.push({ sessionId, name, score, time, attempts, timestamp: new Date().toISOString() });
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('sopa_results', JSON.stringify(results));
+
+        // Actualizar la entrada del jugador actual en sessionStorage
+        const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        currentPlayer.sopaDeLetrasScore = score;
+        currentPlayer.sopaDeLetrasTime = time;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
+
+        // Actualizar la entrada del jugador en localStorage
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+        if (playerIndex !== -1) {
+            players[playerIndex].sopaDeLetrasScore = score;
+            players[playerIndex].sopaDeLetrasTime = time;
+        } else {
+            players.push(currentPlayer);
+        }
+        localStorage.setItem('players', JSON.stringify(players));
     }
 
     viewResultsButton.addEventListener('click', viewResults);
@@ -241,5 +255,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == resultsModal) {
             resultsModal.style.display = 'none';
         }
-    };
+    }
 });

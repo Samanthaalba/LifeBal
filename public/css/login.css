@@ -1,4 +1,4 @@
-@import "compass/css3";
+
 @import url(https://fonts.googleapis.com/css?family=Vibur);
 
 * {
@@ -66,6 +66,7 @@ body {
   padding: 20px;
   border: 1px solid #888;
   width: 30%;
+  height: 20%;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
@@ -289,8 +290,7 @@ h1 {
   }
 }
 
-
-.downloadCsvBtn {
+.button {
   --main-focus: #2d8cf0;
   --font-color: #dedede;
   --bg-color-sub: #dd6262;
@@ -309,17 +309,17 @@ h1 {
   overflow: hidden;
 }
 
-.downloadCsvBtn, .downloadCsvBtn__icon, .downloadCsvBtn__text {
+.button, .button__icon, .button__text {
   transition: all 0.3s;
 }
 
-.downloadCsvBtn .downloadCsvBtn__text {
+.button .button__text {
   transform: translateX(21px);
   color: var(--font-color);
   font-weight: 600;
 }
 
-.downloadCsvBtn .downloadCsvBtn__icon {
+.button .button__icon {
   position: absolute;
   transform: translateX(109px);
   height: 100%;
@@ -330,27 +330,25 @@ h1 {
   justify-content: center;
 }
 
-.downloadCsvBtn .svg {
+.button .svg {
   width: 20px;
   fill: var(--main-color);
 }
 
-.downloadCsvBtn:hover {
+.button:hover {
   background: var(--bg-color);
 }
 
-.downloadCsvBtn:hover .downloadCsvBtn__text {
+.button:hover .button__text {
   color: transparent;
 }
 
-.downloadCsvBtn:hover .downloadCsvBtn__icon {
+.button:hover .button__icon {
   width: 148px;
   transform: translateX(0);
 }
 
-.downloadCsvBtn:active {
+.button:active {
   transform: translate(3px, 3px);
   box-shadow: 0px 0px var(--main-color);
 }
-
-

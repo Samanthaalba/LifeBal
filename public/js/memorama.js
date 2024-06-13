@@ -24,11 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     // Obtener elementos del DOM
-    const modal = document.getElementById('instructionsModal');
-    const span = document.getElementsByClassName('close')[0];
-    const closeInstructions = document.getElementById('closeInstructions');
     const startButton = document.getElementById('startButton');
     const cards = document.querySelectorAll('.card');
     const attemptsDisplay = document.getElementById('attempts');
@@ -50,28 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
         localStorage.clear();
-        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
-    }, 2400000);
-
-    // Mostrar el modal al cargar la página
-    modal.style.display = 'flex';
-
-    // Cerrar el modal al hacer clic en la 'x'
-    span.onclick = function() {
-        modal.style.display = 'none';
-    }
-
-    // Cerrar el modal al hacer clic en el botón de cerrar
-    closeInstructions.onclick = function() {
-        modal.style.display = 'none';
-    }
-
-    // Cerrar el modal si se hace clic fuera del contenido del modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    }
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 1 hora.");
+    }, 3600000);
 
     startButton.addEventListener('click', startGame);
 
@@ -196,6 +174,22 @@ document.addEventListener('DOMContentLoaded', () => {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('memorama_results', JSON.stringify(results));
+
+        // Actualizar la entrada del jugador actual en sessionStorage
+        playerData.memoramaScore = score;
+        playerData.memoramaTime = minutes * 60 + seconds;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(playerData));
+
+        // Actualizar la entrada del jugador en localStorage
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+        if (playerIndex !== -1) {
+            players[playerIndex].memoramaScore = score;
+            players[playerIndex].memoramaTime = minutes * 60 + seconds;
+        } else {
+            players.push(playerData);
+        }
+        localStorage.setItem('players', JSON.stringify(players));
     }
 
     viewResultsButton.addEventListener('click', viewResults);
@@ -235,8 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == resultsModal) {
             resultsModal.style.display = 'none';
         }
-    };
+    }
+
     function pad(value) {
         return value.toString().padStart(2, '0');
-    };
+    }
 });

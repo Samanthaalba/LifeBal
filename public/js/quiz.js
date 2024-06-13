@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
         localStorage.clear();
-        alert("El almacenamiento local ha sido limpiado automáticamente después de 40 minutos.");
-    }, 2400000);
+        alert("El almacenamiento local ha sido limpiado automáticamente después de 1 hora.");
+    }, 3600000);
 
     // Asegurarse de que el nombre del jugador esté en sessionStorage
     const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
@@ -213,6 +213,23 @@ document.addEventListener('DOMContentLoaded', () => {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('quiz_results', JSON.stringify(results));
+
+        // Actualizar la entrada del jugador actual en sessionStorage
+        const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        currentPlayer.quizScore = score;
+        currentPlayer.quizTime = time;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
+
+        // Actualizar la entrada del jugador en localStorage
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+        if (playerIndex !== -1) {
+            players[playerIndex].quizScore = score;
+            players[playerIndex].quizTime = time;
+        } else {
+            players.push(currentPlayer);
+        }
+        localStorage.setItem('players', JSON.stringify(players));
     }
 
     viewResultsButton.addEventListener('click', viewResults);
@@ -251,4 +268,3 @@ document.addEventListener('DOMContentLoaded', () => {
         return value.toString().padStart(2, '0');
     }
 });
-
