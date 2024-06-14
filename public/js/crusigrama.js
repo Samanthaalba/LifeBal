@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             detenerCronometro();
 
             alert("¡Has encontrado todas las palabras!");
-            //preventionModal.style.display = 'block';
+            preventionModal.style.display = 'block';
             // Guardar resultados en localStorage
             const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
             if (!playerData || !playerData.name) {
