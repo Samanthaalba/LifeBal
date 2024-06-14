@@ -25,7 +25,7 @@
       <i class="fa fa-user"></i>
     </div>
     <div class="botones">
-      <button type="button" class="btn-72" id="loginBtn">Entrar</button>
+      <button type="button" class="btn-72" id="loginBtn">Entrar</button><br>
       <button type="button" class="btn-72" id="viewPlayersBtn">Ver informe</button>
     </div><br>
   </div>

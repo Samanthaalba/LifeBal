@@ -6,15 +6,12 @@
     <title>LifeBal</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
-
     <style>
         body {
             background-color: #f5daa0; 
         }
 
-        
     </style>
-
 </head>
 <body class="crusi">
 <div class="background">
@@ -25,25 +22,22 @@
     <button id="backButton" class="cta">
       <svg width="15px" height="10px" viewBox="0 0 13 10">
         <path d="M12,5 L2,5"></path> 
-        <polyline points="5 1 1 5 5 9"></polyline> <!-- Modificado para apuntar a la izquierda -->
+        <polyline points="5 1 1 5 5 9"></polyline>
       </svg>
       <span>Regresar</span>
     </button>
   </a>
-  
-  
-  
+
 <button onclick="refreshpage()" class="otravezcruci button">
     <svg class="svg-icon" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><g stroke="#ff342b" stroke-linecap="round" stroke-width="1.5"><path d="m3.33337 10.8333c0 3.6819 2.98477 6.6667 6.66663 6.6667 3.682 0 6.6667-2.9848 6.6667-6.6667 0-3.68188-2.9847-6.66664-6.6667-6.66664-1.29938 0-2.51191.37174-3.5371 1.01468"></path><path d="m7.69867 1.58163-1.44987 3.28435c-.18587.42104.00478.91303.42582 1.0989l3.28438 1.44986"></path></g></svg>
     <span class="lable">Repetir</span>
   </button>
-  
+
 <div class="puntuacion"> 
     <p>Intentos: <span id="attempts">0</span></p>
     <p>Puntos: <span id="score">0</span></p>
     <p>Tiempo: <span id="timer">00:00</span></p>
 </div>
-
 
 <br>
 <table id="crucigrama-grid"></table>
@@ -130,7 +124,23 @@
 
 <button id="viewResultsButton" class="verpuntoscruci"><strong>Puntuación Record</strong></button>
 
-
+<!-- Modal de prevención -->
+<div id="preventionModal" class="modal-prevention">
+    <div class="modal-content-prevention">
+        <span class="close-prevention">&times;</span>
+        <h2>¡Hola Jugadores!</h2>
+        <p>¡Felicidades por completar el crucigrama! Recuerda que la prevención de enfermedades es fundamental. Aquí algunos consejos:</p>
+        <ul class="ul">
+            <li class="li">Vacúnate regularmente.</li>
+            <li class="li">Mantén una higiene adecuada.</li>
+            <li class="li">Acércate con un adulto de cofianza.</li>
+            <li class="li">No estas solo/a.</li>
+            <li class="li">Usa protección durante las relaciones sexuales.</li>
+            <li class="li">Realiza chequeos médicos periódicos.</li>
+            <li class="li">Mantén un estilo de vida saludable con una dieta equilibrada y ejercicio regular.</li>
+        </ul>
+    </div>
+</div>
 
 <script src="{{ asset('js/crusigrama.js') }}"></script>
 <script>
@@ -146,6 +156,7 @@
             }, 10000);
         });
     });
+
     function refreshpage(){
         location.reload();
     }

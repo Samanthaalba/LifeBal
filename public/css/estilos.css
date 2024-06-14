@@ -8,6 +8,9 @@
     text-decoration: none; /* Quita el subrayado del enlace */
 }
 
+.cta{
+    border-radius: 50px;
+}
 /* estilos generales para el boton regresar*/
 #backButton {
     position: relative;
@@ -1204,6 +1207,94 @@ ESTILOS PARA EL CRUSIGRAMA
 }
 
 
+.modal-prevention {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    padding-top: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-prevention {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slide-down 0.5s ease-out;
+    max-width: 600px;
+    text-align: center;
+}
+
+.close-prevention {
+    color: #030303;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close-prevention:hover,
+.close-prevention:focus {
+    color: #ff0000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ul .li {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.ul .li::before {
+    content: '✔';
+    color: #28a745;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
   .otravezcruci {
     display: flex;
     justify-content: center;
@@ -1609,7 +1700,7 @@ td:not(:has(input[type="text"])) {
 
         .watchVideo2 .icon {
         position: absolute;
-        top: 0;
+        top: 0.3px;
         left: 0;
         transition: transform 0.5s;
         }

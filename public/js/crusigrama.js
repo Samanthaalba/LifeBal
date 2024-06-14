@@ -50,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const viewResultsButton = document.getElementById('viewResultsButton');
     const resultsModal = document.getElementById('resultsModal');
     const closeResultsModal = document.getElementById('closeResultsModal');
+    const preventionModal = document.getElementById('preventionModal');
+    const closePreventionModal = document.querySelector('.close-prevention');
+    // descomenta esto para ver el modal sin juagr el juego:    preventionModal.style.display = 'block';
+    closePreventionModal.onclick = function() {
+        preventionModal.style.display = 'none';
+    };
 
     // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
     setInterval(() => {
@@ -246,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
             detenerCronometro();
 
             alert("¡Has encontrado todas las palabras!");
+            //preventionModal.style.display = 'block';
             // Guardar resultados en localStorage
             const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
             if (!playerData || !playerData.name) {
