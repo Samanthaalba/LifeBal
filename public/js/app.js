@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const csvContent = "data:text/csv;charset=utf-8," + 
-            "Nombre,Fecha de Ingreso,Puntuación Quiz,Tiempo Quiz,Puntuación Memorama,Tiempo Memorama,Puntuación Sopa,Tiempo Sopa,Puntuación Crucigrama,Tiempo Crucigrama\n" +
+            "Nombre,Fecha de Ingreso,Hora de ingreso,Puntuación Quiz,Tiempo Quiz,Puntuación Memorama,Tiempo Memorama,Puntuación Sopa,Tiempo Sopa,Puntuación Crucigrama,Tiempo Crucigrama\n" +
             players.map(p => `${p.name},${new Date(p.timestamp).toLocaleString()},${p.quizScore || ''},${p.quizTime || ''},${p.memoramaScore || ''},${p.memoramaTime || ''},${p.sopaDeLetrasScore || ''},${p.sopaDeLetrasTime || ''},${p.crucigramaScore || ''},${p.crucigramaTime || ''}`).join("\n");
 
         const encodedUri = encodeURI(csvContent);

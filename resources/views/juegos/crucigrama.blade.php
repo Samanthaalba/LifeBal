@@ -47,40 +47,40 @@
 <div class="PalabrasC">
     <ul id="pistaList" style="display: none;">
         @foreach($palabras as $palabra)
-            @if($palabra->direccion == 'horizontal')
-                <li>{{ $palabra->palabra }}</li>
+            @if($palabra['direccion'] == 'horizontal')
+                <li>{{ $palabra['palabra'] }}</li>
             @endif
         @endforeach
         @foreach($palabras as $palabra)
-            @if($palabra->direccion == 'vertical')
-                <li>{{ $palabra->palabra }}</li>
+            @if($palabra['direccion'] == 'vertical')
+                <li>{{ $palabra['palabra'] }}</li>
             @endif
         @endforeach
     </ul>
 </div>
 <div class="crucigrama-container">
-    <div class="pistas-container">
-        <div class="pistas">
-            <h2>Horizontales</h2>
-            <ul class="palabras-lista">
-                @foreach($palabras as $palabra)
-                    @if($palabra->direccion == 'horizontal')
-                        <li>{{ $palabra->id }} {{ $palabra->pista }}</li>
-                    @endif
-                @endforeach
-            </ul>
-        </div>
-        <div class="pistas">
-            <h2>Verticales</h2>
-            <ul class="palabras-lista">
-                @foreach($palabras as $palabra)
-                    @if($palabra->direccion == 'vertical')
-                        <li>{{ $palabra->id }} {{ $palabra->pista }}</li>
-                    @endif
-                @endforeach
-            </ul>
-        </div>
+<div class="pistas-container">
+    <div class="pistas">
+        <h2>Horizontales</h2>
+        <ul class="palabras-lista">
+            @foreach($palabras as $palabra)
+                @if($palabra['direccion'] == 'horizontal')
+                    <li>{{ $palabra['pista'] }}</li>
+                @endif
+            @endforeach
+        </ul>
     </div>
+    <div class="pistas">
+        <h2>Verticales</h2>
+        <ul class="palabras-lista">
+            @foreach($palabras as $palabra)
+                @if($palabra['direccion'] == 'vertical')
+                    <li>{{ $palabra['pista'] }}</li>
+                @endif
+            @endforeach
+        </ul>
+    </div>
+</div>
 </div>
 
 <div id="instructionsModal" class="modal">
