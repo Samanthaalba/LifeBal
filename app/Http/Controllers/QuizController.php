@@ -22,19 +22,19 @@ class QuizController extends Controller
                 'id' => 2,
                 'question' => 'Si una adolescente queda embarazada, ¿qué puede pasar con sus estudios?',
                 'option_a' => 'Puede graduarse más rápido',
-                'option_b' => 'Puede ser más difícil terminar la escuela',
-                'option_c' => 'Los maestros le darán menos tarea',
+                'option_b' => 'Los maestros le darán menos tarea',
+                'option_c' => 'Puede ser más difícil terminar la escuela',
                 'option_d' => 'Recibirá un premio por asistencia',
-                'correct_answer' => 'B',
+                'correct_answer' => 'C',
             ],
             [
                 'id' => 3,
                 'question' => '¿Cómo puede afectar emocionalmente el embarazo a una adolescente?',
-                'option_a' => 'La hace mejor en deportes',
-                'option_b' => 'Puede sentirse más estresada y preocupada',
+                'option_a' => 'Puede sentirse más estresada y preocupada',
+                'option_b' => 'La hace mejor en deportes',
                 'option_c' => 'No afecta en nada',
                 'option_d' => 'La hace más popular en la escuela',
-                'correct_answer' => 'B',
+                'correct_answer' => 'A',
             ],
             [
                 'id' => 4,
@@ -58,19 +58,19 @@ class QuizController extends Controller
                 'id' => 6,
                 'question' => '¿Qué puede pasar si no se recibe atención médica durante el embarazo?',
                 'option_a' => 'Se puede ganar un concurso',
-                'option_b' => 'Aumentan los riesgos para la mamá y el bebé',
-                'option_c' => 'Nada, todo sigue igual',
+                'option_b' => 'Nada, todo sigue igual',
+                'option_c' => 'Aumentan los riesgos para la mamá y el bebé',
                 'option_d' => 'La atención médica es solo para adultos',
-                'correct_answer' => 'B',
+                'correct_answer' => 'C',
             ],
             [
                 'id' => 7,
                 'question' => '¿El embarazo adolescente cómo afecta las amistades?',
                 'option_a' => 'Las hace más fuertes siempre',
-                'option_b' => 'Puede ser más complicado mantener algunas amistades',
+                'option_b' => 'No afecta en nada',
                 'option_c' => 'Te hace más popular',
-                'option_d' => 'No afecta en nada',
-                'correct_answer' => 'B',
+                'option_d' => 'Puede ser más complicado mantener algunas amistades',
+                'correct_answer' => 'D',
             ],
             [
                 'id' => 8,
@@ -84,11 +84,11 @@ class QuizController extends Controller
             [
                 'id' => 9,
                 'question' => 'En términos de salud emocional, ¿qué impacto puede tener un embarazo adolescente?',
-                'option_a' => 'Siempre mejora el humor',
-                'option_b' => 'Puede causar estrés y preocupaciones adicionales',
+                'option_a' => 'Puede causar estrés y preocupaciones adicionales',
+                'option_b' => 'Siempre mejora el humor',
                 'option_c' => 'No tiene ningún efecto emocional',
                 'option_d' => 'Hace que la adolescencia sea más fácil',
-                'correct_answer' => 'B',
+                'correct_answer' => 'A',
             ],
             [
                 'id' => 10,
@@ -110,8 +110,8 @@ class QuizController extends Controller
         $score = 0;
 
         $questions = [
-            1 => 'B', 2 => 'B', 3 => 'B', 4 => 'C', 5 => 'B',
-            6 => 'B', 7 => 'B', 8 => 'B', 9 => 'B', 10 => 'B'
+            1 => 'B', 2 => 'C', 3 => 'A', 4 => 'C', 5 => 'B',
+            6 => 'C', 7 => 'D', 8 => 'B', 9 => 'A', 10 => 'B'
         ];
 
         foreach ($answers as $questionId => $answerGiven) {

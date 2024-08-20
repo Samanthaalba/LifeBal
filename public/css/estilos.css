@@ -560,6 +560,8 @@ ESTILOS PARA EL QUIZ
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    left: 80%; 
     padding: 20px 5px;
     gap: 8px;
     height: 30px;
@@ -777,6 +779,8 @@ label:hover {
 
 /* Estilos para el botón de ver respuestas */
 #btn-show-results {
+    position: absolute;
+    right: 42%;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #007bff;

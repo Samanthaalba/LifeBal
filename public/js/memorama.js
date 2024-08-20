@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
             resetBoard();
-        }, 1000);
+        }, 2000);
     }
 
     function resetBoard() {
