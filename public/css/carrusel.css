@@ -155,6 +155,8 @@
   text-align: center;
   box-sizing: border-box; /* Incluir padding y border en el tamaño total del elemento */
   overflow: hidden; /* Ocultar cualquier contenido que sobrepase el área del banner */
+  position: relative;
+  top: 10px;
 }
 
 #banner-inferior .container {
