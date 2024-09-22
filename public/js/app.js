@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// Logica del loguin para que el usuario no pueda entrar al inicio sin antes poner un nombre
+// Logica del login para que el usuario no pueda entrar al inicio sin antes poner un nombre
 /////////////////////////////////////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", function() {
     const loginBtn = document.getElementById('loginBtn');
@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
 
+    // Lógica para iniciar sesión
     loginBtn.addEventListener('click', function() {
         const playerName = document.getElementById('UserName').value.trim();
         if (playerName === '') {
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const entry = { name: playerName, timestamp: timestamp, sessionId: sessionId };
 
-        // Guardar en sessionStorage en lugar de localStorage para evitar conflictos de pestañas
+        // Guardar el jugador actual en sessionStorage
         sessionStorage.setItem('currentPlayer', JSON.stringify(entry));
 
         // Guardar la sesión actual en localStorage
@@ -41,8 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = prompt('Por favor, ingrese la contraseña para acceder al informe de los jugadores:');
         if (password === 'admin2024') {
             playersModal.style.display = 'flex';
-           // downloadCsvBtn.style.display = 'block'; // Mostrar botón de descargar CSV
-            document.getElementById('playerList').style.display = 'none'; // Ocultar tabla
         } else {
             alert('Contraseña incorrecta. Intente nuevamente.');
         }
@@ -62,63 +61,43 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Descargar CSV
     downloadCsvBtn.addEventListener('click', function() {
-        downloadCSV();
+        window.location.href = '/download-results';
     });
+    
 
-    function downloadCSV() {
-        let players = JSON.parse(localStorage.getItem('players')) || [];
-        if (players.length === 0) {
-            alert('No hay jugadores registrados para descargar.');
-            return;
+    // Verifica si hay un jugador al acceder a las rutas de los juegos
+    const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
+    if (!playerData || !playerData.name) {
+        if (window.location.pathname !== '/') { // Solo redirigir si no está en la página principal
+            alert('Debe ingresar un nombre en la página de inicio para continuar.');
+            window.location.href = '/';
         }
-
-        const csvContent = "data:text/csv;charset=utf-8," + 
-            "Nombre,Fecha de Ingreso,Hora de ingreso,Puntuacion Quiz,Tiempo Quiz,Puntuacion Memorama,Tiempo Memorama,Puntuacion Sopa,Tiempo Sopa,Puntuacion Crucigrama,Tiempo Crucigrama\n" +
-            players.map(p => `${p.name},${new Date(p.timestamp).toLocaleString()},${p.quizScore || ''},${p.quizTime || ''},${p.memoramaScore || ''},${p.memoramaTime || ''},${p.sopaDeLetrasScore || ''},${p.sopaDeLetrasTime || ''},${p.crucigramaScore || ''},${p.crucigramaTime || ''}`).join("\n");
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "jugadores.csv");
-        document.body.appendChild(link); // Required for FF
-
-        link.click();
-        document.body.removeChild(link);
     }
 });
 
-
 /* /////////////////////////////////////////////////////////
-//////////
-/////////    Logioca para el carrusel
+// Logica para el carrusel
 ///////////////////////////////////////////////////////// */
 document.addEventListener("DOMContentLoaded", function() {
-  const correctPassword = 'admin2024';
-  const cards = document.querySelectorAll(".card");
-  cards.forEach(card => {
-      card.addEventListener("click", function() {
-          const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
-          if (isChecked) {
-              window.location.href = card.getAttribute("data-link");
-          }
-      });
-  });
+    const correctPassword = 'admin2024';
+    const cards = document.querySelectorAll(".card");
 
-      // Verificar si la sesión actual ya ha sido contada
-      if (!sessionStorage.getItem('sessionCounted')) {
-        // Incrementar el contador de visitas
-        let visitCount = localStorage.getItem('visitCount');
-        if (visitCount === null) {
-            visitCount = 0;
-        } else {
-            visitCount = parseInt(visitCount);
-        }
-        visitCount++;
-        localStorage.setItem('visitCount', visitCount);
+    cards.forEach(card => {
+        card.addEventListener("click", function() {
+            const isChecked = card.getAttribute("for") === document.querySelector("input[name='slider']:checked").id;
+            if (isChecked) {
+                window.location.href = card.getAttribute("data-link");
+            }
+        });
+    });
 
-        // Marcar la sesión como contada
-        sessionStorage.setItem('sessionCounted', 'true');
-    }
+    fetch('/visit-count')  // Ruta que devuelve el número de visitas
+    .then(response => response.json())
+    .then(data => {
+        // Actualiza el contenido del contador en la página
+        document.getElementById('visit-count').textContent = data.visitCount;
+    })
+    .catch(error => console.error('Error al obtener el contador de visitas:', error));
 
     // Mostrar el contador de visitas en la página
     const visitCountElement = document.getElementById('visit-count');
@@ -127,31 +106,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
     if (!playerData || !playerData.name) {
         alert('Debe ingresar un nombre en la página de inicio para continuar.');
-        window.location.href = '/'; // Redirigir al inicio si no hay nombre
+        window.location.href = '/';
         return;
     }
 
-  var instructionsModal = document.getElementById('instructions-modal');
-  var closeModal = document.querySelector('.close');
-  var closeInstructions = document.getElementById('closeInstructions');
+    var instructionsModal = document.getElementById('instructions-modal');
+    var closeModal = document.querySelector('.close');
+    var closeInstructions = document.getElementById('closeInstructions');
 
-  // Show the instructions modal on page load
-  instructionsModal.style.display = 'flex';
+    // Mostrar el modal de instrucciones al cargar la página
+    instructionsModal.style.display = 'flex';
 
-  // Close the modal when the user clicks on the close button
-  closeModal.onclick = function() {
-      instructionsModal.style.display = 'none';
-  };
+    // Cerrar el modal cuando se haga clic en el botón de cerrar
+    closeModal.onclick = function() {
+        instructionsModal.style.display = 'none';
+    };
 
-  // Close the modal when the user clicks on the close button
-  closeInstructions.onclick = function() {
-      instructionsModal.style.display = 'none';
-  };
+    // Cerrar el modal cuando se haga clic en el botón de cerrar instrucciones
+    closeInstructions.onclick = function() {
+        instructionsModal.style.display = 'none';
+    };
 
-  // Close the modal when the user clicks outside of the modal
-  window.onclick = function(event) {
-      if (event.target == instructionsModal) {
-          instructionsModal.style.display = 'none';
-      }
-  };
+    // Cerrar el modal cuando se haga clic fuera del mismo
+    window.onclick = function(event) {
+        if (event.target == instructionsModal) {
+            instructionsModal.style.display = 'none';
+        }
+    };
 });

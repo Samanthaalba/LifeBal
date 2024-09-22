@@ -16,22 +16,36 @@ class GameResultController extends Controller
             'total_score' => 'required|integer',
         ]);
 
-        try {
-            // Crear un nuevo resultado de juego
-            $result = GameResult::create([
-                'user_name' => $validatedData['user_name'],
-                'total_time' => $validatedData['total_time'],
-                'total_score' => $validatedData['total_score'],
-            ]);
+        // Ruta del archivo CSV
+        $filePath = storage_path('app/public/game_results.csv');
 
-            return response()->JSON([
+        try {
+            // Verificar si el archivo CSV ya existe, si no, crear el archivo y añadir los encabezados
+            if (!file_exists($filePath)) {
+                $header = ['Nombre', 'Tiempo Total', 'Puntuación Total', 'Fecha y Hora'];
+                $file = fopen($filePath, 'w');
+                fputcsv($file, $header);
+                fclose($file);
+            }
+
+            // Abrir el archivo en modo de escritura y añadir la nueva fila de resultados
+            $file = fopen($filePath, 'a');
+            $data = [
+                $validatedData['user_name'],
+                $validatedData['total_time'],
+                $validatedData['total_score'],
+                now()->toDateTimeString(), // Guardar la fecha y hora actuales
+            ];
+            fputcsv($file, $data);
+            fclose($file);
+
+            return response()->json([
                 'message' => 'Resultados almacenados con éxito',
-                'result' => $result,
+                'result' => $data,
             ]);
         } catch (\Exception $e) {
-            // Manejo de errores
             \Log::error('Error al almacenar los resultados: ' . $e->getMessage()); // Añadir mensaje de error al log
-            return response()->JSON([
+            return response()->json([
                 'message' => 'Error al almacenar los resultados',
                 'error' => $e->getMessage(),
             ], 500);

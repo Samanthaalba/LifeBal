@@ -5,9 +5,41 @@ use App\Http\Controllers\SopaDeLetrasController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\MemoramaController;
 use App\Http\Controllers\CrucigramaController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
 
 Route::get('/', function () {
+    $filePath = storage_path('app/visit-count.txt');
+    $visitCount = 0;
+
+    // Lee el número de visitas del archivo
+    if (File::exists($filePath)) {
+        $visitCount = (int) File::get($filePath);
+    }
+
+    // Incrementa el número de visitas
+    $visitCount++;
+
+    // Guarda el nuevo número de visitas en el archivo
+    File::put($filePath, $visitCount);
+
+    // Carga la vista principal
     return view('login');
+});
+
+// Ruta para obtener el número actual de visitas
+Route::get('/visit-count', function() {
+    $filePath = storage_path('app/visit-count.txt');
+    $visitCount = 0;
+
+    // Lee el número de visitas del archivo
+    if (File::exists($filePath)) {
+        $visitCount = (int) File::get($filePath);
+    }
+
+    // Devuelve el número de visitas en formato JSON
+    return response()->json(['visitCount' => $visitCount]);
 });
 
 Route::get('/inicio', function () {
@@ -28,3 +60,14 @@ Route::get('/juegos/sopa_letras', [SopaDeLetrasController::class, 'index'])->nam
 Route::post('/sopa_letras/save-result', [SopaDeLetrasController::class, 'saveResult'])->name('sopaLetras.saveResult');
 
 Route::post('/store-final-result', [GameResultController::class, 'storeFinalResult'])->name('storeFinalResult');
+
+// Ruta para descargar el archivo CSV
+Route::get('/download-results', function() {
+    $filePath = public_path('storage/game_results.csv'); // Usar public_path para acceder al archivo en storage
+
+    if (file_exists($filePath)) {
+        return response()->download($filePath, 'resultados_jugadores.csv');
+    } else {
+        return response()->json(['message' => 'No hay resultados disponibles para descargar.'], 404);
+    }
+})->name('downloadResults');
