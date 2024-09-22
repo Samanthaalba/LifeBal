@@ -142,7 +142,7 @@
     </div>
 </div>
 
-<script src="{{ asset('js/crusigrama.js') }}"></script>
+<script src="{{ asset('js/crucigrama.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var pistaButton = document.getElementById('pistaButton');

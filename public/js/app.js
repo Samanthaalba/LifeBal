@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
     downloadCsvBtn.addEventListener('click', function() {
         window.location.href = '/download-results';
     });
-    
 
     // Verifica si hay un jugador al acceder a las rutas de los juegos
     const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));

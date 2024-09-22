@@ -299,13 +299,13 @@ document.addEventListener('DOMContentLoaded', function() {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('crucigrama_results', JSON.stringify(results));
-
+    
         // Actualizar la entrada del jugador actual en sessionStorage
         const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
         currentPlayer.crucigramaScore = score;
         currentPlayer.crucigramaTime = time;
         sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
-
+    
         // Actualizar la entrada del jugador en localStorage
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let playerIndex = players.findIndex(player => player.sessionId === sessionId);
@@ -316,7 +316,25 @@ document.addEventListener('DOMContentLoaded', function() {
             players.push(currentPlayer);
         }
         localStorage.setItem('players', JSON.stringify(players));
+    
+        // Enviar resultados al servidor
+        fetch('/game-result', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ sessionId, name, score, time, attempts })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resultados guardados en el servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar resultados en el servidor:', error);
+        });
     }
+    
 
     viewResultsButton.addEventListener('click', viewResults);
 
