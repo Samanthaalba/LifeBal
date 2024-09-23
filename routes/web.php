@@ -61,9 +61,8 @@ Route::post('/sopa_letras/save-result', [SopaDeLetrasController::class, 'saveRes
 
 Route::post('/store-final-result', [GameResultController::class, 'storeFinalResult'])->name('storeFinalResult');
 
-// Ruta para descargar el archivo CSV
 Route::get('/download-results', function() {
-    $filePath = public_path('storage/game_results.csv'); // Usar public_path para acceder al archivo en storage
+    $filePath = Storage::disk('public')->path('game_results.csv'); // Obtener la ruta correcta del archivo CSV en el disco público
 
     if (file_exists($filePath)) {
         return response()->download($filePath, 'resultados_jugadores.csv');
@@ -71,3 +70,5 @@ Route::get('/download-results', function() {
         return response()->json(['message' => 'No hay resultados disponibles para descargar.'], 404);
     }
 })->name('downloadResults');
+
+

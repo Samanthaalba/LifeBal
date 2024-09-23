@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('players', JSON.stringify(players));
     
         // Enviar resultados al servidor
-        fetch('/game-result', {
+        fetch('/store-final-result', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

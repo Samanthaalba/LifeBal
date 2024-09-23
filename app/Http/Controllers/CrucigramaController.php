@@ -40,39 +40,20 @@ class CrucigramaController extends Controller
 
     public function saveResult(Request $request)
     {
+        // Validar los datos recibidos
         $validatedData = $request->validate([
-            'game_name' => 'required|string|max:255',
-            'total_score' => 'required|integer',
-            'total_time' => 'required|integer',
-            'user_name' => 'required|string|max:255',
+            'sessionId' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'score' => 'required|integer',
+            'time' => 'required|integer',
+            'attempts' => 'required|integer'
         ]);
 
         // Log para depuración
         \Log::info('Datos recibidos en saveResult:', $validatedData);
 
-        // Lógica para enviar los datos usando Fetch
-        echo '<script>
-            fetch("/store-final-result", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "' . csrf_token() . '"
-            },
-            body: JSON.stringify({
-                user_name: "' . $validatedData['user_name'] . '",
-                game_name: "' . $validatedData['game_name'] . '",
-                total_time: ' . $validatedData['total_time'] . ',
-                total_score: ' . $validatedData['total_score'] . '
-            })
-        })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message);
-            })
-            .catch(error => {
-                console.error("Error al guardar el resultado:", error);
-            });
-        </script>';
+        // Llamar al controlador que maneja el almacenamiento
+        return app(GameResultController::class)->storeFinalResult($request);
     }
+
 }

@@ -9,47 +9,49 @@ use App\Http\Controllers\CrucigramaController;
 
 class GameResultController extends Controller
 {
+
     public function storeFinalResult(Request $request)
-{
-    $validatedData = $request->validate([
-        'game_name' => 'required|string|max:255',
-        'total_score' => 'required|integer',
-        'total_time' => 'required|integer',
-        'user_name' => 'required|string|max:255',
-    ]);
-
-    $filePath = Storage::path('public/game_results.csv');
-    $header = ['user_name', 'game_name', 'total_score', 'total_time'];
-
-    // Verifica si el archivo existe
-    $fileExists = file_exists($filePath);
+    {
+        // Validar los datos recibidos
+        $validatedData = $request->validate([
+            'sessionId' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'score' => 'required|integer',
+            'time' => 'required|integer',
+            'attempts' => 'required|integer'
+        ]);
     
-    // Log para depuración
-    \Log::info("Ruta del archivo CSV: " . $filePath);
-    \Log::info("El archivo existe: " . ($fileExists ? 'Sí' : 'No'));
-    \Log::info('Guardando en CSV:', $validatedData);
-
-
-    // Abre el archivo en modo append
-    $file = fopen($filePath, 'a');
-
-    // Si el archivo no existe, escribe el encabezado
-    if (!$fileExists) {
-        fputcsv($file, $header);
+        // Log para depuración
+        \Log::info('Datos recibidos:', $validatedData);
+    
+        // Ruta del archivo CSV en el sistema de almacenamiento público de Laravel (storage/app/public)
+        $filePath = storage_path('app/public/game_results.csv');
+        $header = ['sessionId', 'name', 'score', 'time', 'attempts'];
+    
+        // Verificar si el archivo existe
+        $fileExists = file_exists($filePath);
+    
+        // Abrir el archivo en modo de escritura (crea el archivo si no existe)
+        $file = fopen($filePath, 'a'); // 'a' para escribir al final del archivo o crearlo si no existe
+    
+        // Si el archivo no existe, escribir el encabezado
+        if (!$fileExists) {
+            fputcsv($file, $header);
+        }
+    
+        // Escribir los datos validados en el archivo CSV
+        fputcsv($file, [
+            $validatedData['sessionId'],
+            $validatedData['name'],
+            $validatedData['score'],
+            $validatedData['time'],
+            $validatedData['attempts'],
+        ]);
+    
+        // Cerrar el archivo
+        fclose($file);
+    
+        // Devolver una respuesta exitosa
+        return response()->json(['message' => 'Resultados guardados exitosamente.']);
     }
-
-    // Escribe los datos en el archivo CSV
-    fputcsv($file, [
-        $validatedData['user_name'],
-        $validatedData['game_name'],
-        $validatedData['total_score'],
-        $validatedData['total_time'],
-    ]);
-
-    fclose($file);
-
-    return response()->json(['message' => 'Resultado guardado exitosamente.']);
-}
-
-
 }
