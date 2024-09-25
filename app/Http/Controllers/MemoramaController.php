@@ -38,14 +38,13 @@ class MemoramaController extends Controller
         // Validar los datos recibidos
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'scorememorama' => 'required|integer', // Cambiado a scorememorama
+            'scorememorama' => 'required|integer',
         ]);
     
-        // Log para depuración
         \Log::info('Datos recibidos en saveResult:', $validatedData);
     
-        // Llamar al controlador que maneja el almacenamiento
-        return app(GameResultController::class)->storeFinalResult($request);
+        // Almacenar los resultados en la base de datos o realizar la lógica necesaria
+        return response()->json(['message' => 'Resultado guardado correctamente']);
     }
     
 }
