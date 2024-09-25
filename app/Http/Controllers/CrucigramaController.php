@@ -33,27 +33,25 @@ class CrucigramaController extends Controller
             ['palabra' => 'VPH', 'pista' => '11.Virus de transmisión sexual que afecta la piel y las membranas mucosas, incluidos los genitales. Algunos tipos de este virus pueden causar verrugas genitales.', 'direccion' => 'vertical', 'posicion_x' => 7, 'posicion_y' => 4],
             ['palabra' => 'Uretritis', 'pista' => '12.Inflamación de la uretra (conducto que transporta la orina). Inflamación causada por infecciones bacterianas, así como por irritación debido a sustancias químicas o lesiones.', 'direccion' => 'vertical', 'posicion_x' => 9, 'posicion_y' => 6],
             ['palabra' => 'Condiloma', 'pista' => '13.También conocido como verrugas genitales, son crecimientos de la piel causados por ciertos tipos de VPH.', 'direccion' => 'vertical', 'posicion_x' => 11, 'posicion_y' => 6],
-            ['palabra' => 'Pubis', 'pista' => '14.Es la región del cuerpo donde se encuentran los órganos sexuales externos y el vello púbico.', 'direccion' => 'vertical', 'posicion_x' => 13, 'posicion_y' => 8],
+            ['palabra' => 'Pubis', 'pista' => '14.Es la parte del cuerpo donde se encuentran los órganos sexuales externos y el vello púbico.', 'direccion' => 'vertical', 'posicion_x' => 13, 'posicion_y' => 8],
         ];
         return view('juegos.crucigrama', ['palabras' => $palabras]); 
     }
 
     public function saveResult(Request $request)
-    {
-        // Validar los datos recibidos
-        $validatedData = $request->validate([
-            'sessionId' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
-            'attempts' => 'required|integer'
-        ]);
+{
+    // Validar los datos recibidos
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'scorecrucigrama' => 'required|integer', // Cambiamos a scorecrucigrama
+    ]);
 
-        // Log para depuración
-        \Log::info('Datos recibidos en saveResult:', $validatedData);
+    // Log para depuración
+    \Log::info('Datos recibidos en saveResult:', $validatedData);
 
-        // Llamar al controlador que maneja el almacenamiento
-        return app(GameResultController::class)->storeFinalResult($request);
-    }
+    // Llamar al controlador que maneja el almacenamiento
+    return app(GameResultController::class)->storeFinalResult($request);
+}
+
 
 }

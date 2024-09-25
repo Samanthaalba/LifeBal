@@ -7,51 +7,56 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\CrucigramaController;
 
-class GameResultController extends Controller
-{
 
-    public function storeFinalResult(Request $request)
+    class GameResultController extends Controller
     {
-        // Validar los datos recibidos
-        $validatedData = $request->validate([
-            'sessionId' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
-            'attempts' => 'required|integer'
-        ]);
+        public function storeFinalResult(Request $request)
+{
+    // Validar los campos que pueden venir de diferentes juegos (crucigrama, quiz, etc.)
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'scorecrucigrama' => 'nullable|integer', // 'nullable' porque podría no estar presente
+        'scorequiz' => 'nullable|integer',
+        'scorememorama' => 'nullable|integer',
+        'scoresopa' => 'nullable|integer',
+    ]);
+
+    // Log para depuración
+    \Log::info('Datos recibidos:', $validatedData);
+
+    // Ruta del archivo CSV
+    $filePath = storage_path('app/public/game_results.csv');
     
-        // Log para depuración
-        \Log::info('Datos recibidos:', $validatedData);
-    
-        // Ruta del archivo CSV en el sistema de almacenamiento público de Laravel (storage/app/public)
-        $filePath = storage_path('app/public/game_results.csv');
-        $header = ['sessionId', 'name', 'score', 'time', 'attempts'];
-    
-        // Verificar si el archivo existe
-        $fileExists = file_exists($filePath);
-    
-        // Abrir el archivo en modo de escritura (crea el archivo si no existe)
-        $file = fopen($filePath, 'a'); // 'a' para escribir al final del archivo o crearlo si no existe
-    
-        // Si el archivo no existe, escribir el encabezado
-        if (!$fileExists) {
-            fputcsv($file, $header);
-        }
-    
-        // Escribir los datos validados en el archivo CSV
-        fputcsv($file, [
-            $validatedData['sessionId'],
-            $validatedData['name'],
-            $validatedData['score'],
-            $validatedData['time'],
-            $validatedData['attempts'],
-        ]);
-    
-        // Cerrar el archivo
-        fclose($file);
-    
-        // Devolver una respuesta exitosa
-        return response()->json(['message' => 'Resultados guardados exitosamente.']);
+    // Encabezado
+    $header = ['name', 'date', 'scorecrucigrama', 'scorequiz', 'scoresopa', 'scorememorama'];
+
+    // Obtener la fecha actual
+    $currentDate = now()->format('Y-m-d H:i:s');
+
+    // Abrir el archivo en modo escritura
+    $file = fopen($filePath, 'a');
+
+    // Escribir el encabezado si el archivo está vacío
+    if (filesize($filePath) == 0) {
+        fputcsv($file, $header);
     }
+
+    // Escribir los datos recibidos en el CSV
+    fputcsv($file, [
+        $validatedData['name'],
+        $currentDate,  // Añadir la fecha
+        $validatedData['scorecrucigrama'] ?? 'N/A', // Colocar 'N/A' si no se envía puntaje
+        $validatedData['scorequiz'] ?? 'N/A',
+        $validatedData['scoresopa'] ?? 'N/A',
+        $validatedData['scorememorama'] ?? 'N/A',
+    ]);
+
+    // Cerrar el archivo
+    fclose($file);
+
+    // Respuesta exitosa
+    return response()->json(['message' => 'Resultados guardados exitosamente.']);
+}
+
+        
 }

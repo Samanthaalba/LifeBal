@@ -206,31 +206,56 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('answers-container').style.display = 'block';
     });
 
-    function saveResult(sessionId, playerName, score, time) {
+    function saveResult(sessionId, name, score, time) {
         let results = JSON.parse(localStorage.getItem('quiz_results')) || [];
-        results.push({ sessionId: sessionId, playerName: playerName, score, time, timestamp: new Date().toISOString() });
+        results.push({ sessionId: sessionId, name: name, score, time, timestamp: new Date().toISOString() });
+        
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
+        
         localStorage.setItem('quiz_results', JSON.stringify(results));
-
+    
         // Actualizar la entrada del jugador actual en sessionStorage
         const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
         currentPlayer.quizScore = score;
         currentPlayer.quizTime = time;
         sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
-
+    
         // Actualizar la entrada del jugador en localStorage
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+        
         if (playerIndex !== -1) {
             players[playerIndex].quizScore = score;
             players[playerIndex].quizTime = time;
         } else {
             players.push(currentPlayer);
         }
+        
         localStorage.setItem('players', JSON.stringify(players));
+    
+        // Enviar datos al servidor
+        fetch('/quiz/save-result', {  // Cambiado a la ruta correcta
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                name: name, // Enviar el nombre del jugador
+                scorequiz: score  // Solo enviar el puntaje del quiz
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resultados del quiz guardados en el servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar resultados del quiz en el servidor:', error);
+        });
     }
+    
 
     viewResultsButton.addEventListener('click', viewResults);
 
@@ -247,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const seconds = result.time % 60;
             const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
             const li = document.createElement('li');
-            li.textContent = `Nombre: ${result.playerName}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Fecha: ${new Date(result.timestamp).toLocaleString()}`;
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Fecha: ${new Date(result.timestamp).toLocaleString()}`;
             resultsList.appendChild(li);
         });
 

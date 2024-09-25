@@ -167,38 +167,53 @@ document.addEventListener('DOMContentLoaded', () => {
         return 100;
     }
 
-    function saveResult() {
-        const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
-        if (!playerData || !playerData.name) {
-            alert('Error: El nombre del jugador no está disponible.');
-            return;
-        }
-        const jugador = playerData.name;
-        const sessionId = playerData.sessionId;
-
+    function saveResult(sessionId, name, score, time) {
+        // Guardar resultados en localStorage
         let results = JSON.parse(localStorage.getItem('memorama_results')) || [];
-        results.push({ sessionId, name: jugador, score, time: minutes * 60 + seconds, attempts });
+        results.push({ game_name: 'Memorama', sessionId, name, score, time, attempts }); // Agregar 'game_name'
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('memorama_results', JSON.stringify(results));
-
+    
         // Actualizar la entrada del jugador actual en sessionStorage
-        playerData.memoramaScore = score;
-        playerData.memoramaTime = minutes * 60 + seconds;
-        sessionStorage.setItem('currentPlayer', JSON.stringify(playerData));
-
+        const currentPlayer = JSON.parse(sessionStorage.getItem('currentPlayer'));
+        currentPlayer.memoramaScore = score;
+        currentPlayer.memoramaTime = time;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
+    
         // Actualizar la entrada del jugador en localStorage
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let playerIndex = players.findIndex(player => player.sessionId === sessionId);
         if (playerIndex !== -1) {
             players[playerIndex].memoramaScore = score;
-            players[playerIndex].memoramaTime = minutes * 60 + seconds;
+            players[playerIndex].memoramaTime = time;
         } else {
-            players.push(playerData);
+            players.push(currentPlayer);
         }
         localStorage.setItem('players', JSON.stringify(players));
+    
+        // Enviar los resultados al controlador
+        fetch('/memorama/save-result', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                name: name, 
+                scorememorama: score // Cambiar a 'scorememorama'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resultados guardados en el servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar resultados en el servidor:', error);
+        });        
     }
+    
 
     viewResultsButton.addEventListener('click', viewResults);
 

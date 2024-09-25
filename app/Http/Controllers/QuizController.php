@@ -125,15 +125,17 @@ class QuizController extends Controller
 
     public function saveResult(Request $request)
     {
+        // Validar los datos del quiz
         $validatedData = $request->validate([
-            'game_name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
-            'user_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'scorequiz' => 'required|integer',
         ]);
-
-        GameResult::create($validatedData);
-
-        return response()->json(['message' => 'Result saved successfully']);
+    
+        // Log para depuración
+        \Log::info('Datos recibidos en saveResult del quiz:', $validatedData);
+    
+        // Llamar al controlador que maneja el almacenamiento (GameResultController)
+        return app(GameResultController::class)->storeFinalResult($request);
     }
+    
 }

@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let attempts = 0;
     const celdasCorrectas = new Set();
     const palabrasEncontradas = new Set();
+    const game_name = 'Crucigrama';
     const startButton = document.getElementById('IniciarC');
     const attemptsDisplay = document.getElementById('attempts');
     const scoreDisplay = document.getElementById('score');
@@ -294,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function saveResult(sessionId, name, score, time) {
         let results = JSON.parse(localStorage.getItem('crucigrama_results')) || [];
-        results.push({ sessionId, name, score, time, attempts });
+        results.push({ game_name, sessionId, name, score, time, attempts });
         if (results.length > 5) {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
@@ -317,14 +318,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         localStorage.setItem('players', JSON.stringify(players));
     
-        // Enviar resultados al servidor
         fetch('/store-final-result', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify({ sessionId, name, score, time, attempts })
+            body: JSON.stringify({
+                name: name, 
+                scorecrucigrama: score // Solo enviar el nombre y el scorecrucigrama
+            })
         })
         .then(response => response.json())
         .then(data => {
@@ -332,10 +335,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error al guardar resultados en el servidor:', error);
-        });
-    }
+        });        
+    }        
     
-
+    
     viewResultsButton.addEventListener('click', viewResults);
 
     function viewResults() {
