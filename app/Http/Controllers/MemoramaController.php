@@ -43,8 +43,6 @@ class MemoramaController extends Controller
     
         \Log::info('Datos recibidos en saveResult:', $validatedData);
     
-        // Almacenar los resultados en la base de datos o realizar la lógica necesaria
-        return response()->json(['message' => 'Resultado guardado correctamente']);
+    return app(GameResultController::class)->storeFinalResult($request);
     }
-    
 }

@@ -213,6 +213,26 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayer.sopaDeLetrasTime = time;
         sessionStorage.setItem('currentPlayer', JSON.stringify(currentPlayer));
 
+        // Enviar los resultados al servidor
+        fetch('/store-final-result', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                name: name, 
+                scoresopa: score // Solo enviar el nombre y el scoresopa
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resultados guardados en el servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar resultados en el servidor:', error);
+        });       
+
         // Actualizar la entrada del jugador en localStorage
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let playerIndex = players.findIndex(player => player.sessionId === sessionId);
@@ -224,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         localStorage.setItem('players', JSON.stringify(players));
     }
+
 
     viewResultsButton.addEventListener('click', viewResults);
 

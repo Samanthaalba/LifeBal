@@ -97,16 +97,19 @@ class SopaDeLetrasController extends Controller
             }
         }
     }
+    
     public function saveResult(Request $request)
     {
+        // Validar los datos recibidos
         $validatedData = $request->validate([
-            'game_name' => 'required|string|max:255',
-            'score' => 'required|integer',
-            'time' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'scoresopa' => 'required|integer', // Cambiamos a scoresopa
         ]);
-
-        GameResult::create($validatedData);
-
-        return response()->json(['message' => 'Result saved successfully']);
+    
+        // Log para depuración
+        \Log::info('Datos recibidos en saveResult:', $validatedData);
+    
+        // Llamar al controlador que maneja el almacenamiento
+        return app(GameResultController::class)->storeFinalResult($request);
     }
 }

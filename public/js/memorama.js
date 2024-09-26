@@ -7,13 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mostrar el modal al cargar la página
     modal.style.display = 'flex';
 
-    // Cerrar el modal al hacer clic en la 'x'
-    span.onclick = function() {
-        modal.style.display = 'none';
-    }
-
-    // Cerrar el modal al hacer clic en el botón de cerrar
-    closeInstructions.onclick = function() {
+    // Cerrar el modal al hacer clic en la 'x' o en el botón de cerrar
+    span.onclick = closeInstructions.onclick = function() {
         modal.style.display = 'none';
     }
 
@@ -45,15 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let seconds = 0, minutes = 0;
 
-
     const playerData = JSON.parse(sessionStorage.getItem('currentPlayer'));
     if (!playerData || !playerData.name) {
         alert('Debe ingresar un nombre en la página de inicio para continuar.');
         window.location.href = '/'; // Redirigir al inicio si no hay nombre
         return;
     }
-    
-    // Configuración para limpiar localStorage cada 40 minutos (2400000 ms)
+
+    // Configuración para limpiar localStorage cada 1 hora (3600000 ms)
     setInterval(() => {
         localStorage.clear();
         alert("El almacenamiento local ha sido limpiado automáticamente después de 1 hora.");
@@ -82,17 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
         attempts++;
         attemptsDisplay.textContent = attempts;
         let isMatch = firstCard.dataset.id === secondCard.dataset.id;
-    
+
         if (isMatch) {
             score += calculateScore();
             scoreDisplay.textContent = score;
             disableCards();
-            
+
             // Verificar si se han encontrado todas las parejas
             if (document.querySelectorAll('.flipped').length === cards.length) {
                 clearInterval(interval);
                 alert("¡Has encontrado todas las parejas!");
-                saveResult();
+                saveResult(score, minutes, seconds, attempts); // Asegúrate de pasar los parámetros
             }
         } else {
             unflipCards();
@@ -122,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startGame() {
         if (gameStarted) return;
         gameStarted = true;
-        
+
         cards.forEach(card => {
             card.style.order = Math.floor(Math.random() * cards.length);
         });
@@ -159,12 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 minutes++;
                 seconds = 0;
             }
-            timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timerDisplay.textContent = `${pad(minutes)}:${pad(seconds)}`;
         }, 1000);
     }
 
     function calculateScore() {
-        return 100;
+        return 100; // Puedes ajustar esta lógica si es necesario
     }
 
     function saveResult(score, minutes, seconds, attempts) {
@@ -173,10 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error: El nombre del jugador no está disponible.');
             return;
         }
-    
+
         const jugador = playerData.name;
         const sessionId = playerData.sessionId;
-    
+
         // Guardar resultados en el localStorage
         let results = JSON.parse(localStorage.getItem('memorama_results')) || [];
         results.push({ sessionId, name: jugador, score, time: minutes * 60 + seconds, attempts });
@@ -184,23 +178,23 @@ document.addEventListener('DOMContentLoaded', () => {
             results.shift(); // Mantener solo los últimos 5 resultados
         }
         localStorage.setItem('memorama_results', JSON.stringify(results));
-    
-        // Actualizar la entrada del jugador actual en sessionStorage
-        playerData.memoramaScore = score;
-        playerData.memoramaTime = minutes * 60 + seconds;
-        sessionStorage.setItem('currentPlayer', JSON.stringify(playerData));
-    
+
         // Actualizar la entrada del jugador en localStorage
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let playerIndex = players.findIndex(player => player.sessionId === sessionId);
+
         if (playerIndex !== -1) {
             players[playerIndex].memoramaScore = score;
-            players[playerIndex].memoramaTime = minutes * 60 + seconds;
+            players[playerIndex].memoramaTime = time; // Asegúrate de que 'time' esté definido como deseas
         } else {
-            players.push(playerData);
+            // Asegúrate de que currentPlayer tenga los datos necesarios
+            let currentPlayer = { ...playerData, memoramaScore: score, memoramaTime: time };
+            players.push(currentPlayer);
         }
+
         localStorage.setItem('players', JSON.stringify(players));
-    
+
+
         // Enviar resultados al servidor
         fetch('/store-final-result', {
             method: 'POST',
@@ -221,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error al guardar resultados en el servidor:', error);
         });
     }
-    
 
     viewResultsButton.addEventListener('click', viewResults);
 

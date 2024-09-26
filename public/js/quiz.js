@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const seconds = result.time % 60;
             const timeFormatted = `${pad(minutes)}:${pad(seconds)}`;
             const li = document.createElement('li');
-            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}, Fecha: ${new Date(result.timestamp).toLocaleString()}`;
+            li.textContent = `Nombre: ${result.name}, Puntuación: ${result.score}, Tiempo: ${timeFormatted}`;
             resultsList.appendChild(li);
         });
 
