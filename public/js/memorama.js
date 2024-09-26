@@ -179,21 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         localStorage.setItem('memorama_results', JSON.stringify(results));
 
-        // Actualizar la entrada del jugador en localStorage
-        let players = JSON.parse(localStorage.getItem('players')) || [];
-        let playerIndex = players.findIndex(player => player.sessionId === sessionId);
-
-        if (playerIndex !== -1) {
-            players[playerIndex].memoramaScore = score;
-            players[playerIndex].memoramaTime = time; // Asegúrate de que 'time' esté definido como deseas
-        } else {
-            // Asegúrate de que currentPlayer tenga los datos necesarios
-            let currentPlayer = { ...playerData, memoramaScore: score, memoramaTime: time };
-            players.push(currentPlayer);
-        }
-
-        localStorage.setItem('players', JSON.stringify(players));
-
+        // Actualizar la entrada del jugador actual en sessionStorage
+        playerData.memoramaScore = score;
+        playerData.memoramaTime = minutes * 60 + seconds;
+        sessionStorage.setItem('currentPlayer', JSON.stringify(playerData));
 
         // Enviar resultados al servidor
         fetch('/store-final-result', {
