@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -30,7 +31,7 @@ use App\Http\Controllers\CrucigramaController;
     $header = ['player_id', 'name', 'date', 'scorecrucigrama', 'scorequiz', 'scoresopa', 'scorememorama'];
 
     // Obtener la fecha actual
-    $currentDate = now()->format('Y-m-d H:i:s');
+    $currentDate = Carbon::now()->toDateTimeString();
 
     // Variable para almacenar las filas existentes
     $rows = [];
